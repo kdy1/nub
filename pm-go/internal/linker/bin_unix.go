@@ -4,4 +4,6 @@ package linker
 
 import "syscall"
 
-func removeBinFile(path string) { _ = syscall.Unlink(path) }
+func unlinkBinFile(path string) error { return syscall.Unlink(path) }
+
+func removeBinFile(path string) { _ = unlinkBinFile(path) }
