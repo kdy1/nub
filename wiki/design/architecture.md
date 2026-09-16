@@ -187,3 +187,5 @@ The Go hoisted linker places real directories, sharing compatible versions acros
 The recorded Rust PM baseline rejects PnP installation before writes. Go install-policy helpers retain the Yarn-identity guard, Berry's default, environment and ancestor configuration precedence, and explicit engine-linker refusal. This does not affect read-only commands or add a PnP writer.
 
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
+
+The Go PM components also compute the reference manifest install-shape and local-directory freshness digests. These distinguish dependency and build-policy edits from unrelated manifest changes, and compare source content separately from filesystem timestamps. Installation-state orchestration remains incomplete.
