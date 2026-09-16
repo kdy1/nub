@@ -243,3 +243,23 @@ func (v *Value) Format(indent string, crlf, trailingNewline bool) ([]byte, error
 	}
 	return data, nil
 }
+
+func (v *Value) Clone() *Value {
+	if v == nil {
+		return nil
+	}
+	out := *v
+	if v.Object != nil {
+		out.Object = make([]Field, len(v.Object))
+		for i, f := range v.Object {
+			out.Object[i] = Field{f.Key, f.Value.Clone()}
+		}
+	}
+	if v.Array != nil {
+		out.Array = make([]*Value, len(v.Array))
+		for i, item := range v.Array {
+			out.Array[i] = item.Clone()
+		}
+	}
+	return &out
+}

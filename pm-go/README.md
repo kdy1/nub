@@ -30,4 +30,6 @@ Tarball and local-directory imports produce store indexes. Local directory impor
 
 The lockfile source model preserves file/link/portal/exec, Git, and remote-tarball identities. It handles hosted Git clone/archive forms, pinned source keys, Git fragment selectors, and dependency-edge lookup across incumbent lockfile conventions. Source parsing does not execute generators or clone repositories.
 
+The common dependency graph preserves resolution metadata through filters and workspace subsets. Graph passes compute reachability, ancestor closures, shortest depths, optional-only packages, platform filtering, and unresolved transitive peers, including cyclic and source-backed graphs.
+
 The Go executable uses its own `nub-pm-go` global cache and store namespace with the reference XDG/Windows directory precedence. Shared and exclusive file leases are cancellable and tested across processes. Lifecycle scripts and fetched tools use Node from `PATH`; Nub's runtime augmentation, TypeScript transformation, and Node provisioning are outside this executable.

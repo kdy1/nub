@@ -160,4 +160,6 @@ Tarball and local-directory imports now produce Go CAS indexes. Local imports sk
 
 The Go lockfile source model distinguishes local directories, archives, links, portals, generators, Git repositories, and remote tarballs. Source keys hash normalized identities, including Git commits and subdirectories. Graph-edge lookup accepts full keys, version tails, and the hashed keys used for pinned remote sources.
 
+The Go dependency graph preserves lockfile metadata across structural filters. Reachability and shortest-depth walks handle cycles and all importer roots. Platform filtering removes optional and bundled edges before collecting unreachable packages; required paths remain. Peer propagation excludes injected peer edges and a package’s own peers.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
