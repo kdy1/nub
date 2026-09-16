@@ -189,3 +189,5 @@ The recorded Rust PM baseline rejects PnP installation before writes. Go install
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
 
 The Go PM components also compute the reference manifest install-shape and local-directory freshness digests. These distinguish dependency and build-policy edits from unrelated manifest changes, and compare source content separately from filesystem timestamps. Installation-state orchestration remains incomplete.
+
+Go install-state helpers preserve the existing project sidecars and record interrupted links independently of successful-state writes. Layout checks cover workspace slots, root-direct package identity and shared-store edge targets. Hoisted snapshots retain the ancestor placement visible to a member, while bare local links may remain dangling. The complete install command remains unimplemented.
