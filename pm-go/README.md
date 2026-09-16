@@ -59,3 +59,5 @@ The Bun writer emits v1 JSONC with the parsed config version, native field order
 Set `PM_BUN_BIN` to Bun 1.3.14 to run the isolated Bun acceptance oracle. It generates native locks for aliases/peers/optionals, workspaces, catalogs and remote tarballs, checks Go output, clears the fixture cache, and performs frozen installs followed by PATH Node resolution probes. The CI setup pins the Bun executable version and the setup action revision.
 
 The reference Bun writer differs from native Bun for nested-key ordering and the empty registry slot in remote-tarball tuples. The oracle asserts these specific byte differences and compares unmodified Rust/Go output for the generated fixtures. Install-level preservation of an unchanged native file remains pending.
+
+Yarn prerequisites include bounded Berry detection, the classic line tokenizer, npm-alias identity, pinned Git/local source classification, and private-registry URL retention. The classic tokenizer intentionally follows the reference's treatment of optional and peer sections; complete Yarn graph readers and writers are still pending.
