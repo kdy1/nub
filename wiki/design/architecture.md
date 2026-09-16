@@ -168,4 +168,6 @@ Workspace member matching preserves the reference’s distinct rules for ordinar
 
 The Go npm lockfile reader lifts legacy nested shrinkwraps into the common graph and reads v2/v3 install-path maps directly. Nested lookup preserves dependency and peer placement, including parent workspace directories and pointer links. Root workspace patterns filter member importers; local links retain their own source identities. Metadata and declared ranges survive parsing, while incomplete legacy graphs produce the reference diagnostic.
 
+The shared Go lockfile layout pass collapses peer contexts into canonical package identities and builds a deterministic hoist tree. A conflicting nearest ancestor forces nesting. Existing root placements survive only while reachable, and explicit direct dependencies keep their slots. Separate reachability passes distinguish dev, optional, and peer-only paths for lockfile flags.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
