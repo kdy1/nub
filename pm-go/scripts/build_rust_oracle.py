@@ -43,7 +43,15 @@ state_probe = "use rayon::prelude::*;\nuse serde::{Deserialize, Serialize};\nuse
 state_probe += state_source[start:end]
 state_probe += "\n#[derive(Deserialize)]\n" + re.search(r"(?ms)^struct InstalledManifest \{.*?^\}", state_source).group()
 for name in ["verify_install_layout", "gvs_nested_links_are_current", "stale_gvs_nested_link", "read_installed_package_manifest", "hash_file_if_exists", "empty_blake3_hash", "package_jsons_stale", "deferred_dep_builds_stale", "preview_list", "hash_file", "license_state_fingerprint"]:
-    state_probe += "\n" + re.search(r"(?ms)^(?:pub )?fn " + name + r"\(.*?^\}", state_source).group()
+    function = re.search(r"(?ms)^(?:pub )?fn " + name + r"\(.*?^\}", state_source).group()
+    if name == "package_jsons_stale":
+        # Cargo builds two serde_json crate identities. Infer the engine's
+        # Value through FromStr, parsing the original bytes exactly once;
+        # serializing/reparsing our Value would change float rounding.
+        old = "let parsed: Result<serde_json::Value, _> = serde_json::from_slice(&content);\n        let Ok(parsed) = parsed else {"
+        assert function.count(old) == 1
+        function = function.replace(old, "let parsed = std::str::from_utf8(&content).ok().and_then(|s| s.parse().ok());\n        let Some(parsed) = parsed else {")
+    state_probe += "\n" + function
 state_path = output.parent / "state-reference.rs"
 state_path.write_text(state_probe)
 delta_source = (root / "vendor/aube/crates/aube/src/commands/install/delta.rs").read_text()
