@@ -83,3 +83,5 @@ Lockfile freshness helpers compare patch configuration using each format’s rec
 The reference Berry reader/writer drops npm resolution `__archiveUrl` qualifiers for nonstandard archive locations. Native tests assert that exact byte loss separately from the standard-registry acceptance case, and exercise the resulting cold-fetch failure. This is a recorded reference limitation; installation-level preservation of an unchanged lockfile remains pending.
 
 Importer freshness checks preserve section-specific specifiers, optional skip records, auto-installed peer ranges, effective overrides, hook-derived local links and workspace-root link exemptions. An empty importer still detects newly added dependencies. Go cases are also evaluated through the unchanged Rust drift API in reference CI.
+
+Native Berry fixtures begin with an LF lockfile on every OS, following Yarn’s existing-file line-ending preservation. Generated output is compared byte for byte without newline normalization.

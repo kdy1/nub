@@ -102,6 +102,10 @@ func TestPinnedYarnRegistryCompatibility(t *testing.T) {
 			quote := func(s string) string { b, _ := json.Marshal(s); return string(b) }
 			flags := []string{"install", "--ignore-scripts", "--non-interactive", "--registry", reg.URL, "--cache-folder", cache}
 			if berry {
+				// Yarn preserves an existing file's line endings and otherwise
+				// uses the host default. Author an LF fixture on every platform;
+				// byte comparisons below do not normalize the generated output.
+				write("yarn.lock", "__metadata:\n  version: 10\n  cacheKey: 10c0\n")
 				write(".yarnrc.yml", "nodeLinker: node-modules\nnpmRegistryServer: "+quote(reg.URL)+"\nunsafeHttpWhitelist: [127.0.0.1]\ncacheFolder: "+quote(cache)+"\n")
 				flags = []string{"install", "--mode=skip-build"}
 			}
