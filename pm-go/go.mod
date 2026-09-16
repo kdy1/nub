@@ -11,6 +11,6 @@ require github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 
 require (
 	go.yaml.in/yaml/v4 v4.0.0-rc.6
-	golang.org/x/sys v0.47.0 // indirect
+	golang.org/x/sys v0.47.0
 	lukechampine.com/blake3 v1.4.1
 )

@@ -3,26 +3,20 @@ package cli
 import (
 	"context"
 	"fmt"
-	"io"
 	"os"
 	"strings"
 
+	"github.com/nubjs/nub/pm-go/internal/processenv"
 	"github.com/nubjs/nub/pm-go/internal/surface"
 )
 
 var Version = "0.9.2-dev"
 
-type Environment struct {
-	Dir  string
-	Vars []string
-	In   io.Reader
-	Out  io.Writer
-	Err  io.Writer
-}
+type Environment = processenv.Environment
 
 func System() Environment {
 	dir, _ := os.Getwd()
-	return Environment{dir, os.Environ(), os.Stdin, os.Stdout, os.Stderr}
+	return Environment{Dir: dir, Vars: os.Environ(), In: os.Stdin, Out: os.Stdout, Err: os.Stderr}
 }
 
 func Run(ctx context.Context, args []string, env Environment) int {
