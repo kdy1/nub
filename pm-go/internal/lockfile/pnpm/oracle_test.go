@@ -120,7 +120,7 @@ func TestRustPnpmGraphOracle(t *testing.T) {
 	for _, name := range sortedKeys(cases) {
 		t.Run(name, func(t *testing.T) {
 			data := cases[name]
-			path := filepath.Join(t.TempDir(), "pnpm-lock.yaml")
+			path := filepath.Join(t.TempDir(), "input.lock")
 			if err := os.WriteFile(path, data, 0600); err != nil {
 				t.Fatal(err)
 			}
@@ -168,8 +168,48 @@ func TestRustPnpmGraphOracle(t *testing.T) {
 					rustPretty, _ := json.MarshalIndent(b, "", "  ")
 					t.Fatalf("%s graph differs\nGo: %s\nRust: %s\nInput: %s", mode, goPretty, rustPretty, strings.TrimSpace(string(data)))
 				}
+				for _, filename := range []string{"pnpm-lock.yaml", "nub.lock"} {
+					compareWriter(t, oracle, path, filename, mode, g)
+				}
 			}
 		})
 	}
 	t.Logf("compared %d literal/reference documents in strict and relaxed modes (%d accepted)", len(cases), accepted)
+}
+
+func compareWriter(t *testing.T, oracle, input, filename, mode string, graph *lockfile.Graph) {
+	t.Helper()
+	dir := filepath.Dir(input)
+	manifestPath := filepath.Join(dir, "package.json")
+	if err := os.WriteFile(manifestPath, []byte("{}\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	output := filepath.Join(dir, filename)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	data, err := exec.CommandContext(ctx, oracle, "pnpm-write", input, manifestPath, output, mode).CombinedOutput()
+	if err != nil {
+		t.Fatalf("reference writer: %v\n%s", err, data)
+	}
+	var ref struct {
+		OK    bool   `json:"ok"`
+		Error string `json:"error"`
+	}
+	if err := json.Unmarshal(data, &ref); err != nil {
+		t.Fatalf("reference writer JSON: %v\n%s", err, data)
+	}
+	got, _, err := Encode(output, graph, nil)
+	if (err == nil) != ref.OK {
+		t.Fatalf("%s %s writer acceptance: Go %v; Rust %v (%s)", filename, mode, err, ref.OK, ref.Error)
+	}
+	if err != nil {
+		return
+	}
+	want, err := os.ReadFile(output)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(got, want) {
+		t.Fatalf("%s %s writer bytes differ\nGo:\n%s\nRust:\n%s", filename, mode, got, want)
+	}
 }

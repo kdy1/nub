@@ -4,6 +4,24 @@ mod graph_snapshot;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 5 && args[0] == "pnpm-write" {
+        let options = aube_lockfile::ParseOptions {
+            strict_store_integrity: args[4] != "relaxed",
+        };
+        let result =
+            aube_lockfile::pnpm::parse_with_options(std::path::Path::new(&args[1]), options);
+        let result = result.and_then(|graph| {
+            let manifest = aube_manifest::PackageJson::from_path(std::path::Path::new(&args[2]))
+                .expect("reference manifest");
+            aube_lockfile::pnpm::write(std::path::Path::new(&args[3]), &graph, &manifest)
+        });
+        let result = match result {
+            Ok(()) => serde_json::json!({"ok": true}),
+            Err(error) => serde_json::json!({"ok": false, "error": error.to_string()}),
+        };
+        println!("{result}");
+        return;
+    }
     if args.len() == 3 && args[0] == "pnpm-graph" {
         let options = aube_lockfile::ParseOptions {
             strict_store_integrity: args[2] != "relaxed",
