@@ -53,3 +53,5 @@ Shared JSON parsing rejects invalid UTF-8 and unpaired UTF-16 escapes. Typed loc
 Bun's text-lockfile decoder preserves JSONC byte offsets, validates typed fields, retains unknown metadata, and distinguishes registry and Git tuple layouts. Binary `bun.lockb` is outside the reference reader's supported formats.
 
 The Bun v1/v2 graph reader resolves nested/scoped package keys and workspace overrides, preserves catalogs and source identities, and retains required workspace peers. Unsupported required sources fail eagerly under Nub's policy; unsupported optionals emit diagnostics and preserve skipped-importer declarations. CI compares complete graphs with the Rust reader in both Nub's strict mode and standalone lenient mode.
+
+The Bun writer emits v1 JSONC with the parsed config version, native field order, registry URLs, Git cache tags, workspace tuples, catalogs, and unknown metadata. It uses the reference's first-importer-wins root hoist behavior and reads member manifests when available. Native fixture bytes and Rust graph-to-writer output are checked separately from install integration.

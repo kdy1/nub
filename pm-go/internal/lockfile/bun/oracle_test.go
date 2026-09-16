@@ -14,6 +14,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/nubjs/nub/pm-go/internal/lockfile"
+	"github.com/nubjs/nub/pm-go/internal/manifest"
 	"github.com/nubjs/nub/pm-go/internal/testutil"
 )
 
@@ -114,8 +116,47 @@ func TestRustBunGraphOracle(t *testing.T) {
 					b, _ := json.MarshalIndent(b, "", "  ")
 					t.Fatalf("%s graph differs\nGo: %s\nRust: %s\nInput: %s", mode, a, b, data)
 				}
+				compareWriter(t, oracle, path, mode, g)
 			}
 		})
 	}
 	t.Logf("compared %d documents in strict and relaxed modes (%d accepted)", len(cases), accepted)
+}
+
+func compareWriter(t *testing.T, oracle, input, mode string, g *lockfile.Graph) {
+	t.Helper()
+	dir := filepath.Dir(input)
+	manifestPath := filepath.Join(dir, "package.json")
+	if err := os.WriteFile(manifestPath, []byte("{}\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	output := filepath.Join(dir, "out.lock")
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	result, err := exec.CommandContext(ctx, oracle, "bun-write", input, manifestPath, output, mode).CombinedOutput()
+	if err != nil {
+		t.Fatalf("reference writer: %v\n%s", err, result)
+	}
+	var ref struct {
+		OK    bool
+		Error string
+	}
+	if err := json.Unmarshal(result, &ref); err != nil {
+		t.Fatal(string(result), err)
+	}
+	pj, _ := manifest.ParsePackage([]byte("{}"))
+	got, err := Encode(output, g, pj)
+	if (err == nil) != ref.OK {
+		t.Fatalf("writer acceptance Go %v, Rust %v (%s)", err, ref.OK, ref.Error)
+	}
+	if err != nil {
+		return
+	}
+	want, err := os.ReadFile(output)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(got, want) {
+		t.Fatalf("writer bytes differ\nGo: %s\nRust: %s", got, want)
+	}
 }

@@ -4,8 +4,8 @@ mod graph_snapshot;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
-    if args.len() == 3 && args[0] == "bun-graph" {
-        if args[2] == "strict" {
+    if (args.len() == 3 && args[0] == "bun-graph") || (args.len() == 5 && args[0] == "bun-write") {
+        if args.last().unwrap() == "strict" {
             static STRICT: aube_util::Embedder = aube_util::Embedder {
                 strict_unsupported_source: true,
                 ..aube_util::AUBE
@@ -14,6 +14,15 @@ fn main() {
         }
         let result = aube_lockfile::bun::parse(std::path::Path::new(&args[1]));
         let result = match result {
+            Ok(graph) if args[0] == "bun-write" => {
+                let manifest =
+                    aube_manifest::PackageJson::from_path(std::path::Path::new(&args[2]))
+                        .expect("reference manifest");
+                match aube_lockfile::bun::write(std::path::Path::new(&args[3]), &graph, &manifest) {
+                    Ok(()) => serde_json::json!({"ok": true}),
+                    Err(error) => serde_json::json!({"ok": false, "error": error.to_string()}),
+                }
+            }
             Ok(graph) => serde_json::json!({"ok": true, "graph": graph_snapshot::snapshot(&graph)}),
             Err(error) => serde_json::json!({"ok": false, "error": error.to_string()}),
         };
