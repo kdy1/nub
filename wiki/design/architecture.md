@@ -142,4 +142,6 @@ Version selection retains lockfile and dist-tag preferences before scanning cand
 
 Go registry requests enforce response-size, total-time, and idle-time limits. Retry budgets distinguish temporary status codes from timeouts. Credentials stay stripped after a redirect crosses authorities, and HTTPS redirects cannot downgrade to HTTP. TLS roots, proxies, and credential-helper environments come from the captured execution context.
 
+Registry metadata caches partition by registry URL and response format. Fresh entries avoid a request; stale entries use conditional requests unless offline policy selects the cached copy. Failed or malformed responses leave the previous cache entry intact. Concurrent readers share a fetch and receive separate parsed metadata objects.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.

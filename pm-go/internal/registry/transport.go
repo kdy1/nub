@@ -50,6 +50,7 @@ type ClientOptions struct {
 	Policy    FetchPolicy
 	UserAgent string
 	Warn      func(npmconfig.Warning)
+	Now       func() time.Time
 }
 
 type helperResult struct {
@@ -62,10 +63,14 @@ type Client struct {
 	mu      sync.Mutex
 	http    map[*npmconfig.TLS]*http.Client
 	helpers map[string]*helperResult
+	flights map[string]*metadataFlight
 }
 
 func NewClient(config npmconfig.Config, options ClientOptions) *Client {
-	return &Client{Config: config, options: options, http: map[*npmconfig.TLS]*http.Client{}, helpers: map[string]*helperResult{}}
+	if options.Now == nil {
+		options.Now = time.Now
+	}
+	return &Client{Config: config, options: options, http: map[*npmconfig.TLS]*http.Client{}, helpers: map[string]*helperResult{}, flights: map[string]*metadataFlight{}}
 }
 
 func (c *Client) Close() {
@@ -87,6 +92,7 @@ type Request struct {
 	Body                           []byte
 	MaxBytes                       int64
 	Retry                          bool
+	Validate                       func([]byte) error
 }
 
 var errStalled = errors.New("registry response stalled")
@@ -108,6 +114,9 @@ func (c *Client) Do(ctx context.Context, input Request) (Response, error) {
 			return last, err
 		}
 		last, err = c.attempt(ctx, input)
+		if err == nil && last.Status >= 200 && last.Status < 300 && input.Validate != nil {
+			err = input.Validate(last.Body)
+		}
 		if ctx.Err() != nil {
 			return last, ctx.Err()
 		}
