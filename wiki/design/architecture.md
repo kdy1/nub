@@ -170,4 +170,6 @@ The Go npm lockfile reader lifts legacy nested shrinkwraps into the common graph
 
 The shared Go lockfile layout pass collapses peer contexts into canonical package identities and builds a deterministic hoist tree. A conflicting nearest ancestor forces nesting. Existing root placements survive only while reachable, and explicit direct dependencies keep their slots. Separate reachability passes distinguish dev, optional, and peer-only paths for lockfile flags.
 
+The Go npm writer emits v3 with npm’s scalar/object key ordering, declared ranges, source URLs, and reachability flags. Fresh workspace identities come from member manifests; existing workspace and local link conflicts retain separate placements. Native npm fixtures exercise byte-preserving round trips. Publication is atomic and respects the process umask.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.

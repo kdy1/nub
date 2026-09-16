@@ -69,7 +69,7 @@ func (p *Package) Clone() *Package {
 }
 func (g *Graph) Clone() *Graph {
 	out := *g
-	out.Importers = make(map[string][]DirectDep, len(g.Importers))
+	out.Importers = maps.Clone(g.Importers)
 	for key, deps := range g.Importers {
 		copy := slices.Clone(deps)
 		for i := range copy {
@@ -77,7 +77,7 @@ func (g *Graph) Clone() *Graph {
 		}
 		out.Importers[key] = copy
 	}
-	out.Packages = make(map[string]*Package, len(g.Packages))
+	out.Packages = maps.Clone(g.Packages)
 	for key, pkg := range g.Packages {
 		out.Packages[key] = pkg.Clone()
 	}
@@ -92,7 +92,7 @@ func (g *Graph) Clone() *Graph {
 	out.PatchedDependencies = maps.Clone(g.PatchedDependencies)
 	out.PatchedDependencyHashes = maps.Clone(g.PatchedDependencyHashes)
 	out.TrustedDependencies = slices.Clone(g.TrustedDependencies)
-	out.Runtimes = make(map[string]RuntimePin, len(g.Runtimes))
+	out.Runtimes = maps.Clone(g.Runtimes)
 	for key, pin := range g.Runtimes {
 		pin.Variants = slices.Clone(pin.Variants)
 		for i := range pin.Variants {
@@ -107,7 +107,7 @@ func (g *Graph) Clone() *Graph {
 		out.Runtimes[key] = pin
 	}
 	out.ExtraFields = cloneValues(g.ExtraFields)
-	out.WorkspaceExtraFields = make(map[string]map[string]*jsonvalue.Value, len(g.WorkspaceExtraFields))
+	out.WorkspaceExtraFields = maps.Clone(g.WorkspaceExtraFields)
 	for key, values := range g.WorkspaceExtraFields {
 		out.WorkspaceExtraFields[key] = cloneValues(values)
 	}

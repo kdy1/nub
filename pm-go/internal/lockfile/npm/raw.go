@@ -1,4 +1,4 @@
-// Package npm decodes npm package-lock and shrinkwrap files.
+// Package npm reads npm package-lock and shrinkwrap files and writes npm v3.
 package npm
 
 import (
