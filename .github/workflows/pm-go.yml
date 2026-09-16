@@ -113,4 +113,4 @@ jobs:
           PM_NPM_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/npm/bin/npm-cli.js
           PM_PNPM_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/pnpm/bin/pnpm.cjs
           PM_BUN_BIN: ${{ steps.bun.outputs.bun-path }}
-        run: go test -v ./internal/lockfile/npm ./internal/lockfile/pnpm ./internal/lockfile/bun
+        run: go test -v ./internal/lockfile/npm ./internal/lockfile/pnpm ./internal/lockfile/bun ./internal/lockfile/yarn

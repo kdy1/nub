@@ -17,6 +17,9 @@ func fileSource(body string) *lockfile.Source {
 	path := stripHash(body)
 	kind := lockfile.Directory
 	ext := filepath.Ext(path)
+	if base := filepath.Base(path); strings.HasPrefix(base, ".") && strings.Count(base, ".") == 1 {
+		ext = ""
+	}
 	if strings.EqualFold(ext, ".tgz") || strings.EqualFold(ext, ".gz") {
 		kind = lockfile.Tarball
 	}
