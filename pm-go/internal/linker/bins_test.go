@@ -125,7 +125,7 @@ func TestBinRelocationAndPathNode(t *testing.T) {
 			shim := filepath.Join(moved, "node_modules", ".bin", "@scope", "tool")
 			var commands []*exec.Cmd
 			if runtime.GOOS == "windows" {
-				commands = append(commands, exec.CommandContext(t.Context(), "cmd.exe", "/d", "/s", "/c", `""`+shim+`.cmd" "hello world""`))
+				commands = append(commands, cmdShimCommand(t, shim+".cmd", "hello world"))
 				commands = append(commands, exec.CommandContext(t.Context(), "pwsh", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", shim+".ps1", "hello world"))
 			} else {
 				commands = append(commands, exec.CommandContext(t.Context(), shim, "hello world"))
@@ -215,7 +215,7 @@ func TestNativeBinWithoutNode(t *testing.T) {
 	shim := filepath.Join(root, "node")
 	command := exec.CommandContext(t.Context(), shim, "-test.run=^TestNativeBinWithoutNode$")
 	if runtime.GOOS == "windows" {
-		command = exec.CommandContext(t.Context(), "cmd.exe", "/d", "/s", "/c", `""`+shim+`.cmd" -test.run=^TestNativeBinWithoutNode$"`)
+		command = cmdShimCommand(t, shim+".cmd", "-test.run=^TestNativeBinWithoutNode$")
 	}
 	command.Env = append(os.Environ(), "PM_GO_BIN_CHILD=1")
 	out, err := command.CombinedOutput()
