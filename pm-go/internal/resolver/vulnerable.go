@@ -10,7 +10,7 @@ import (
 )
 
 func IsVulnerable(name, version string, ranges map[string][]string) bool {
-	v, err := semver.ParseVersion(version)
+	v, err := semver.ParseEngineVersion(version)
 	if err != nil {
 		return false
 	}
@@ -20,7 +20,7 @@ func IsVulnerable(name, version string, ranges map[string][]string) bool {
 		if strings.TrimSpace(raw) == "" {
 			continue
 		}
-		r, err := semver.ParseRange(raw)
+		r, err := semver.ParseEngineRange(raw)
 		if err == nil && r.Contains(v) {
 			return true
 		}
@@ -34,14 +34,14 @@ func PreferNonVulnerable(name string, p *registry.Packument, requested string, f
 	if fallback == nil || !IsVulnerable(name, fallback.Version, ranges) {
 		return fallback
 	}
-	r, err := semver.ParseRange(requested)
+	r, err := semver.ParseDependencyRange(requested)
 	if err != nil {
 		return fallback
 	}
 	var best, undated *registry.Version
 	var bestVersion, undatedVersion *semver.Version
 	for _, raw := range slices.Sorted(maps.Keys(p.Versions)) {
-		v, err := semver.ParseVersion(raw)
+		v, err := semver.ParseEngineVersion(raw)
 		if err != nil || !r.Contains(v) || IsVulnerable(name, raw, ranges) {
 			continue
 		}

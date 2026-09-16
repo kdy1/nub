@@ -166,10 +166,10 @@ func retainedPeerCompatible(peer, locked string) bool {
 	if strings.TrimSpace(peer) == "" {
 		peer = "*"
 	}
-	rangeValue, err := semver.ParseRange(peer)
+	rangeValue, err := semver.ParseEngineRange(peer)
 	if err != nil {
 		return false
 	}
-	v, err := semver.ParseVersion(locked)
+	v, err := semver.ParseEngineVersion(locked)
 	return err == nil && rangeValue.Contains(v)
 }

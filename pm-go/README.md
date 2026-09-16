@@ -102,7 +102,7 @@ Resolver reuse indexes preserve dependency-path order, exclude bundled entries f
 
 Resolver inputs retain the reference's prod/dev/optional/required-peer seeding priority. Catalog expansion rejects chained references and records authored ranges with their selected versions. Package extensions fill missing dependency and peer metadata without replacing declarations; local sources receive dependency additions only. These components are not yet a complete resolution driver.
 
-Semver comparison also targets the baseline Rust `node-semver` 2.2.0 crate. A separate engine parser records its loose input grammar, partial comparator bounds and range-overlap behavior while retaining the independent npm `node-semver` tests. The test-only Rust probe compares accepted inputs, membership and range pairs; resolver integration is pending those results.
+Semver comparison also targets the baseline Rust `node-semver` 2.2.0 crate. The resolver and lockfile consumers use its loose input grammar, partial comparator bounds and range-overlap behavior, while the independent npm `node-semver` tests retain the strict grammar. The test-only Rust probe compares accepted inputs, membership and range pairs. Dependency ranges normalize empty input to `*`; raw selectors and advisory ranges keep the reference's rejection.
 
 Resolver override rules match direct-parent chains and Yarn ancestor wildcards, use range overlap for version-qualified targets, and rank named ancestors before target ranges. Alias version tails participate in matching. The parser is shared with lockfile drift checks, whose separate lower-bound matching behavior is retained; the Rust resolver's public rule API supplies the comparison oracle.
 

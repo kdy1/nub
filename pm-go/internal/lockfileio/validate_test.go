@@ -86,10 +86,13 @@ func TestGraphSourceShapeBoundary(t *testing.T) {
 			}
 		}
 	}
-	for _, key := range []string{"pkg@1", "pkg@1.2", "pkg@^1.2.3", "other@1.2.3", "//pkg@1.2.3", "pkg@1.2.3junk"} {
+	for _, key := range []string{"pkg@1", "pkg@1.2", "pkg@^1.2.3", "other@1.2.3", "//pkg@1.2.3"} {
 		if hasRegistryVersion(key, "pkg") {
 			t.Fatal(key)
 		}
+	}
+	if !hasRegistryVersion("pkg@1.2.3junk", "pkg") {
+		t.Fatal("reference loose prerelease version was ignored")
 	}
 }
 

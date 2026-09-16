@@ -90,6 +90,6 @@ func hasRegistryVersion(depPath, name string) bool {
 		return false
 	}
 	version, _, _ := strings.Cut(tail, "(")
-	_, err := semver.ParseVersion(version)
+	_, err := semver.ParseEngineVersion(version)
 	return err == nil
 }

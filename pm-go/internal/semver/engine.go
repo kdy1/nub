@@ -312,9 +312,15 @@ func EngineSatisfies(version, requested string) bool {
 	if err != nil {
 		return false
 	}
+	r, err := ParseDependencyRange(requested)
+	return err == nil && r.Contains(v)
+}
+
+// ParseDependencyRange applies the resolver's empty-range normalization.
+// Raw override selectors and advisory ranges use ParseEngineRange instead.
+func ParseDependencyRange(requested string) (*EngineRange, error) {
 	if strings.TrimSpace(requested) == "" {
 		requested = "*"
 	}
-	r, err := ParseEngineRange(requested)
-	return err == nil && r.Contains(v)
+	return ParseEngineRange(requested)
 }

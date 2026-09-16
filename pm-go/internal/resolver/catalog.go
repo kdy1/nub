@@ -60,7 +60,7 @@ func MaterializeCatalogPicks(picks Catalogs, versions map[string][]string) map[s
 			if candidates := versions[name]; len(candidates) > 0 {
 				version = candidates[0]
 				for _, v := range candidates {
-					if semver.Satisfies(v, requested) {
+					if semver.EngineSatisfies(v, requested) {
 						version = v
 						break
 					}

@@ -60,10 +60,10 @@ func ClassifyPatchKey(key string, pnpmOnly bool) (PatchKey, error) {
 	if !ok {
 		return PatchKey{Name: key, Form: PatchAll}, nil
 	}
-	if _, err := semver.ParseVersion(selector); err == nil {
+	if _, err := semver.ParseEngineVersion(selector); err == nil {
 		return PatchKey{name, selector, PatchExact}, nil
 	}
-	if _, err := semver.ParseRange(selector); err == nil {
+	if _, err := semver.ParseEngineRange(selector); err == nil {
 		form := PatchRange
 		if strings.TrimSpace(selector) == "*" {
 			form = PatchAll
@@ -101,7 +101,7 @@ func VersionProtocol(s string) (string, bool) {
 
 type patchRange struct {
 	display, source string
-	parsed          *semver.Range
+	parsed          *semver.EngineRange
 }
 type patchGroup struct {
 	exact  map[string]string
@@ -130,7 +130,7 @@ func NewPatchGroups(keys []string) (*PatchGroups, error) {
 		case PatchAll:
 			g.all = &key
 		case PatchRange:
-			parsed, err := semver.ParseRange(form.Selector)
+			parsed, err := semver.ParseEngineRange(form.Selector)
 			if err != nil {
 				return nil, err
 			}
@@ -147,7 +147,7 @@ func (g *PatchGroups) Resolve(name, version string) (string, bool, error) {
 	if key, ok := group.exact[version]; ok {
 		return key, true, nil
 	}
-	if v, err := semver.ParseVersion(version); err == nil {
+	if v, err := semver.ParseEngineVersion(version); err == nil {
 		var matches []patchRange
 		for _, r := range group.ranges {
 			if r.parsed.Contains(v) {

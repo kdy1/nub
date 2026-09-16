@@ -36,7 +36,7 @@ func PackageSelectorMatches(selector, name, version string) bool {
 	if requested == "*" || strings.TrimSpace(requested) == "" {
 		return true
 	}
-	return semver.Satisfies(version, requested)
+	return semver.EngineSatisfies(version, requested)
 }
 func ApplyPackageExtensions(p *registry.Version, extensions []PackageExtension) {
 	for _, extension := range extensions {
@@ -69,5 +69,5 @@ func extendMissing[V any](target *map[string]V, additions map[string]V) {
 }
 func IsDeprecationAllowed(name, version string, allowed map[string]string) bool {
 	rangeText, ok := allowed[name]
-	return ok && semver.Satisfies(version, rangeText)
+	return ok && semver.EngineSatisfies(version, rangeText)
 }

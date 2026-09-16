@@ -217,10 +217,10 @@ func versionSatisfies(version, rangeText string) bool {
 	if strings.TrimSpace(rangeText) == "" {
 		rangeText = "*"
 	}
-	r, err := semver.ParseRange(rangeText)
+	r, err := semver.ParseEngineRange(rangeText)
 	if err != nil {
 		return false
 	}
-	v, err := semver.ParseVersion(version)
+	v, err := semver.ParseEngineVersion(version)
 	return err == nil && r.Contains(v)
 }

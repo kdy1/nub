@@ -126,3 +126,12 @@ func TestAgeGateFallbackExemptionsAndUnknownCause(t *testing.T) {
 		t.Fatal("exemption bypassed time-based wall", r)
 	}
 }
+
+func TestPickUsesReferenceEngineGrammar(t *testing.T) {
+	p := pack("1.0.0", "1.2.0", "1.2.9")
+	picked(t, p, "<=1.2", PickOptions{}, "1.0.0")
+	picked(t, p, "^1 trailing-garbage", PickOptions{}, "1.2.9")
+	picked(t, p, "", PickOptions{}, "1.2.9")
+	p = pack("01.02.03")
+	picked(t, p, "^1", PickOptions{}, "01.02.03")
+}

@@ -137,7 +137,7 @@ func RegistryAlias(version string) (string, bool) {
 	if slices.Contains([]string{"bitbucket", "catalog", "custom", "file", "git", "github", "gitlab", "http", "https", "jsr", "link", "npm", "runtime", "ssh", "workspace"}, name) {
 		return "", false
 	}
-	if _, err := semver.ParseVersion(v); err != nil {
+	if _, err := semver.ParseEngineVersion(v); err != nil {
 		return "", false
 	}
 	return name, true

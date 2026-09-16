@@ -56,10 +56,10 @@ func WorkspaceRangeBinds(version, rangeText string) bool {
 	case "", "*", "^", "~":
 		return true
 	}
-	r, err := semver.ParseRange(rangeText)
+	r, err := semver.ParseDependencyRange(rangeText)
 	if err != nil {
 		return true
 	}
-	v, err := semver.ParseVersion(version)
+	v, err := semver.ParseEngineVersion(version)
 	return err == nil && r.Contains(v)
 }

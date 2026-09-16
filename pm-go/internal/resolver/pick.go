@@ -72,7 +72,7 @@ func Pick(p *registry.Packument, requested string, opts PickOptions) PickResult 
 		cutoff := opts.Cutoff
 		if opts.AgeExempt != nil {
 			if v == nil {
-				v, _ = semver.ParseVersion(raw)
+				v, _ = semver.ParseEngineVersion(raw)
 			}
 			if opts.AgeExempt(raw, v) {
 				cutoff = opts.ExemptCutoff
@@ -80,7 +80,7 @@ func Pick(p *registry.Packument, requested string, opts PickOptions) PickResult 
 		}
 		return ClassifyAge(p, raw, cutoff, opts.Strict)
 	}
-	r, err := semver.ParseRange(requested)
+	r, err := semver.ParseDependencyRange(requested)
 	if err != nil {
 		if protocolRE.MatchString(requested) {
 			return PickResult{}
@@ -92,7 +92,7 @@ func Pick(p *registry.Packument, requested string, opts PickOptions) PickResult 
 			}
 			var highest *semver.Version
 			for raw := range p.Versions {
-				v, e := semver.ParseVersion(raw)
+				v, e := semver.ParseEngineVersion(raw)
 				if e == nil && v.Prerelease() == "" && (highest == nil || v.GreaterThan(highest)) {
 					highest, effective = v, raw
 				}
@@ -101,17 +101,17 @@ func Pick(p *registry.Packument, requested string, opts PickOptions) PickResult 
 				return PickResult{}
 			}
 		}
-		v, e := semver.ParseVersion(effective)
+		v, e := semver.ParseEngineVersion(effective)
 		if requested == "latest" && !opts.Lowest && opts.Cutoff != "" && classify(effective, v) != Clears && e == nil && v.Prerelease() == "" {
 			effective = "<=" + effective
 		}
-		r, err = semver.ParseRange(effective)
+		r, err = semver.ParseDependencyRange(effective)
 		if err != nil {
 			return PickResult{}
 		}
 	}
 	eligible := func(raw string) *registry.Version {
-		v, e := semver.ParseVersion(raw)
+		v, e := semver.ParseEngineVersion(raw)
 		if e == nil && r.Contains(v) && classify(raw, v) == Clears {
 			return p.Versions[raw]
 		}
@@ -136,7 +136,7 @@ func Pick(p *registry.Packument, requested string, opts PickOptions) PickResult 
 	}
 	sort.Strings(keys)
 	for _, raw := range keys {
-		v, e := semver.ParseVersion(raw)
+		v, e := semver.ParseEngineVersion(raw)
 		if e != nil || !r.Contains(v) {
 			continue
 		}

@@ -65,11 +65,11 @@ func OverrideTarget(key string) (string, bool) {
 // This is the reference lower-bound probe, not a general range intersection.
 // Unparseable ranges deliberately keep a user override eligible.
 func overrideRangeCouldSatisfy(taskRange, requirement string) bool {
-	r, err := semver.ParseRange(requirement)
+	r, err := semver.ParseEngineRange(requirement)
 	if err != nil {
 		return true
 	}
-	if v, err := semver.ParseVersion(taskRange); err == nil && r.Contains(v) {
+	if v, err := semver.ParseEngineVersion(taskRange); err == nil && r.Contains(v) {
 		return true
 	}
 	trimmed := strings.TrimSpace(taskRange)
@@ -80,7 +80,7 @@ func overrideRangeCouldSatisfy(taskRange, requirement string) bool {
 	if candidate == "" || candidate[0] < '0' || candidate[0] > '9' {
 		return true
 	}
-	v, err := semver.ParseVersion(candidate)
+	v, err := semver.ParseEngineVersion(candidate)
 	if err != nil {
 		return true
 	}
@@ -92,7 +92,7 @@ func overrideRangeCouldSatisfy(taskRange, requirement string) bool {
 		if v.Metadata() != "" {
 			text += "+" + v.Metadata()
 		}
-		v, err = semver.ParseVersion(text)
+		v, err = semver.ParseEngineVersion(text)
 		if err != nil {
 			return true
 		}

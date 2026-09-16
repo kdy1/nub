@@ -29,7 +29,7 @@ func NewLockedIndex(existing *lockfile.Graph) *LockedIndex {
 }
 func (i *LockedIndex) FindSatisfying(name, requested, registryName string, vulnerable map[string][]string) *lockfile.Package {
 	for _, p := range i.byName[name] {
-		if !p.InBundle && semver.Satisfies(p.Version, requested) && !IsVulnerable(registryName, p.Version, vulnerable) {
+		if !p.InBundle && semver.EngineSatisfies(p.Version, requested) && !IsVulnerable(registryName, p.Version, vulnerable) {
 			return p
 		}
 	}
@@ -40,7 +40,7 @@ func (i *LockedIndex) FindSatisfying(name, requested, registryName string, vulne
 // The version-hint caller filters the single result without searching again.
 func (i *LockedIndex) FindFirstInRange(name, requested string) *lockfile.Package {
 	for _, p := range i.byName[name] {
-		if semver.Satisfies(p.Version, requested) {
+		if semver.EngineSatisfies(p.Version, requested) {
 			return p
 		}
 	}
