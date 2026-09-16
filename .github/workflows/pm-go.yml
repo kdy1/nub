@@ -41,6 +41,8 @@ jobs:
         run: test -z "$(gofmt -l .)"
       - run: go vet ./...
       - run: go test -race ./...
+        env:
+          PM_SEMVER_ORACLE: '1'
       - name: Build without cgo
         env:
           CGO_ENABLED: '0'

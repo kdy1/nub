@@ -136,4 +136,6 @@ The Go manifest editor implements `pkg get/set/delete/fix` and `set-script`. It 
 
 The Go registry configuration layer tags each npmrc source. Unscoped credentials bind to the registry declared by the same source. URI and package scope determine credential selection; project files cannot set credential helpers or proxies, expand environment secrets, or disable TLS validation. File discovery and environment lookup take an explicit execution context.
 
+The Go semver layer expands npm ranges into comparator sets and admits prereleases only for explicitly selected version tuples. Its CI tests use the pinned node-semver fixture as an independent oracle.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
