@@ -3,10 +3,15 @@ package linker
 import (
 	"context"
 	"errors"
+	"path/filepath"
 	"time"
 
 	"golang.org/x/sys/windows"
 )
+
+func sameStoredPath(a, b string) bool {
+	return filepath.Clean(stripVerbatim(a)) == filepath.Clean(stripVerbatim(b))
+}
 
 func retryLinkFS(ctx context.Context, attempts int, operation func() error) error {
 	for attempt := range max(attempts, 1) {

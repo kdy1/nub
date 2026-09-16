@@ -2,7 +2,6 @@ package linker
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"maps"
 	"os"
@@ -24,7 +23,7 @@ type LinkStats struct {
 	PackagesLinked, PackagesCached, FilesLinked, TopLevelLinked int
 }
 
-// IsolatedPlan describes a project-local isolated layout. The install driver
+// IsolatedPlan describes an isolated layout. The install driver
 // owns the project/store leases and immutable graph and index inputs. Scripts
 // and executable shims are separate passes after the package layout succeeds.
 type IsolatedPlan struct {
@@ -44,6 +43,11 @@ type IsolatedPlan struct {
 	ShamefullyHoist, DedupeDirectDeps           bool
 	VirtualStoreOnly                            bool
 	Report                                      func(code, message string)
+	UseGlobalVirtualStore                       bool
+	GlobalVirtualStoreDir                       string
+	Hashes                                      lockfile.GraphHashes
+	DiskMaterialize                             []string
+	ProjectLocalDepPaths                        lockfile.Set
 }
 
 func enabled(value *bool) bool { return value == nil || *value }
@@ -98,6 +102,17 @@ func LinkIsolatedProject(ctx context.Context, plan IsolatedPlan) (LinkStats, err
 	if plan.HoistPatterns == nil {
 		plan.HoistPatterns = []string{"*"}
 	}
+	if plan.UseGlobalVirtualStore {
+		if !filepath.IsAbs(plan.GlobalVirtualStoreDir) {
+			return stats, fmt.Errorf("global virtual store requires an absolute path")
+		}
+		// Unversioned hidden aliases are project-specific. A full hidden hoist
+		// uses a project-local layout so shared entries cannot consume them.
+		if enabled(plan.Hoist) {
+			_ = removeEntry(ctx, filepath.Join(plan.GlobalVirtualStoreDir, "node_modules"), 1)
+			plan.UseGlobalVirtualStore = false
+		}
+	}
 	m := Materializer{Root: plan.VirtualStoreDir, Strategy: plan.Strategy, Patches: plan.Patches, Quarantine: plan.Quarantine, MaxFilenameLength: plan.MaxFilenameLength}
 	if err := mkdirLinkDir(ctx, m.Root); err != nil {
 		return stats, err
@@ -116,8 +131,10 @@ func LinkIsolatedProject(ctx context.Context, plan IsolatedPlan) (LinkStats, err
 		sweepTopLevel(ctx, nm, plan.preserve(plan.Graph.RootDeps(), true), leaf)
 	}
 	current := CurrentPatchHashes(plan.Patches)
-	if err := WipeChangedPatchedEntries(ctx, m.Root, plan.Graph, ReadAppliedPatches(nm), current, plan.MaxFilenameLength); err != nil {
-		return stats, err
+	if !plan.UseGlobalVirtualStore {
+		if err := WipeChangedPatchedEntries(ctx, m.Root, plan.Graph, ReadAppliedPatches(nm), current, plan.MaxFilenameLength); err != nil {
+			return stats, err
+		}
 	}
 	keys := slices.Sorted(maps.Keys(plan.Graph.Packages))
 	nested := map[string]string{}
@@ -139,6 +156,15 @@ func LinkIsolatedProject(ctx context.Context, plan IsolatedPlan) (LinkStats, err
 				continue
 			}
 			index, present := plan.Indices[key]
+			if plan.UseGlobalVirtualStore && (!localPass || pkg.Source.GloballyShareable()) {
+				if localPass && !present {
+					return stats, &MissingPackageIndex{key}
+				}
+				if err := plan.populateGlobal(ctx, m, key, pkg, nested, &stats); err != nil {
+					return stats, err
+				}
+				continue
+			}
 			if localPass && !present {
 				continue
 			}
@@ -160,32 +186,15 @@ func LinkIsolatedProject(ctx context.Context, plan IsolatedPlan) (LinkStats, err
 				}
 				continue
 			}
-			integrity := pkg.Integrity
-			if integrity == nil {
-				if binding, ok := plan.NoIntegrityReadKeys[pkg.RegistryName()+"@"+pkg.Version]; ok {
-					integrity = &binding
-				}
-			}
-			if !present && plan.Store != nil {
-				index, present = plan.Store.LoadIndex(pkg.RegistryName(), pkg.Version, integrity, false)
-			}
-			if !present {
-				return stats, &MissingPackageIndex{key}
-			}
-			result, err := m.EnsurePackage(ctx, key, plan.Graph, pkg, index, nested)
+			index, err = plan.packageIndex(key, pkg)
 			if err != nil {
-				var missing *MissingStoreFile
-				if errors.As(err, &missing) && plan.Store != nil {
-					_, _ = plan.Store.InvalidateIndex(ctx, pkg.RegistryName(), pkg.Version, integrity)
-				}
 				return stats, err
 			}
-			if result.Cached {
-				stats.PackagesCached++
-			} else {
-				stats.PackagesLinked++
-				stats.FilesLinked += result.FilesLinked
+			result, err := plan.ensureIndexed(ctx, m, key, pkg, index, nested)
+			if err != nil {
+				return stats, err
 			}
+			addMaterializedStats(&stats, result)
 		}
 	}
 	if plan.VirtualStoreOnly {

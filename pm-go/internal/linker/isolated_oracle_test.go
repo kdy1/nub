@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"reflect"
 	"testing"
+
+	"github.com/nubjs/nub/pm-go/internal/lockfile"
 )
 
 func TestRustIsolatedProjectOracle(t *testing.T) {
@@ -17,55 +19,80 @@ func TestRustIsolatedProjectOracle(t *testing.T) {
 	}
 	var inputs []map[string]any
 	var expected [][]map[string]any
-	for _, workspace := range []bool{false, true} {
-		for mode := range 8 {
-			for _, custom := range []bool{false, true} {
-				p := isolatedFixture(t)
-				p.HasWorkspace = workspace
-				p.ModulesDirName = "node_modules"
-				p.VirtualStoreDir = filepath.Join(p.ProjectDir, "node_modules/.store")
-				p.PublicHoistPatterns = []string{}
-				p.Hoist = new(bool)
-				*p.Hoist = mode != 0
-				p.HoistWorkspacePackages = new(bool)
-				*p.HoistWorkspacePackages = mode != 1
-				p.ShamefullyHoist = mode == 2 || mode == 3
-				if mode == 3 || mode == 4 {
-					p.PublicHoistPatterns = []string{"GHOST", "member-*", "unreferenced", "!member-a"}
-				}
-				if mode == 5 {
-					p.HoistPatterns = []string{"*", "!ghost"}
-				}
-				p.VirtualStoreOnly = mode == 6
-				p.DedupeDirectDeps = mode == 7
-				if custom {
-					p.ModulesDirName = "deps"
-					p.VirtualStoreDir = filepath.Join(p.ProjectDir, "deps/vstore")
-				}
-				if err := os.RemoveAll(p.ProjectDir); err != nil {
-					t.Fatal(err)
-				}
-				seedIsolatedFixture(t, p)
-				var passes []map[string]any
-				for range 2 {
-					stats, err := LinkIsolatedProject(t.Context(), p)
-					var message any
-					if err != nil {
-						message = err.Error()
+	for _, global := range []bool{false, true} {
+		for _, workspace := range []bool{false, true} {
+			for mode := range 8 {
+				for _, custom := range []bool{false, true} {
+					var p IsolatedPlan
+					if global {
+						p = globalIsolatedFixture(t)
+					} else {
+						p = isolatedFixture(t)
 					}
-					passes = append(passes, map[string]any{"tree": materializedTree(t, p.ProjectDir), "stats": stats, "error": message})
+					p.HasWorkspace = workspace
+					p.ModulesDirName = "node_modules"
+					p.VirtualStoreDir = filepath.Join(p.ProjectDir, "node_modules/.store")
+					p.PublicHoistPatterns = []string{}
+					p.Hoist = new(bool)
+					*p.Hoist = mode != 0
+					p.HoistWorkspacePackages = new(bool)
+					*p.HoistWorkspacePackages = mode != 1
+					p.ShamefullyHoist = mode == 2 || mode == 3
+					if mode == 3 || mode == 4 {
+						p.PublicHoistPatterns = []string{"GHOST", "member-*", "unreferenced", "!member-a"}
+					}
+					if mode == 5 {
+						p.HoistPatterns = []string{"*", "!ghost"}
+					}
+					p.VirtualStoreOnly = mode == 6
+					p.DedupeDirectDeps = mode == 7
+					if global {
+						*p.Hoist = mode == 7
+						if mode == 2 {
+							p.DiskMaterialize = []string{"parent"}
+						}
+						if mode == 3 {
+							p.DiskMaterialize = []string{"ghost", "parent"}
+						}
+						if mode == 4 {
+							p.ProjectLocalDepPaths = lockfile.Set{"child@1.0.0": {}}
+						}
+					}
+					if custom {
+						p.ModulesDirName = "deps"
+						p.VirtualStoreDir = filepath.Join(p.ProjectDir, "deps/vstore")
+					}
+					if err := os.RemoveAll(p.ProjectDir); err != nil {
+						t.Fatal(err)
+					}
+					seedIsolatedFixture(t, p)
+					var passes []map[string]any
+					for range 2 {
+						stats, err := LinkIsolatedProject(t.Context(), p)
+						var message any
+						if err != nil {
+							message = err.Error()
+						}
+						passes = append(passes, map[string]any{"tree": materializedTree(t, p.ProjectDir), "stats": stats, "error": message, "globalTree": optionalMaterializedTree(t, p.GlobalVirtualStoreDir)})
+					}
+					expected = append(expected, passes)
+					if p.GlobalVirtualStoreDir != "" {
+						if err := os.RemoveAll(p.GlobalVirtualStoreDir); err != nil {
+							t.Fatal(err)
+						}
+					}
+					if err := os.RemoveAll(p.ProjectDir); err != nil {
+						t.Fatal(err)
+					}
+					seedIsolatedFixture(t, p)
+					inputs = append(inputs, map[string]any{
+						"global": p.UseGlobalVirtualStore, "globalRoot": p.GlobalVirtualStoreDir, "hashes": p.Hashes, "disk": p.DiskMaterialize, "projectLocal": p.ProjectLocalDepPaths,
+						"root": p.ProjectDir, "graph": p.Graph, "indices": p.Indices, "workspace": p.WorkspaceDirs,
+						"modules": p.ModulesDirName, "virtual": p.VirtualStoreDir, "hasWorkspace": p.HasWorkspace,
+						"hoist": *p.Hoist, "hoistWorkspace": *p.HoistWorkspacePackages, "patterns": p.HoistPatterns,
+						"shamefully": p.ShamefullyHoist, "dedupe": p.DedupeDirectDeps, "only": p.VirtualStoreOnly, "public": p.PublicHoistPatterns,
+					})
 				}
-				expected = append(expected, passes)
-				if err := os.RemoveAll(p.ProjectDir); err != nil {
-					t.Fatal(err)
-				}
-				seedIsolatedFixture(t, p)
-				inputs = append(inputs, map[string]any{
-					"root": p.ProjectDir, "graph": p.Graph, "indices": p.Indices, "workspace": p.WorkspaceDirs,
-					"modules": p.ModulesDirName, "virtual": p.VirtualStoreDir, "hasWorkspace": p.HasWorkspace,
-					"hoist": *p.Hoist, "hoistWorkspace": *p.HoistWorkspacePackages, "patterns": p.HoistPatterns,
-					"shamefully": p.ShamefullyHoist, "dedupe": p.DedupeDirectDeps, "only": p.VirtualStoreOnly, "public": p.PublicHoistPatterns,
-				})
 			}
 		}
 	}
@@ -95,7 +122,7 @@ func TestRustIsolatedProjectOracle(t *testing.T) {
 			for pass := range want[i] {
 				for key, value := range want[i][pass] {
 					if !reflect.DeepEqual(got[i][pass][key], value) {
-						if key == "tree" {
+						if key == "tree" || key == "globalTree" {
 							a, b := got[i][pass][key].(map[string]any), value.(map[string]any)
 							for path, entry := range b {
 								if !reflect.DeepEqual(a[path], entry) {
@@ -116,4 +143,15 @@ func TestRustIsolatedProjectOracle(t *testing.T) {
 		}
 	}
 	t.Log(fmt.Sprintf("compared %d cold/warm isolated project cases", len(inputs)))
+}
+
+func optionalMaterializedTree(t *testing.T, path string) map[string]any {
+	t.Helper()
+	if path == "" {
+		return map[string]any{}
+	}
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		return map[string]any{}
+	}
+	return materializedTree(t, path)
 }

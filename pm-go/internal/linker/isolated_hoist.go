@@ -79,6 +79,15 @@ func (p IsolatedPlan) publicHoist(ctx context.Context, m Materializer, nm string
 }
 
 func (p IsolatedPlan) hiddenHoist(ctx context.Context, m Materializer) error {
+	if p.UseGlobalVirtualStore {
+		_ = removeEntry(ctx, filepath.Join(p.GlobalVirtualStoreDir, "node_modules"), 1)
+		if len(p.DiskMaterialize) > 0 {
+			// Ejected real directories can walk into this project-local tree;
+			// the shared copies of other packages cannot reach it.
+			p.Hoist = nil
+			p.HoistPatterns = []string{"*"}
+		}
+	}
 	hidden := filepath.Join(m.Root, "node_modules")
 	_ = removeEntry(ctx, hidden, 1)
 	if !enabled(p.Hoist) {
