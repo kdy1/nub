@@ -172,4 +172,6 @@ The shared Go lockfile layout pass collapses peer contexts into canonical packag
 
 The Go npm writer emits v3 with npm’s scalar/object key ordering, declared ranges, source URLs, and reachability flags. Fresh workspace identities come from member manifests; existing workspace and local link conflicts retain separate placements. Native npm fixtures exercise byte-preserving round trips. Publication is atomic and respects the process umask.
 
+Go pnpm key helpers preserve nested peer suffixes, strip write-time patch markers, and record transitive alias remaps. Registry-qualified versions remain distinguishable from reserved source protocols. Malformed peer suffixes retain the reference diagnostic behavior.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
