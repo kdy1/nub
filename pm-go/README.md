@@ -47,3 +47,5 @@ The Go executable uses its own `nub-pm-go` global cache and store namespace with
 The pnpm/nub.lock adapter reads v9+ graphs, scores pnpm 11 document streams, and preserves source, peer, patch, catalog, skipped optional, and runtime metadata. Its writer retains pnpm's section order and layout, translates source and alias keys, stamps matching patch hashes, and supports the existing native-lock alias representation. This remains an internal component; install integration and unchanged-lockfile policy are pending.
 
 Set `PM_PNPM_CLI` to pnpm 10.15.1's `pnpm.cjs` to enable the isolated pnpm acceptance oracle. It generates alias/peer/optional, workspace, catalog, and remote-tarball locks, rewrites them with Go, and checks frozen installs and Node resolution. CI runs this with PATH Node and no Rust addon.
+
+Shared JSON parsing rejects invalid UTF-8 and unpaired UTF-16 escapes. Typed lockfile readers can retain repeated object fields for format-specific duplicate checks, while manifest values keep last-value-wins behavior.

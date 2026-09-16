@@ -104,3 +104,41 @@ func TestReferenceNumberModel(t *testing.T) {
 		}
 	}
 }
+
+func TestUTF16EscapeValidation(t *testing.T) {
+	for input, want := range map[string]string{
+		`"\ud83d\ude00"`: "😀", `"\uD800\uDC00"`: "𐀀", `"\uDBFF\uDFFF"`: "\U0010ffff",
+		`"\\ud800"`: `\ud800`, `"\ufffd"`: "�", `"\"\ud83d\ude00"`: "\"😀",
+	} {
+		v, err := Parse([]byte(input))
+		if err != nil || v.Text() != want {
+			t.Fatalf("%s: %v, %v", input, v, err)
+		}
+	}
+	for _, input := range []string{`"\ud800"`, `"\udfff"`, `"\ud800x"`, `"\ud800\u0041"`, `"\ud800\ud800"`, `"\ud800\\udc00"`, `{"\ud800": 1}`} {
+		if _, err := Parse([]byte(input)); err == nil {
+			t.Fatalf("accepted %s", input)
+		}
+	}
+}
+
+func TestRetainedObjectFields(t *testing.T) {
+	input := []byte(`{"x":{"a":1,"a":2},"x":3}`)
+	v, err := ParseObjectFields(input)
+	if err != nil || len(v.Object) != 2 || len(v.Object[0].Value.Object) != 2 {
+		t.Fatal(v, err)
+	}
+	data, err := v.MarshalJSON()
+	if err != nil || string(data) != string(input) {
+		t.Fatal(string(data), err)
+	}
+	v, err = Parse(input)
+	if err != nil || len(v.Object) != 1 || stringValue(v.Get("x")) != "3" {
+		t.Fatal(v, err)
+	}
+}
+
+func stringValue(v *Value) string {
+	data, _ := v.MarshalJSON()
+	return string(data)
+}

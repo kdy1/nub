@@ -25,12 +25,26 @@ func String(s string) *Value { return &Value{Kind: 's', Scalar: s} }
 func Null() *Value           { return &Value{Kind: 'n'} }
 
 func Parse(data []byte) (*Value, error) {
+	return parse(data, false)
+}
+
+// ParseObjectFields retains repeated object fields for typed format readers.
+// Ordinary JSON values use Parse's last-value-wins semantics; a typed reader
+// can instead reject repeated struct fields before converting map values.
+func ParseObjectFields(data []byte) (*Value, error) {
+	return parse(data, true)
+}
+
+func parse(data []byte, retainFields bool) (*Value, error) {
 	if !utf8.Valid(data) {
 		return nil, fmt.Errorf("invalid UTF-8 in JSON document")
 	}
+	if err := validateSurrogates(data); err != nil {
+		return nil, err
+	}
 	d := json.NewDecoder(bytes.NewReader(data))
 	d.UseNumber()
-	v, err := read(d, 0)
+	v, err := read(d, 0, retainFields)
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +57,7 @@ func Parse(data []byte) (*Value, error) {
 	return v, nil
 }
 
-func read(d *json.Decoder, depth int) (*Value, error) {
+func read(d *json.Decoder, depth int, retainFields bool) (*Value, error) {
 	if depth > 128 {
 		return nil, fmt.Errorf("JSON nesting exceeds 128 levels")
 	}
@@ -61,15 +75,19 @@ func read(d *json.Decoder, depth int) (*Value, error) {
 				if err != nil {
 					return nil, err
 				}
-				value, err := read(d, depth+1)
+				value, err := read(d, depth+1, retainFields)
 				if err != nil {
 					return nil, err
 				}
-				v.Put(key.(string), value)
+				if retainFields {
+					v.Object = append(v.Object, Field{key.(string), value})
+				} else {
+					v.Put(key.(string), value)
+				}
 			}
 		case '[':
 			for d.More() {
-				value, err := read(d, depth+1)
+				value, err := read(d, depth+1, retainFields)
 				if err != nil {
 					return nil, err
 				}
