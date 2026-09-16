@@ -164,7 +164,7 @@ func (m Materializer) linkDependencies(ctx context.Context, base, entry string, 
 			}
 		}
 		if warm {
-			current, err := reconcileDependencyLink(link, target)
+			current, err := reconcileDependencyLink(ctx, link, target)
 			if err != nil {
 				return err
 			}
@@ -177,7 +177,7 @@ func (m Materializer) linkDependencies(ctx context.Context, base, entry string, 
 		}
 		if err := CreateDirLink(ctx, target, link); err != nil {
 			if warm && os.IsExist(err) {
-				if current, repairErr := reconcileDependencyLink(link, target); repairErr == nil && current {
+				if current, repairErr := reconcileDependencyLink(ctx, link, target); repairErr == nil && current {
 					continue
 				}
 			}

@@ -1,6 +1,7 @@
 package linker
 
 import (
+	"context"
 	"errors"
 	"os"
 	"path/filepath"
@@ -14,9 +15,14 @@ func transientPublishError(err error) bool {
 		errors.Is(err, windows.ERROR_SHARING_VIOLATION) || errors.Is(err, windows.ERROR_LOCK_VIOLATION)
 }
 
-func reconcileDependencyLink(link, target string) (bool, error) {
+func reconcileDependencyLink(ctx context.Context, link, target string) (bool, error) {
 	if !filepath.IsAbs(target) {
 		target = filepath.Join(filepath.Dir(link), target)
+	}
+	// A correctly targeted dangling junction needs no repair. Avoid deleting
+	// it while another install materializes the destination or reads the link.
+	if raw, err := os.Readlink(link); err == nil && filepath.Clean(stripVerbatim(raw)) == filepath.Clean(stripVerbatim(target)) {
+		return true, nil
 	}
 	canonicalLink, linkErr := fsutil.Canonicalize(link)
 	canonicalTarget, targetErr := fsutil.Canonicalize(target)
@@ -26,9 +32,12 @@ func reconcileDependencyLink(link, target string) (bool, error) {
 	if _, err := os.Lstat(link); err != nil {
 		return false, nil
 	}
-	err := os.Remove(link)
-	if os.IsNotExist(err) {
-		err = nil
-	}
+	err := fsutil.RetryTransient(ctx, func() error {
+		err := os.Remove(link)
+		if os.IsNotExist(err) {
+			return nil
+		}
+		return err
+	})
 	return false, err
 }

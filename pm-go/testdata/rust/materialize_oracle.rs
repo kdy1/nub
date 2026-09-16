@@ -52,7 +52,7 @@ fn materialize(case: &Value) -> Value {
         .collect();
     let mut indices = BTreeMap::new();
     for (key, value) in case["indices"].as_object().unwrap() {
-        let mut index = PackageIndex::new();
+        let mut index = PackageIndex::default();
         for (name, file) in value.as_object().unwrap() {
             index.insert(
                 name.clone(),

@@ -3,6 +3,7 @@
 package linker
 
 import (
+	"context"
 	"errors"
 	"os"
 	"syscall"
@@ -12,7 +13,10 @@ func transientPublishError(err error) bool {
 	return os.IsExist(err) || os.IsPermission(err) || errors.Is(err, syscall.EINTR) || errors.Is(err, syscall.EAGAIN)
 }
 
-func reconcileDependencyLink(link, target string) (bool, error) {
+func reconcileDependencyLink(ctx context.Context, link, target string) (bool, error) {
+	if err := ctx.Err(); err != nil {
+		return false, err
+	}
 	existing, err := os.Readlink(link)
 	if err == nil && existing == target {
 		return true, nil
