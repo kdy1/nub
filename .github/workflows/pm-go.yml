@@ -103,4 +103,4 @@ jobs:
           PM_RUST_LOCKFILE_ORACLE: ${{ github.workspace }}/target/pm-go/rust-lockfile-oracle
           PM_NPM_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/npm/bin/npm-cli.js
           PM_PNPM_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/pnpm/bin/pnpm.cjs
-        run: go test -v ./internal/lockfile/npm ./internal/lockfile/pnpm
+        run: go test -v ./internal/lockfile/npm ./internal/lockfile/pnpm ./internal/lockfile/bun

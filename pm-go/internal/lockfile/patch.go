@@ -76,21 +76,27 @@ func ClassifyPatchKey(key string, pnpmOnly bool) (PatchKey, error) {
 	return PatchKey{}, &InvalidPatchRange{selector}
 }
 func sourceProtocol(s string) bool {
+	_, ok := VersionProtocol(s)
+	return ok
+}
+
+// VersionProtocol recognizes only protocol tokens that cannot be registry versions.
+func VersionProtocol(s string) (string, bool) {
 	token, _, ok := strings.Cut(s, ":")
 	if !ok || token == "" {
-		return false
+		return "", false
 	}
 	alpha := func(c byte) bool { return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' }
 	if !alpha(token[0]) {
-		return false
+		return "", false
 	}
 	for i := 1; i < len(token); i++ {
 		c := token[i]
 		if !alpha(c) && !(c >= '0' && c <= '9') && c != '+' && c != '.' && c != '-' {
-			return false
+			return "", false
 		}
 	}
-	return true
+	return token, true
 }
 
 type patchRange struct {

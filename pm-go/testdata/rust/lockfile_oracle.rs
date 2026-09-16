@@ -4,6 +4,22 @@ mod graph_snapshot;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 3 && args[0] == "bun-graph" {
+        if args[2] == "strict" {
+            static STRICT: aube_util::Embedder = aube_util::Embedder {
+                strict_unsupported_source: true,
+                ..aube_util::AUBE
+            };
+            aube_util::set_embedder(&STRICT);
+        }
+        let result = aube_lockfile::bun::parse(std::path::Path::new(&args[1]));
+        let result = match result {
+            Ok(graph) => serde_json::json!({"ok": true, "graph": graph_snapshot::snapshot(&graph)}),
+            Err(error) => serde_json::json!({"ok": false, "error": error.to_string()}),
+        };
+        println!("{result}");
+        return;
+    }
     if args.len() == 5 && args[0] == "pnpm-write" {
         let options = aube_lockfile::ParseOptions {
             strict_store_integrity: args[4] != "relaxed",

@@ -78,7 +78,7 @@ The command registry and aliases are extracted from the Rust adapter and checked
 | Context and parser | Explicit directory, environment, streams; manifest option/variadic parsing | Full pnpm grammar, option-position and exit/output parity |
 | Project and config | PM identity/major override rules, source-scoped npmrc/auth/TLS/proxies, ordered manifests, workspace glob matching | Complete settings session, nub.jsonc consumers, Yarn/Bun adapters, workspace discovery and filters |
 | Resolution | npm semver oracle, version/publish-age selection, source identities, platforms, graph traversal and optional/peer passes | Full dependency resolution, peer contexts/conflicts, overrides/catalog expansion, Git/generator execution |
-| Lockfiles | npm v1/v2/v3/versionless reader and v3 writer; canonical hoist layout and patch selector resolution; native npm fixture round trips; pnpm peer/patch/alias keys, checksums, typed YAML document selection and reference subset dispatch, v9+ reader/writer and output layout rules | Bun and Yarn adapters; frozen/drift orchestration; unchanged-file policy |
+| Lockfiles | npm v1/v2/v3/versionless reader and v3 writer; canonical hoist layout and patch selector resolution; native npm fixture round trips; pnpm peer/patch/alias keys, checksums, typed YAML document selection and reference subset dispatch, v9+ reader/writer and output layout rules; Bun text v1/v2 graph reader and source policy | Bun writer and Yarn adapters; frozen/drift orchestration; unchanged-file policy |
 | Network and store | HTTP/TLS/auth/redirect limits, metadata caching/offline, SRI, safe archives, BLAKE3 CAS/indexes, process locks, directory/tarball imports | Complete package fetch coordinator, integrity-free source bindings, maintenance commands, installation state |
 | Linkers | Graph and placement prerequisites | Isolated/hoisted/PnP materialization, executable shims, phantom dependencies, reuse |
 | Scripts | No lifecycle execution handler | Build approvals, ordering, sandbox, environment, exit propagation, node-gyp bootstrap |
@@ -87,7 +87,7 @@ The command registry and aliases are extracted from the Rust adapter and checked
 ## Validation boundary
 
 - CI runs Go tests with the race detector, vet, and cgo-disabled builds on Linux, macOS, and Windows.
-- Rust differential tests cover manifest commands, npm library serialization, and pnpm graph parsing and writer bytes. A test-only probe uses the unchanged Rust libraries; production Go never loads it. These cases do not establish install or full PM parity.
+- Rust differential tests cover manifest commands, npm library serialization, and pnpm graph parsing and writer bytes, and Bun graphs under strict/lenient source policies. A test-only probe uses the unchanged Rust libraries; production Go never loads it. These cases do not establish install or full PM parity.
 - Pinned npm and pnpm oracles exercise lockfile round trips and clean/frozen installs against an isolated registry. It does not run the Go installer, which has no handler yet.
 - A workspace conflict fixture retains the reference writer's redundant member-local hoist. Its difference from native npm is asserted explicitly, without normalizing it out of Rust/Go byte comparisons. The install orchestrator's unchanged-lockfile policy is still unimplemented.
 - Node-semver 7.7.4 is an independent range oracle. Production range handling is Go code.

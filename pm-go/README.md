@@ -51,3 +51,5 @@ Set `PM_PNPM_CLI` to pnpm 10.15.1's `pnpm.cjs` to enable the isolated pnpm accep
 Shared JSON parsing rejects invalid UTF-8 and unpaired UTF-16 escapes. Typed lockfile readers can retain repeated object fields for format-specific duplicate checks, while manifest values keep last-value-wins behavior.
 
 Bun's text-lockfile decoder preserves JSONC byte offsets, validates typed fields, retains unknown metadata, and distinguishes registry and Git tuple layouts. Binary `bun.lockb` is outside the reference reader's supported formats.
+
+The Bun v1/v2 graph reader resolves nested/scoped package keys and workspace overrides, preserves catalogs and source identities, and retains required workspace peers. Unsupported required sources fail eagerly under Nub's policy; unsupported optionals emit diagnostics and preserve skipped-importer declarations. CI compares complete graphs with the Rust reader in both Nub's strict mode and standalone lenient mode.
