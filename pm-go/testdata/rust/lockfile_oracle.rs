@@ -10,6 +10,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "git-codeload" {
+        git_oracle::codeload(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "git-refs" {
         git_oracle::refs(std::path::Path::new(&args[1]));
         return;

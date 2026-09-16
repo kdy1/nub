@@ -45,6 +45,8 @@ func hexCommit(value string, min, max int) bool {
 	return true
 }
 
+func IsFullCommit(value string) bool { return hexCommit(value, 40, 40) }
+
 func redactArgs(args []string) string {
 	quoted := make([]string, len(args))
 	for i, arg := range args {

@@ -31,6 +31,18 @@ type ArchiveIndex map[string]ExtractedFile
 // merges into a pre-existing tree. Archive paths are interpreted independently
 // of the host before os.Root confines all filesystem writes to the destination.
 func ExtractTarball(ctx context.Context, compressed io.Reader, destination string, limits ArchiveLimits) (ArchiveIndex, error) {
+	return extractTarball(ctx, compressed, destination, limits, false)
+}
+
+// ExtractCodeload additionally preserves directories and safe relative
+// symlinks from hosted Git archives. Windows rejects symlinks so the source
+// resolver can fall back to Git's own checkout policy.
+func ExtractCodeload(ctx context.Context, compressed io.Reader, destination string, limits ArchiveLimits) error {
+	_, err := extractTarball(ctx, compressed, destination, limits, true)
+	return err
+}
+
+func extractTarball(ctx context.Context, compressed io.Reader, destination string, limits ArchiveLimits, codeload bool) (ArchiveIndex, error) {
 	if limits.DecompressedBytes <= 0 || limits.EntryBytes <= 0 || limits.Entries <= 0 {
 		return nil, fmt.Errorf("archive limits must be positive")
 	}
@@ -76,8 +88,16 @@ func ExtractTarball(ctx context.Context, compressed io.Reader, destination strin
 			return nil, fmt.Errorf("tarball exceeds entry cap of %d", limits.Entries)
 		}
 		switch header.Typeflag {
-		case tar.TypeDir, tar.TypeXHeader, tar.TypeXGlobalHeader, tar.TypeGNULongName, tar.TypeGNULongLink:
+		case tar.TypeXHeader, tar.TypeXGlobalHeader, tar.TypeGNULongName, tar.TypeGNULongLink:
 			continue
+		case tar.TypeDir:
+			if !codeload {
+				continue
+			}
+		case tar.TypeSymlink:
+			if !codeload {
+				return nil, fmt.Errorf("tarball entry type %q is not allowed", header.Typeflag)
+			}
 		case tar.TypeReg, tar.TypeCont:
 		default:
 			return nil, fmt.Errorf("tarball entry type %q is not allowed", header.Typeflag)
@@ -92,8 +112,32 @@ func ExtractTarball(ctx context.Context, compressed io.Reader, destination strin
 		if name == "" {
 			continue
 		}
+		if header.Typeflag == tar.TypeDir {
+			if err := root.MkdirAll(filepath.FromSlash(name), 0755); err != nil {
+				return nil, err
+			}
+			continue
+		}
 		if err := root.MkdirAll(filepath.FromSlash(path.Dir(name)), 0755); err != nil {
 			return nil, err
+		}
+		if header.Typeflag == tar.TypeSymlink {
+			link := header.Linkname
+			if filepath.IsAbs(link) || strings.HasPrefix(link, "/") || strings.ContainsRune(link, 0) {
+				return nil, fmt.Errorf("tarball symlink %s -> %s escapes target", header.Name, link)
+			}
+			for _, component := range strings.Split(filepath.ToSlash(link), "/") {
+				if component == ".." {
+					return nil, fmt.Errorf("tarball symlink %s -> %s escapes target", header.Name, link)
+				}
+			}
+			if runtime.GOOS == "windows" {
+				return nil, fmt.Errorf("tarball symlink %s -> %s not supported on Windows; remove the codeload cache entry and retry to fall back to `git clone`", header.Name, link)
+			}
+			if err := root.Symlink(link, filepath.FromSlash(name)); err != nil {
+				return nil, err
+			}
+			continue
 		}
 		f, err := root.OpenFile(filepath.FromSlash(name), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0600)
 		if err != nil {
