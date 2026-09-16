@@ -1,0 +1,2612 @@
+{
+  "baseline": "2a4573ef059798b75f789aa8c22da51e470e3138",
+  "scope": "Source declarations, including flattened structs. Adapter rewrites and manual subcommand grammars require separate verification.",
+  "commands": {
+    "install": {
+      "declaration": "crates/nub-cli/src/cli.rs::Install"
+    },
+    "ci": {
+      "declaration": "crates/nub-cli/src/cli.rs::Ci"
+    },
+    "pm": {
+      "manual_dispatch": "crates/nub-cli/src/cli.rs::run_pm"
+    },
+    "add": {
+      "declaration": "vendor/aube/crates/aube/src/commands/add/mod.rs::AddArgs"
+    },
+    "remove": {
+      "declaration": "vendor/aube/crates/aube/src/commands/remove.rs::RemoveArgs"
+    },
+    "update": {
+      "declaration": "vendor/aube/crates/aube/src/commands/update.rs::UpdateArgs"
+    },
+    "import": {
+      "declaration": "vendor/aube/crates/aube/src/commands/import.rs::ImportArgs"
+    },
+    "dedupe": {
+      "declaration": "vendor/aube/crates/aube/src/commands/dedupe.rs::DedupeArgs"
+    },
+    "prune": {
+      "declaration": "vendor/aube/crates/aube/src/commands/prune.rs::PruneArgs"
+    },
+    "rebuild": {
+      "declaration": "vendor/aube/crates/aube/src/commands/rebuild.rs::RebuildArgs"
+    },
+    "fetch": {
+      "declaration": "vendor/aube/crates/aube/src/commands/fetch.rs::FetchArgs"
+    },
+    "link": {
+      "declaration": "vendor/aube/crates/aube/src/commands/link.rs::LinkArgs"
+    },
+    "unlink": {
+      "declaration": "vendor/aube/crates/aube/src/commands/unlink.rs::UnlinkArgs"
+    },
+    "approve-builds": {
+      "declaration": "vendor/aube/crates/aube/src/commands/approve_builds.rs::ApproveBuildsArgs"
+    },
+    "ignored-builds": {
+      "declaration": "vendor/aube/crates/aube/src/commands/ignored_builds.rs::IgnoredBuildsArgs"
+    },
+    "patch": {
+      "declaration": "vendor/aube/crates/aube/src/commands/patch.rs::PatchArgs"
+    },
+    "patch-commit": {
+      "declaration": "vendor/aube/crates/aube/src/commands/patch_commit.rs::PatchCommitArgs"
+    },
+    "patch-remove": {
+      "declaration": "vendor/aube/crates/aube/src/commands/patch_remove.rs::PatchRemoveArgs"
+    },
+    "clean": {
+      "declaration": "vendor/aube/crates/aube/src/commands/clean.rs::CleanArgs"
+    },
+    "purge": {
+      "declaration": "vendor/aube/crates/aube/src/commands/clean.rs::CleanArgs"
+    },
+    "deploy": {
+      "declaration": "vendor/aube/crates/aube/src/commands/deploy/mod.rs::DeployArgs"
+    },
+    "dlx": {
+      "declaration": "vendor/aube/crates/aube/src/commands/dlx.rs::DlxArgs"
+    },
+    "create": {
+      "declaration": "vendor/aube/crates/aube/src/commands/create.rs::CreateArgs"
+    },
+    "recursive": {
+      "declaration": "vendor/aube/crates/aube/src/commands/recursive.rs::RecursiveArgs"
+    },
+    "list": {
+      "declaration": "vendor/aube/crates/aube/src/commands/list.rs::ListArgs"
+    },
+    "la": {
+      "declaration": "vendor/aube/crates/aube/src/commands/list.rs::ListArgs"
+    },
+    "ll": {
+      "declaration": "vendor/aube/crates/aube/src/commands/list.rs::ListArgs"
+    },
+    "why": {
+      "declaration": "vendor/aube/crates/aube/src/commands/why.rs::WhyArgs"
+    },
+    "outdated": {
+      "declaration": "vendor/aube/crates/aube/src/commands/outdated.rs::OutdatedArgs"
+    },
+    "audit": {
+      "declaration": "vendor/aube/crates/aube/src/commands/audit.rs::AuditArgs"
+    },
+    "licenses": {
+      "declaration": "vendor/aube/crates/aube/src/commands/licenses.rs::LicensesArgs"
+    },
+    "deprecations": {
+      "declaration": "vendor/aube/crates/aube/src/commands/deprecations.rs::DeprecationsArgs"
+    },
+    "peers": {
+      "declaration": "vendor/aube/crates/aube/src/commands/peers.rs::PeersArgs"
+    },
+    "query": {
+      "declaration": "vendor/aube/crates/aube/src/commands/query.rs::QueryArgs"
+    },
+    "check": {
+      "declaration": "vendor/aube/crates/aube/src/commands/check.rs::CheckArgs"
+    },
+    "bin": {
+      "declaration": "vendor/aube/crates/aube/src/commands/bin.rs::BinArgs"
+    },
+    "root": {
+      "declaration": "vendor/aube/crates/aube/src/commands/root.rs::RootArgs"
+    },
+    "sbom": {
+      "declaration": "vendor/aube/crates/aube/src/commands/sbom.rs::SbomArgs"
+    },
+    "view": {
+      "declaration": "vendor/aube/crates/aube/src/commands/view.rs::ViewArgs"
+    },
+    "search": {
+      "declaration": "vendor/aube/crates/aube/src/commands/search.rs::SearchArgs"
+    },
+    "publish": {
+      "declaration": "vendor/aube/crates/aube/src/commands/publish.rs::PublishArgs"
+    },
+    "pack": {
+      "declaration": "vendor/aube/crates/aube/src/commands/pack.rs::PackArgs"
+    },
+    "version": {
+      "declaration": "vendor/aube/crates/aube/src/commands/version.rs::VersionArgs"
+    },
+    "deprecate": {
+      "declaration": "vendor/aube/crates/aube/src/commands/deprecate.rs::DeprecateArgs"
+    },
+    "undeprecate": {
+      "declaration": "vendor/aube/crates/aube/src/commands/undeprecate.rs::UndeprecateArgs"
+    },
+    "dist-tag": {
+      "declaration": "vendor/aube/crates/aube/src/commands/dist_tag.rs::DistTagArgs"
+    },
+    "unpublish": {
+      "declaration": "vendor/aube/crates/aube/src/commands/unpublish.rs::UnpublishArgs"
+    },
+    "login": {
+      "declaration": "vendor/aube/crates/aube/src/commands/login.rs::LoginArgs"
+    },
+    "logout": {
+      "declaration": "vendor/aube/crates/aube/src/commands/logout.rs::LogoutArgs"
+    },
+    "whoami": {
+      "declaration": "vendor/aube/crates/aube/src/commands/whoami.rs::WhoamiArgs"
+    },
+    "owner": {
+      "declaration": "vendor/aube/crates/aube/src/commands/owner.rs::OwnerArgs"
+    },
+    "token": {
+      "declaration": "vendor/aube/crates/aube/src/commands/token.rs::TokenArgs"
+    },
+    "store": {
+      "declaration": "vendor/aube/crates/aube/src/commands/store.rs::StoreArgs"
+    },
+    "cache": {
+      "declaration": "vendor/aube/crates/aube/src/commands/cache.rs::CacheArgs"
+    },
+    "cat-file": {
+      "declaration": "vendor/aube/crates/aube/src/commands/cat_file.rs::CatFileArgs"
+    },
+    "cat-index": {
+      "declaration": "vendor/aube/crates/aube/src/commands/cat_index.rs::CatIndexArgs"
+    },
+    "find-hash": {
+      "declaration": "vendor/aube/crates/aube/src/commands/find_hash.rs::FindHashArgs"
+    },
+    "config": {
+      "declaration": "vendor/aube/crates/aube/src/commands/config/mod.rs::ConfigArgs"
+    },
+    "get": {
+      "declaration": "vendor/aube/crates/aube/src/commands/config/get.rs::GetArgs"
+    },
+    "set": {
+      "declaration": "vendor/aube/crates/aube/src/commands/config/set.rs::SetArgs"
+    },
+    "pkg": {
+      "declaration": "vendor/aube/crates/aube/src/commands/pkg.rs::PkgArgs"
+    },
+    "set-script": {
+      "declaration": "vendor/aube/crates/aube/src/commands/set_script.rs::SetScriptArgs"
+    }
+  },
+  "declarations": {
+    "crates/nub-cli/src/cli.rs::Ci": {
+      "fields": [
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, visible_alias = \"production\")]"
+          ]
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts(\"--prod\"))]"
+          ]
+        },
+        {
+          "field": "ignore_scripts",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "no_optional",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "registry",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"URL\")]"
+          ]
+        },
+        {
+          "field": "dir",
+          "rust_type": "Option<PathBuf>",
+          "attributes": [
+            "#[usage(short = 'C', long = \"dir\", value_name = \"DIR\")]"
+          ]
+        },
+        {
+          "field": "filter",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(short = 'F', long, value_name = \"PATTERN\")]"
+          ]
+        },
+        {
+          "field": "filter_prod",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"PATTERN\")]"
+          ]
+        },
+        {
+          "field": "recursive",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'r', long)]"
+          ]
+        },
+        {
+          "field": "fail_if_no_match",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "include_workspace_root",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "output",
+          "rust_type": "crate::pm_engine::OutputFlags",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "crates/nub-cli/src/pm_engine/output.rs::OutputFlags"
+        },
+        {
+          "field": "age_gate",
+          "rust_type": "crate::pm_engine::AgeGateFlags",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "crates/nub-cli/src/pm_engine/min_release_age.rs::AgeGateFlags"
+        },
+        {
+          "field": "platform",
+          "rust_type": "crate::pm_engine::PlatformFlags",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "crates/nub-cli/src/pm_engine/platform_flags.rs::PlatformFlags"
+        }
+      ]
+    },
+    "crates/nub-cli/src/cli.rs::Install": {
+      "fields": [
+        {
+          "field": "frozen_lockfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "no_frozen_lockfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--frozen-lockfile\"))]"
+          ]
+        },
+        {
+          "field": "prefer_frozen_lockfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--frozen-lockfile\", \"--no-frozen-lockfile\"))]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, visible_alias = \"production\")]"
+          ]
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts(\"--prod\"))]"
+          ]
+        },
+        {
+          "field": "ignore_scripts",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "pnpmfile",
+          "rust_type": "Option<PathBuf>",
+          "attributes": [
+            "#[usage(long, value_name = \"PATH\", conflicts(\"--ignore-pnpmfile\"))]"
+          ]
+        },
+        {
+          "field": "global_pnpmfile",
+          "rust_type": "Option<PathBuf>",
+          "attributes": [
+            "#[usage(long, value_name = \"PATH\", conflicts(\"--ignore-pnpmfile\"))]"
+          ]
+        },
+        {
+          "field": "ignore_pnpmfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "no_optional",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "offline",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "prefer_offline",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--offline\"))]"
+          ]
+        },
+        {
+          "field": "lockfile_only",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "force",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "node_linker",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"MODE\")]"
+          ]
+        },
+        {
+          "field": "registry",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"URL\")]"
+          ]
+        },
+        {
+          "field": "dir",
+          "rust_type": "Option<PathBuf>",
+          "attributes": [
+            "#[usage(short = 'C', long = \"dir\", value_name = \"DIR\")]"
+          ]
+        },
+        {
+          "field": "filter",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(short = 'F', long, value_name = \"PATTERN\")]"
+          ]
+        },
+        {
+          "field": "filter_prod",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"PATTERN\")]"
+          ]
+        },
+        {
+          "field": "recursive",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'r', long)]"
+          ]
+        },
+        {
+          "field": "fail_if_no_match",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "include_workspace_root",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "output",
+          "rust_type": "crate::pm_engine::OutputFlags",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "crates/nub-cli/src/pm_engine/output.rs::OutputFlags"
+        },
+        {
+          "field": "age_gate",
+          "rust_type": "crate::pm_engine::AgeGateFlags",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "crates/nub-cli/src/pm_engine/min_release_age.rs::AgeGateFlags"
+        },
+        {
+          "field": "platform",
+          "rust_type": "crate::pm_engine::PlatformFlags",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "crates/nub-cli/src/pm_engine/platform_flags.rs::PlatformFlags"
+        }
+      ]
+    },
+    "crates/nub-cli/src/pm_engine/min_release_age.rs::AgeGateFlags": {
+      "fields": [
+        {
+          "field": "minimum_release_age",
+          "rust_type": "Option<ReleaseAge>",
+          "attributes": [
+            "#[usage(long, value_name = \"DURATION\")]"
+          ]
+        },
+        {
+          "field": "minimum_release_age_exclude",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"PKG\")]"
+          ]
+        }
+      ]
+    },
+    "crates/nub-cli/src/pm_engine/output.rs::OutputFlags": {
+      "fields": [
+        {
+          "field": "reporter",
+          "rust_type": "Option<Reporter>",
+          "attributes": [
+            "#[usage(long, value_name = \"NAME\", value_enum)]"
+          ]
+        },
+        {
+          "field": "silent",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 's', long)]"
+          ]
+        },
+        {
+          "field": "loglevel",
+          "rust_type": "Option<LogLevel>",
+          "attributes": [
+            "#[usage(long, value_name = \"LEVEL\", value_enum)]"
+          ]
+        }
+      ]
+    },
+    "crates/nub-cli/src/pm_engine/platform_flags.rs::PlatformFlags": {
+      "fields": [
+        {
+          "field": "os",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"OS\", delimiter = ',')]"
+          ]
+        },
+        {
+          "field": "cpu",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"CPU\", delimiter = ',')]"
+          ]
+        },
+        {
+          "field": "libc",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"LIBC\", delimiter = ',')]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/cli_args.rs::LockfileArgs": {
+      "fields": [
+        {
+          "field": "frozen_lockfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--no-frozen-lockfile\", \"--prefer-frozen-lockfile\"))]"
+          ]
+        },
+        {
+          "field": "no_frozen_lockfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--frozen-lockfile\", \"--prefer-frozen-lockfile\"))]"
+          ]
+        },
+        {
+          "field": "prefer_frozen_lockfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--frozen-lockfile\", \"--no-frozen-lockfile\"))]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs": {
+      "fields": [
+        {
+          "field": "fetch_retries",
+          "rust_type": "Option<u64>",
+          "attributes": [
+            "#[usage(long, value_name = \"N\")]"
+          ]
+        },
+        {
+          "field": "fetch_retry_factor",
+          "rust_type": "Option<u64>",
+          "attributes": [
+            "#[usage(long, value_name = \"N\")]"
+          ]
+        },
+        {
+          "field": "fetch_retry_maxtimeout",
+          "rust_type": "Option<u64>",
+          "attributes": [
+            "#[usage(long, value_name = \"MS\")]"
+          ]
+        },
+        {
+          "field": "fetch_retry_mintimeout",
+          "rust_type": "Option<u64>",
+          "attributes": [
+            "#[usage(long, value_name = \"MS\")]"
+          ]
+        },
+        {
+          "field": "fetch_timeout",
+          "rust_type": "Option<u64>",
+          "attributes": [
+            "#[usage(long, value_name = \"MS\")]"
+          ]
+        },
+        {
+          "field": "registry",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"URL\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/cli_args.rs::VirtualStoreArgs": {
+      "fields": [
+        {
+          "field": "disable_global_virtual_store",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, long = \"disable-gvs\", conflicts = \"--enable-gvs\")]"
+          ]
+        },
+        {
+          "field": "enable_global_virtual_store",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, long = \"enable-gvs\", conflicts = \"--disable-gvs\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/add/mod.rs::AddArgs": {
+      "fields": [
+        {
+          "field": "packages",
+          "rust_type": "Vec<String>",
+          "attributes": []
+        },
+        {
+          "field": "save_dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long)]"
+          ]
+        },
+        {
+          "field": "save_exact",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'E', long)]"
+          ]
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long)]"
+          ]
+        },
+        {
+          "field": "save_optional",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'O', long)]"
+          ]
+        },
+        {
+          "field": "allow_build",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage( long = \"allow-build\", value_name = \"PKG\", conflicts = \"--no-save\", require_equals = true, validate = \"value != ''\", validate_error = \"The --allow-build flag is missing a package name. Please specify the package name(s) that are allowed to run installation scripts.\" )]"
+          ]
+        },
+        {
+          "field": "allow_low_downloads",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "dangerously_allow_all_builds",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "deny_build",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage( long = \"deny-build\", value_name = \"PKG\", conflicts(\"--no-save\", \"--dangerously-allow-all-builds\"), require_equals = true, validate = \"value != ''\", validate_error = \"The --deny-build flag is missing a package name. Please specify the package name(s) that are denied from running installation scripts.\" )]"
+          ]
+        },
+        {
+          "field": "global_pnpmfile",
+          "rust_type": "Option<std::path::PathBuf>",
+          "attributes": [
+            "#[usage(long, value_name = \"PATH\", conflicts = \"--ignore-pnpmfile\")]"
+          ]
+        },
+        {
+          "field": "ignore_pnpmfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "ignore_scripts",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, hide)]"
+          ]
+        },
+        {
+          "field": "lockfile_only",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--no-save\")]"
+          ]
+        },
+        {
+          "field": "no_save",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--global\")]"
+          ]
+        },
+        {
+          "field": "no_save_workspace_protocol",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, overrides = \"--save-workspace-protocol\")]"
+          ]
+        },
+        {
+          "field": "pnpmfile",
+          "rust_type": "Option<std::path::PathBuf>",
+          "attributes": [
+            "#[usage(long, value_name = \"PATH\", conflicts = \"--ignore-pnpmfile\")]"
+          ]
+        },
+        {
+          "field": "save_catalog",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--save-catalog-name\", \"--no-save\"))]"
+          ]
+        },
+        {
+          "field": "save_catalog_name",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"NAME\", conflicts = \"--no-save\")]"
+          ]
+        },
+        {
+          "field": "save_peer",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--save-optional\")]"
+          ]
+        },
+        {
+          "field": "save_workspace_protocol",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, overrides = \"--no-save-workspace-protocol\")]"
+          ]
+        },
+        {
+          "field": "workspace",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'w', long, conflicts = \"--global\")]"
+          ]
+        },
+        {
+          "field": "ignore_workspace_root_check",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'W', long)]"
+          ]
+        },
+        {
+          "field": "lockfile",
+          "rust_type": "crate::cli_args::LockfileArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::LockfileArgs"
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        },
+        {
+          "field": "virtual_store",
+          "rust_type": "crate::cli_args::VirtualStoreArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::VirtualStoreArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/approve_builds.rs::ApproveBuildsArgs": {
+      "fields": [
+        {
+          "field": "all",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long)]"
+          ]
+        },
+        {
+          "field": "packages",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(arg, name = \"PKG\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/audit.rs::AuditArgs": {
+      "fields": [
+        {
+          "field": "audit_level",
+          "rust_type": "Option<Severity>",
+          "attributes": [
+            "#[usage(long, value_enum)]"
+          ]
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts = \"--prod\")]"
+          ]
+        },
+        {
+          "field": "fix",
+          "rust_type": "Option<FixMode>",
+          "attributes": [
+            "#[usage(long, value_enum, default_missing = \"override\")]"
+          ]
+        },
+        {
+          "field": "ignore",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"ID\", delimiter = ',')]"
+          ]
+        },
+        {
+          "field": "ignore_registry_errors",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "ignore_unfixable",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "interactive",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'i', long)]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "no_optional",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, long = \"production\", conflicts = \"--dev\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/bin.rs::BinArgs": {
+      "fields": [
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short, long, conflicts = \"--workspace-root\")]"
+          ]
+        },
+        {
+          "field": "workspace_root",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'w', long = \"workspace-root\", long = \"workspace\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/cache.rs::CacheArgs": {
+      "fields": [
+        {
+          "field": "command",
+          "rust_type": "CacheCommand",
+          "attributes": [
+            "#[usage(subcommand)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/cat_file.rs::CatFileArgs": {
+      "fields": [
+        {
+          "field": "hash",
+          "rust_type": "String",
+          "attributes": []
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/cat_index.rs::CatIndexArgs": {
+      "fields": [
+        {
+          "field": "package",
+          "rust_type": "String",
+          "attributes": []
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/check.rs::CheckArgs": {
+      "fields": [
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/clean.rs::CleanArgs": {
+      "fields": [
+        {
+          "field": "lockfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'l', long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/config/get.rs::GetArgs": {
+      "fields": [
+        {
+          "field": "key",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long, conflicts = \"--local\")]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "local",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--global\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/config/list.rs::ListArgs": {
+      "fields": [
+        {
+          "field": "all",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long, conflicts(\"--local\", \"--all\"))]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "local",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--global\", \"--all\"))]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/config/mod.rs::ConfigArgs": {
+      "fields": [
+        {
+          "field": "list",
+          "rust_type": "list::ListArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/commands/config/list.rs::ListArgs"
+        },
+        {
+          "field": "command",
+          "rust_type": "Option<ConfigCommand>",
+          "attributes": [
+            "#[usage(subcommand)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/config/set.rs::SetArgs": {
+      "fields": [
+        {
+          "field": "key",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "value",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long, conflicts = \"--local\")]"
+          ]
+        },
+        {
+          "field": "local",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--global\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/create.rs::CreateArgs": {
+      "fields": [
+        {
+          "field": "params",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(arg, double_dash = \"automatic\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/dedupe.rs::DedupeArgs": {
+      "fields": [
+        {
+          "field": "check",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "lockfile",
+          "rust_type": "crate::cli_args::LockfileArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::LockfileArgs"
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        },
+        {
+          "field": "virtual_store",
+          "rust_type": "crate::cli_args::VirtualStoreArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::VirtualStoreArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/deploy/mod.rs::DeployArgs": {
+      "fields": [
+        {
+          "field": "target",
+          "rust_type": "PathBuf",
+          "attributes": []
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts(\"--prod\", \"--no-prod\"))]"
+          ]
+        },
+        {
+          "field": "no_optional",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, long = \"production\")]"
+          ]
+        },
+        {
+          "field": "no_prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--prod\", \"--dev\"))]"
+          ]
+        },
+        {
+          "field": "offline",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--prefer-offline\")]"
+          ]
+        },
+        {
+          "field": "prefer_offline",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--offline\")]"
+          ]
+        },
+        {
+          "field": "lockfile",
+          "rust_type": "crate::cli_args::LockfileArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::LockfileArgs"
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        },
+        {
+          "field": "virtual_store",
+          "rust_type": "crate::cli_args::VirtualStoreArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::VirtualStoreArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/deprecate.rs::DeprecateArgs": {
+      "fields": [
+        {
+          "field": "package",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "message",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "dry_run",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "otp",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"CODE\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/deprecations.rs::DeprecationsArgs": {
+      "fields": [
+        {
+          "field": "exit_code",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "transitive",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/dist_tag.rs::DistTagArgs": {
+      "fields": [
+        {
+          "field": "command",
+          "rust_type": "DistTagCommand",
+          "attributes": [
+            "#[usage(subcommand)]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/dlx.rs::DlxArgs": {
+      "fields": [
+        {
+          "field": "params",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(arg, double_dash = \"automatic\")]"
+          ]
+        },
+        {
+          "field": "shell_mode",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'c', long)]"
+          ]
+        },
+        {
+          "field": "package",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(short = 'p', long = \"package\")]"
+          ]
+        },
+        {
+          "field": "allow_build",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage( long = \"allow-build\", value_name = \"PKG\", require_equals = true, validate = \"value != ''\", validate_error = \"The --allow-build flag is missing a package name. Please specify the package name(s) that are allowed to run installation scripts.\" )]"
+          ]
+        },
+        {
+          "field": "lockfile",
+          "rust_type": "crate::cli_args::LockfileArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::LockfileArgs"
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        },
+        {
+          "field": "virtual_store",
+          "rust_type": "crate::cli_args::VirtualStoreArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::VirtualStoreArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/fetch.rs::FetchArgs": {
+      "fields": [
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, short = 'D', conflicts = \"--prod\")]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, short = 'P', conflicts = \"--dev\")]"
+          ]
+        },
+        {
+          "field": "lockfile",
+          "rust_type": "crate::cli_args::LockfileArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::LockfileArgs"
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        },
+        {
+          "field": "virtual_store",
+          "rust_type": "crate::cli_args::VirtualStoreArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::VirtualStoreArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/find_hash.rs::FindHashArgs": {
+      "fields": [
+        {
+          "field": "hash",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/ignored_builds.rs::IgnoredBuildsArgs": {
+      "fields": [
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/import.rs::ImportArgs": {
+      "fields": [
+        {
+          "field": "force",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "ignore_scripts",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, hide)]"
+          ]
+        },
+        {
+          "field": "lockfile_only",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/licenses.rs::LicensesArgs": {
+      "fields": [
+        {
+          "field": "subcommand",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(arg, choices(\"ls\"), hide)]"
+          ]
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts = \"--prod\")]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "long",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, long = \"production\", conflicts = \"--dev\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/link.rs::LinkArgs": {
+      "fields": [
+        {
+          "field": "package",
+          "rust_type": "Option<String>",
+          "attributes": []
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/list.rs::ListArgs": {
+      "fields": [
+        {
+          "field": "pattern",
+          "rust_type": "Option<String>",
+          "attributes": []
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts = \"--prod\")]"
+          ]
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long)]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, long = \"production\", conflicts = \"--dev\")]"
+          ]
+        },
+        {
+          "field": "depth",
+          "rust_type": "Depth",
+          "attributes": [
+            "#[usage(long, default = \"0\")]"
+          ]
+        },
+        {
+          "field": "format",
+          "rust_type": "ListFormat",
+          "attributes": [
+            "#[usage(long, value_enum, default_value_t = ListFormat::Default, default = \"default\")]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--format\")]"
+          ]
+        },
+        {
+          "field": "lockfile_only",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "long",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "parseable",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts(\"--format\", \"--json\"))]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/login.rs::LoginArgs": {
+      "fields": [
+        {
+          "field": "auth_type",
+          "rust_type": "String",
+          "attributes": [
+            "#[usage(long, value_name = \"TYPE\", default = \"legacy\")]"
+          ]
+        },
+        {
+          "field": "scope",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"SCOPE\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/logout.rs::LogoutArgs": {
+      "fields": [
+        {
+          "field": "scope",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"SCOPE\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/outdated.rs::OutdatedArgs": {
+      "fields": [
+        {
+          "field": "pattern",
+          "rust_type": "Option<String>",
+          "attributes": []
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts = \"--prod\")]"
+          ]
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long, conflicts = \"--workspace-root\")]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "long",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, long = \"production\", conflicts = \"--dev\")]"
+          ]
+        },
+        {
+          "field": "workspace_root",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'w', long = \"workspace-root\", long = \"workspace\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/owner.rs::OwnerArgs": {
+      "fields": [
+        {
+          "field": "command",
+          "rust_type": "OwnerCommand",
+          "attributes": [
+            "#[usage(subcommand)]"
+          ]
+        },
+        {
+          "field": "otp",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"CODE\", global)]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/pack.rs::PackArgs": {
+      "fields": [
+        {
+          "field": "dry_run",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "ignore_scripts",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "pack_destination",
+          "rust_type": "Option<PathBuf>",
+          "attributes": [
+            "#[usage(long, value_name = \"DIR\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/patch.rs::PatchArgs": {
+      "fields": [
+        {
+          "field": "package",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "edit_dir",
+          "rust_type": "Option<PathBuf>",
+          "attributes": [
+            "#[usage(long, value_name = \"DIR\")]"
+          ]
+        },
+        {
+          "field": "ignore_existing",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/patch_commit.rs::PatchCommitArgs": {
+      "fields": [
+        {
+          "field": "edit_dir",
+          "rust_type": "PathBuf",
+          "attributes": [
+            "#[usage(arg, name = \"DIR\")]"
+          ]
+        },
+        {
+          "field": "patches_dir",
+          "rust_type": "PathBuf",
+          "attributes": [
+            "#[usage(long, value_name = \"DIR\", default = \"patches\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/patch_remove.rs::PatchRemoveArgs": {
+      "fields": [
+        {
+          "field": "packages",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(arg, name = \"PATCH\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/peers.rs::PeersArgs": {
+      "fields": [
+        {
+          "field": "command",
+          "rust_type": "PeersCommand",
+          "attributes": [
+            "#[usage(subcommand)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/pkg.rs::PkgArgs": {
+      "fields": [
+        {
+          "field": "subcommand",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "args",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(arg, double_dash = \"automatic\")]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "dir",
+          "rust_type": "Option<std::path::PathBuf>",
+          "attributes": [
+            "#[usage(short = 'C', long, value_name = \"DIR\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/prune.rs::PruneArgs": {
+      "fields": [
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, long = \"production\", short = 'P')]"
+          ]
+        },
+        {
+          "field": "no_optional",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/publish.rs::PublishArgs": {
+      "fields": [
+        {
+          "field": "package",
+          "rust_type": "Option<PathBuf>",
+          "attributes": [
+            "#[usage(arg, name = \"TARBALL|FOLDER\")]"
+          ]
+        },
+        {
+          "field": "access",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"LEVEL\")]"
+          ]
+        },
+        {
+          "field": "dry_run",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "force",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "ignore_scripts",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "no_git_checks",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "otp",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"CODE\")]"
+          ]
+        },
+        {
+          "field": "provenance",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "tag",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"TAG\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/query.rs::QueryArgs": {
+      "fields": [
+        {
+          "field": "selector",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts = \"--prod\")]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, long = \"production\", conflicts = \"--dev\")]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--parseable\")]"
+          ]
+        },
+        {
+          "field": "parseable",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/rebuild.rs::RebuildArgs": {
+      "fields": [
+        {
+          "field": "packages",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(arg, name = \"PACKAGE\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/recursive.rs::RecursiveArgs": {
+      "fields": [
+        {
+          "field": "args",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(arg, double_dash = \"automatic\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/remove.rs::RemoveArgs": {
+      "fields": [
+        {
+          "field": "packages",
+          "rust_type": "Vec<String>",
+          "attributes": []
+        },
+        {
+          "field": "save_dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long)]"
+          ]
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long)]"
+          ]
+        },
+        {
+          "field": "ignore_scripts",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "workspace",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'w', long, conflicts = \"--global\")]"
+          ]
+        },
+        {
+          "field": "lockfile",
+          "rust_type": "crate::cli_args::LockfileArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::LockfileArgs"
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        },
+        {
+          "field": "virtual_store",
+          "rust_type": "crate::cli_args::VirtualStoreArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::VirtualStoreArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/root.rs::RootArgs": {
+      "fields": [
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short, long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/sbom.rs::SbomArgs": {
+      "fields": [
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts = \"--prod\")]"
+          ]
+        },
+        {
+          "field": "exclude_peers",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "format",
+          "rust_type": "SbomFormat",
+          "attributes": [
+            "#[usage(long, value_enum, default_value_t = SbomFormat::Cyclonedx, default = \"cyclonedx\")]"
+          ]
+        },
+        {
+          "field": "lockfile_only",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, long = \"production\", conflicts = \"--dev\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/search.rs::SearchArgs": {
+      "fields": [
+        {
+          "field": "query",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(arg, required)]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "search_limit",
+          "rust_type": "u32",
+          "attributes": [
+            "#[usage(long, value_name = \"N\", default_value_t = 20, default = \"20\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/set_script.rs::SetScriptArgs": {
+      "fields": [
+        {
+          "field": "name",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "command",
+          "rust_type": "Vec<String>",
+          "attributes": [
+            "#[usage(arg, required, double_dash = \"automatic\")]"
+          ]
+        },
+        {
+          "field": "dir",
+          "rust_type": "Option<std::path::PathBuf>",
+          "attributes": [
+            "#[usage(short = 'C', long, value_name = \"DIR\")]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/store.rs::StoreArgs": {
+      "fields": [
+        {
+          "field": "command",
+          "rust_type": "StoreCommand",
+          "attributes": [
+            "#[usage(subcommand)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/token.rs::TokenArgs": {
+      "fields": [
+        {
+          "field": "command",
+          "rust_type": "TokenCommand",
+          "attributes": [
+            "#[usage(subcommand)]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/undeprecate.rs::UndeprecateArgs": {
+      "fields": [
+        {
+          "field": "package",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "dry_run",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "otp",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"CODE\")]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/unlink.rs::UnlinkArgs": {
+      "fields": [
+        {
+          "field": "package",
+          "rust_type": "Option<String>",
+          "attributes": []
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/unpublish.rs::UnpublishArgs": {
+      "fields": [
+        {
+          "field": "dry_run",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "force",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short, long)]"
+          ]
+        },
+        {
+          "field": "otp",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"CODE\")]"
+          ]
+        },
+        {
+          "field": "spec",
+          "rust_type": "Option<String>",
+          "attributes": []
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/update.rs::UpdateArgs": {
+      "fields": [
+        {
+          "field": "packages",
+          "rust_type": "Vec<String>",
+          "attributes": []
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts = \"--prod\")]"
+          ]
+        },
+        {
+          "field": "exact",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'E', long, long = \"save-exact\")]"
+          ]
+        },
+        {
+          "field": "global",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'g', long)]"
+          ]
+        },
+        {
+          "field": "interactive",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'i', long)]"
+          ]
+        },
+        {
+          "field": "latest",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'L', long)]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, long = \"production\", conflicts = \"--dev\")]"
+          ]
+        },
+        {
+          "field": "workspace",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'w', long)]"
+          ]
+        },
+        {
+          "field": "depth",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "global_pnpmfile",
+          "rust_type": "Option<std::path::PathBuf>",
+          "attributes": [
+            "#[usage(long, value_name = \"PATH\", conflicts = \"--ignore-pnpmfile\")]"
+          ]
+        },
+        {
+          "field": "ignore_pnpmfile",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "ignore_scripts",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, hide)]"
+          ]
+        },
+        {
+          "field": "dev_preinstall_already_run",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(skip)]"
+          ]
+        },
+        {
+          "field": "lockfile_only",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "no_optional",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "no_save",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "pnpmfile",
+          "rust_type": "Option<std::path::PathBuf>",
+          "attributes": [
+            "#[usage(long, value_name = \"PATH\", conflicts = \"--ignore-pnpmfile\")]"
+          ]
+        },
+        {
+          "field": "lockfile",
+          "rust_type": "crate::cli_args::LockfileArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::LockfileArgs"
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        },
+        {
+          "field": "virtual_store",
+          "rust_type": "crate::cli_args::VirtualStoreArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::VirtualStoreArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/version.rs::VersionArgs": {
+      "fields": [
+        {
+          "field": "new_version",
+          "rust_type": "Option<String>",
+          "attributes": []
+        },
+        {
+          "field": "allow_same_version",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "ignore_scripts",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "message",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(short = 'm', long, value_name = \"MSG\")]"
+          ]
+        },
+        {
+          "field": "no_commit_hooks",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long = \"no-commit-hooks\")]"
+          ]
+        },
+        {
+          "field": "no_git_tag_version",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long = \"no-git-tag-version\")]"
+          ]
+        },
+        {
+          "field": "preid",
+          "rust_type": "Option<String>",
+          "attributes": [
+            "#[usage(long, value_name = \"ID\")]"
+          ]
+        },
+        {
+          "field": "sign_git_tag",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/view.rs::ViewArgs": {
+      "fields": [
+        {
+          "field": "package",
+          "rust_type": "Option<String>",
+          "attributes": []
+        },
+        {
+          "field": "field",
+          "rust_type": "Option<String>",
+          "attributes": []
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/whoami.rs::WhoamiArgs": {
+      "fields": [
+        {
+          "field": "network",
+          "rust_type": "crate::cli_args::NetworkArgs",
+          "attributes": [
+            "#[usage(flatten)]"
+          ],
+          "flatten": "vendor/aube/crates/aube/src/cli_args.rs::NetworkArgs"
+        }
+      ]
+    },
+    "vendor/aube/crates/aube/src/commands/why.rs::WhyArgs": {
+      "fields": [
+        {
+          "field": "package",
+          "rust_type": "String",
+          "attributes": []
+        },
+        {
+          "field": "dev",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'D', long, conflicts = \"--prod\")]"
+          ]
+        },
+        {
+          "field": "prod",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(short = 'P', long, long = \"production\", conflicts = \"--dev\")]"
+          ]
+        },
+        {
+          "field": "json",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long, conflicts = \"--parseable\")]"
+          ]
+        },
+        {
+          "field": "long",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        },
+        {
+          "field": "parseable",
+          "rust_type": "bool",
+          "attributes": [
+            "#[usage(long)]"
+          ]
+        }
+      ]
+    }
+  }
+}

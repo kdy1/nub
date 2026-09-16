@@ -4,7 +4,7 @@ Reference: `2a4573ef059798b75f789aa8c22da51e470e3138`. This records current impl
 
 ## Command boundary
 
-The command registry and aliases are extracted from the Rust adapter and checked by `internal/surface`. The full option inventory and command-by-command differential suite are incomplete.
+The command registry and aliases are extracted from the Rust adapter and checked by `internal/surface`. `arguments.json` snapshots 65 argument declarations with 309 fields, including flatten relationships and source attributes. Adapter rewrites, manual subcommand grammars, accepted option combinations, and the command-by-command differential suite remain incomplete.
 
 | Command | Aliases | Go behavior |
 | --- | --- | --- |

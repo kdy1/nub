@@ -44,6 +44,8 @@ jobs:
         run: npm install --prefix "$RUNNER_TEMP/pm-go-npm" npm@11.19.0 --ignore-scripts --no-audit --no-fund
       - name: Formatting
         run: test -z "$(gofmt -l .)"
+      - name: Reference argument declarations
+        run: python scripts/extract_surface.py --check
       - run: go vet ./...
       - run: go test -race ./...
         env:

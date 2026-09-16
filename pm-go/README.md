@@ -6,6 +6,8 @@ Build from this directory with `go build -o ../target/pm-go/ ./cmd/nub-pm-go`. R
 
 The command inventory in `internal/surface/commands.json` is checked against Nub's Rust registry. Its reference revision is `2a4573ef059798b75f789aa8c22da51e470e3138`.
 
+`internal/surface/arguments.json` records the matching Rust argument declarations and flattened structs. Regenerate it with `python3 pm-go/scripts/extract_surface.py` from the repository root. CI checks for drift. These declarations are inputs to the port; they do not by themselves establish which engine options the Nub adapter accepts.
+
 See [COVERAGE.md](COVERAGE.md) for command, component, and validation coverage. The port is incomplete.
 
 Implemented handlers: `pkg get/set/delete/fix` and `set-script` (`ss`). Manifest edits preserve key order, indentation, line endings, and trailing-newline style. Invalid multi-key edits leave the file unchanged. The Go workflow also builds the Rust reference and compares both executables on the same manifest fixtures.
