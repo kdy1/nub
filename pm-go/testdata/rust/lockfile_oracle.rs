@@ -9,6 +9,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "exec-path" {
+        peer_oracle::exec_paths(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "version-policy" {
         trust_oracle::policy(std::path::Path::new(&args[1]));
         return;

@@ -113,6 +113,31 @@ pub fn contexts(path: &std::path::Path) {
         .collect();
     println!("{}", json!(outputs));
 }
+
+pub fn exec_paths(path: &std::path::Path) {
+    let inputs: Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
+    let outputs: Vec<_> = inputs
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|i| {
+            let path = std::path::PathBuf::from(i["Path"].as_str().unwrap());
+            let source = if i["Kind"] == 4 {
+                LocalSource::Exec(path)
+            } else {
+                LocalSource::Directory(path)
+            };
+            match aube_resolver::resolve_exec_script_path(
+                &source,
+                std::path::Path::new(i["Root"].as_str().unwrap()),
+            ) {
+                Ok(path) => json!({"Path":path.to_string_lossy(),"Error":null}),
+                Err(e) => json!({"Path":null,"Error":e}),
+            }
+        })
+        .collect();
+    println!("{}", json!(outputs));
+}
 pub fn run(path: &std::path::Path) {
     let inputs: Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
     let outputs: Vec<_> = inputs.as_array().unwrap().iter().map(|input| {
