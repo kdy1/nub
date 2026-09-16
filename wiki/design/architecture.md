@@ -195,3 +195,5 @@ Go install-state helpers preserve the existing project sidecars and record inter
 Go freshness checks compare recorded lockfiles, manifests, workspace membership and copied local sources in the reference order. Stable build denials remain fresh; unknown or deferred build completion triggers work. A metadata-only touch refreshes the small sidecar after content agrees. Hoisted reuse also requires matching package content fingerprints and a completed previous link phase. Resolved settings hashing and CLI integration remain pending.
 
 Go install-delta helpers hash package content separately from resolution metadata and preserve patch/alias and generator-content inputs. Strongly connected components produce stable subtree fingerprints and dependency-build phases, including non-building bridges between selected builds. Their install and lifecycle consumers remain pending.
+
+Go install policy folds shared-store and hidden-hoist requests into one materialization choice. Explicit contradictory requests fail; Nub’s default hoist still permits sharing outside CI. Existing mixed store trees are classified as shared when any package entry is a symlink or Windows junction.
