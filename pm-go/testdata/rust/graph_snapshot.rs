@@ -1,4 +1,6 @@
 // Test-only full graph projection. It does not change the Rust libraries.
+// Cargo may build serde for host and target with distinct crate identities.
+// Transfer foreign JSON values by their JSON bytes, and SmallVec by slices.
 use aube_lockfile::{LocalSource, LockfileGraph};
 use serde_json::{Map, Value, json};
 
@@ -44,9 +46,9 @@ pub fn snapshot(g: &LockfileGraph) -> Value {
             json!(p.optional_dependencies),
         );
         out.insert("PeerDependencies".into(), json!(p.peer_dependencies));
-        out.insert("OS".into(), json!(p.os));
-        out.insert("CPU".into(), json!(p.cpu));
-        out.insert("Libc".into(), json!(p.libc));
+        out.insert("OS".into(), json!(p.os.as_slice()));
+        out.insert("CPU".into(), json!(p.cpu.as_slice()));
+        out.insert("Libc".into(), json!(p.libc.as_slice()));
         out.insert("BundledDependencies".into(), json!(p.bundled_dependencies));
         out.insert("TarballURL".into(), json!(p.tarball_url));
         out.insert("RegistryGitHosted".into(), json!(p.registry_git_hosted));
@@ -66,7 +68,20 @@ pub fn snapshot(g: &LockfileGraph) -> Value {
             "TransitivePeerDependencies".into(),
             json!(p.transitive_peer_dependencies),
         );
-        out.insert("ExtraMeta".into(), json!(p.extra_meta));
+        out.insert(
+            "ExtraMeta".into(),
+            Value::Object(
+                p.extra_meta
+                    .iter()
+                    .map(|(k, v)| {
+                        (
+                            k.clone(),
+                            serde_json::from_str(&v.to_string()).expect("reference JSON value"),
+                        )
+                    })
+                    .collect(),
+            ),
+        );
         out.insert("HasInstallScript".into(), json!(p.has_install_script));
         out.insert("HasShrinkwrap".into(), json!(p.has_shrinkwrap));
         out.insert("InBundle".into(), json!(p.in_bundle));
@@ -150,10 +165,43 @@ pub fn snapshot(g: &LockfileGraph) -> Value {
         json!(g.patched_dependency_hashes),
     );
     out.insert("TrustedDependencies".into(), json!(g.trusted_dependencies));
-    out.insert("ExtraFields".into(), json!(g.extra_fields));
+    out.insert(
+        "ExtraFields".into(),
+        Value::Object(
+            g.extra_fields
+                .iter()
+                .map(|(k, v)| {
+                    (
+                        k.clone(),
+                        serde_json::from_str(&v.to_string()).expect("reference JSON value"),
+                    )
+                })
+                .collect(),
+        ),
+    );
     out.insert(
         "WorkspaceExtraFields".into(),
-        json!(g.workspace_extra_fields),
+        Value::Object(
+            g.workspace_extra_fields
+                .iter()
+                .map(|(k, m)| {
+                    (
+                        k.clone(),
+                        Value::Object(
+                            m.iter()
+                                .map(|(k, v)| {
+                                    (
+                                        k.clone(),
+                                        serde_json::from_str(&v.to_string())
+                                            .expect("reference JSON value"),
+                                    )
+                                })
+                                .collect(),
+                        ),
+                    )
+                })
+                .collect(),
+        ),
     );
     Value::Object(out)
 }
