@@ -89,6 +89,21 @@ fn link(input: &Value) -> Value {
             input["projectLocal"].as_object().unwrap().keys().cloned(),
         );
     }
+    let hoisted = input["hoisted"].as_bool().unwrap_or(false);
+    if hoisted {
+        linker = linker
+            .with_node_linker(aube_linker::NodeLinker::Hoisted)
+            .with_hoisting_limits(match input["limits"].as_u64().unwrap() {
+                0 => aube_linker::HoistingLimits::None,
+                1 => aube_linker::HoistingLimits::Workspaces,
+                2 => aube_linker::HoistingLimits::Dependencies,
+                _ => panic!("hoisting limits"),
+            });
+        if input["reusable"].is_array() {
+            linker =
+                linker.with_reusable_hoisted(strings(&input["reusable"]).into_iter().collect());
+        }
+    }
     let mut passes = Vec::new();
     for _ in 0..2 {
         let result = if input["hasWorkspace"].as_bool().unwrap() {
@@ -107,12 +122,23 @@ fn link(input: &Value) -> Value {
         if global_root.exists() && !global_root.as_os_str().is_empty() {
             crate::materialize_oracle::snapshot(&global_root, Path::new(""), &mut global_tree);
         }
-        passes.push(
-            json!({"tree":tree,"globalTree":global_tree,"error":error,"stats":{
-                "PackagesLinked":stats.packages_linked, "PackagesCached":stats.packages_cached,
-                "FilesLinked":stats.files_linked, "TopLevelLinked":stats.top_level_linked,
-            }}),
-        );
+        let mut result = json!({"tree":tree,"globalTree":global_tree,"error":error,"stats":{
+            "PackagesLinked":stats.packages_linked, "PackagesCached":stats.packages_cached,
+            "FilesLinked":stats.files_linked, "TopLevelLinked":stats.top_level_linked,
+        }});
+        if hoisted {
+            let mut placements: BTreeMap<String, Vec<String>> = BTreeMap::new();
+            if let Some(placed) = &stats.hoisted_placements {
+                for (key, path) in placed.iter() {
+                    placements
+                        .entry(key.to_string())
+                        .or_default()
+                        .push(path.to_string_lossy().into_owned());
+                }
+            }
+            result["placements"] = json!(placements);
+        }
+        passes.push(result);
     }
     json!(passes)
 }

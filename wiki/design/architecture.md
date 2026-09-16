@@ -182,4 +182,6 @@ On macOS, Go package materialization strips only the quarantine attribute from i
 
 The Go isolated linker connects materialization to root and workspace dependency links. Public and hidden hoist passes retain their distinct version-selection rules; mutable directory dependencies refresh their contents. Modules paths are checked against both lexical and physical project boundaries before cleanup, including Windows junctions. Shared entries use graph-hashed paths, while selected real project-local copies can consume a project-local hidden hoist tree. Unversioned aliases are removed from the shared store. Automatic phantom selection and CLI install orchestration remain pending.
 
+The Go hoisted linker places real directories, sharing compatible versions across workspace members and nesting conflicts. Root declarations outrank member and transitive preferences. Hoisting boundaries retain visible matching ancestors; members outside the root retain independent trees. Materialization orders parents before nested children and preserves build output only for complete placements vouched for by the caller.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
