@@ -374,7 +374,9 @@ func (d *driver) enqueueRegistry(task resolveTask, p *lockfile.Package, meta *re
 				d.warn("WARN_AUBE_EXOTIC_SUBDEP_SKIPPED", fmt.Sprintf("skipping optional dependency %s of %s — exotic specifier %q blocked by blockExoticSubdeps", name, task.Name, registry.RedactURL(requested)))
 				continue
 			}
-			d.queue = append(d.queue, childTask(task, p, name, requested, section.kind))
+			child := childTask(task, p, name, requested, section.kind)
+			d.prefetch(child)
+			d.queue = append(d.queue, child)
 		}
 	}
 	if d.r.Options.AutoInstallPeers {
@@ -399,7 +401,9 @@ func (d *driver) enqueueRegistry(task resolveTask, p *lockfile.Package, meta *re
 				d.warn("WARN_AUBE_EXOTIC_SUBDEP_SKIPPED", fmt.Sprintf("skipping peer dependency %s of %s — exotic specifier %q blocked by blockExoticSubdeps", name, task.Name, registry.RedactURL(requested)))
 				continue
 			}
-			d.peers = append(d.peers, childTask(task, p, name, requested, lockfile.Production))
+			child := childTask(task, p, name, requested, lockfile.Production)
+			d.prefetch(child)
+			d.peers = append(d.peers, child)
 		}
 	}
 	return nil

@@ -53,6 +53,7 @@ type Options struct {
 	GitShallowHosts                            []string
 	RegistrySupportsTime                       bool
 	Network                                    registry.NetworkMode
+	PackumentNetworkConcurrency                int
 }
 
 func DefaultOptions() Options {
@@ -98,6 +99,11 @@ func (r *Resolver) Resolve(ctx context.Context, manifests []lockfile.ImporterMan
 		return nil, err
 	}
 	d := newDriver(r, existing, workspaceVersions, manifests)
+	d.fetcher = newFetchScheduler(ctx, r.Options.PackumentNetworkConcurrency)
+	defer d.fetcher.close()
+	for _, task := range d.queue {
+		d.prefetch(task)
+	}
 	for {
 		if err := ctx.Err(); err != nil {
 			return nil, err
@@ -116,6 +122,9 @@ func (r *Resolver) Resolve(ctx context.Context, manifests []lockfile.ImporterMan
 					d.queue = append(d.queue, task)
 				}
 				continue
+			}
+			if err := d.fetcher.drain(ctx); err != nil {
+				return nil, err
 			}
 			return d.finalize()
 		}
@@ -146,6 +155,8 @@ type driver struct {
 	routes                        map[string]string
 	trust                         TrustOptions
 	histories                     map[string]TrustHistory
+	fetcher                       *fetchScheduler
+	existingNames                 lockfile.Set
 }
 
 func newDriver(r *Resolver, existing *lockfile.Graph, workspace map[string]string, manifests []lockfile.ImporterManifest) *driver {
@@ -178,6 +189,12 @@ func newDriver(r *Resolver, existing *lockfile.Graph, workspace map[string]strin
 	}
 	d.preprocessor = taskPreprocessor{Catalogs: r.Options.Catalogs, Overrides: CompileOverrides(r.Options.Overrides), NamedRegistries: r.Options.NamedRegistries}
 	d.histories = map[string]TrustHistory{}
+	d.existingNames = lockfile.Set{}
+	if existing != nil {
+		for _, p := range existing.Packages {
+			d.existingNames.Add(p.Name)
+		}
+	}
 	now := time.Time{}
 	if r.Now != nil {
 		now = r.Now()

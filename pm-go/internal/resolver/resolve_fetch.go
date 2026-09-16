@@ -4,45 +4,112 @@ import (
 	"context"
 	"fmt"
 	"maps"
+	"strings"
 
 	"github.com/nubjs/nub/pm-go/internal/lockfile"
 	"github.com/nubjs/nub/pm-go/internal/registry"
 	"github.com/nubjs/nub/pm-go/internal/semver"
 )
 
-func (d *driver) metadata(ctx context.Context, task resolveTask) (*registry.Packument, error) {
-	name := task.registryName()
-	full := d.keepTimes() && !d.r.Options.RegistrySupportsTime
-	exact := ""
-	if _, err := semver.ParseEngineVersion(task.Range); full && task.Type == lockfile.Optional && err == nil {
-		exact = task.Range
+func (d *driver) fetchKey(task resolveTask) metadataKey {
+	key := metadataKey{name: task.registryName()}
+	if _, err := semver.ParseEngineVersion(task.Range); d.keepTimes() && !d.r.Options.RegistrySupportsTime && task.Type == lockfile.Optional && err == nil {
+		key.exact = task.Range
 	}
-	_, compact := d.histories[name]
-	if p := d.packuments[name]; p != nil {
-		if exact != "" && p.Versions[exact] != nil || exact == "" && !compact {
-			return p, nil
+	return key
+}
+
+func (d *driver) cacheSatisfies(key metadataKey) bool {
+	p := d.packuments[key.name]
+	if p == nil {
+		return false
+	}
+	if key.exact != "" {
+		return p.Versions[key.exact] != nil
+	}
+	_, compact := d.histories[key.name]
+	return !compact
+}
+
+func (d *driver) ensureFetch(key metadataKey) {
+	if d.cacheSatisfies(key) || d.fetchErrors[key.String()] != nil {
+		return
+	}
+	route := d.routes[key.name]
+	if route == "" && d.r.Client != nil {
+		route = d.r.Client.Config.RegistryFor(key.name)
+	}
+	_, compact := d.histories[key.name]
+	d.fetcher.ensure(metadataRequest{key: key, client: d.r.Client, route: route,
+		cacheDir: d.r.CacheDir, mode: d.r.Options.Network,
+		full: d.keepTimes() && !d.r.Options.RegistrySupportsTime, refresh: compact})
+}
+
+func (d *driver) prefetch(task resolveTask) {
+	key := d.fetchKey(task)
+	// Exact optionals retain their compact history even when a lockfile or
+	// workspace may satisfy the task; this mirrors the reference seed gate.
+	if key.exact != "" {
+		d.ensureFetch(key)
+		return
+	}
+	for _, prefix := range []string{"workspace:", "catalog:", "npm:", "jsr:"} {
+		if strings.HasPrefix(task.Range, prefix) {
+			return
 		}
 	}
-	key := name + "\x00" + exact
-	if exact == "" && compact {
-		delete(d.fetchErrors, key)
+	if nonRegistrySpecifier(task.Range) || d.existingNames.Has(task.Name) {
+		return
 	}
-	if err := d.fetchErrors[key]; err != nil {
-		return nil, err
+	if _, overridden := d.r.Options.Overrides[task.Name]; overridden {
+		return
 	}
-	if d.r.Client == nil {
-		return nil, &RegistryFailure{name, "registry client is unavailable"}
+	if version, ok := d.workspace[task.Name]; ok && semver.EngineSatisfies(version, task.Range) {
+		return
 	}
-	route := d.routes[name]
-	if route == "" {
-		route = d.r.Client.Config.RegistryFor(name)
+	d.ensureFetch(key)
+}
+
+func (d *driver) metadata(ctx context.Context, task resolveTask) (*registry.Packument, error) {
+	key := d.fetchKey(task)
+	if _, compact := d.histories[key.name]; key.exact == "" && compact {
+		delete(d.fetchErrors, key.String())
+	}
+	for !d.cacheSatisfies(key) && (d.fetchErrors[key.String()] == nil || key.exact == "" && d.fetcher.hasExact(key.name)) {
+		d.ensureFetch(key)
+		result, err := d.fetcher.next(ctx)
+		if err != nil {
+			return nil, err
+		}
+		if result.err != nil {
+			d.fetchErrors[result.key.String()] = result.err
+			continue
+		}
+		if result.key.exact != "" {
+			delete(d.fetchErrors, (metadataKey{name: result.key.name}).String())
+		}
+		d.mergeMetadata(result.key.name, result.packument, result.history)
+	}
+	if d.cacheSatisfies(key) {
+		delete(d.fetchErrors, key.String())
+		return d.packuments[key.name], nil
+	}
+	return nil, d.fetchErrors[key.String()]
+}
+
+func fetchMetadata(ctx context.Context, input metadataRequest) metadataResult {
+	name, exact := input.key.name, input.key.exact
+	result := metadataResult{key: input.key}
+	if input.client == nil {
+		result.err = &RegistryFailure{name, "registry client is unavailable"}
+		return result
 	}
 	var p *registry.Packument
 	var history *TrustHistory
 	var err error
 	if exact != "" {
 		var selected *registry.ExactPackument
-		selected, err = d.r.Client.ExactMetadataAt(ctx, name, exact, route, d.r.Options.Network)
+		selected, err = input.client.ExactMetadataAt(ctx, name, exact, input.route, input.mode)
 		if err == nil {
 			p = &registry.Packument{Name: name, Versions: map[string]*registry.Version{exact: selected.Metadata}, Time: selected.Time, Tags: map[string]string{}}
 			history = &TrustHistory{Time: selected.Time, Evidence: map[string]TrustEvidence{}}
@@ -50,31 +117,27 @@ func (d *driver) metadata(ctx context.Context, task resolveTask) (*registry.Pack
 				history.Evidence[version] = EvidenceFor(meta)
 			}
 		} else if ctx.Err() == nil {
-			p, err = d.r.Client.MetadataAt(ctx, name, route, d.r.CacheDir, d.r.Options.Network, full)
+			p, err = input.client.MetadataAt(ctx, name, input.route, input.cacheDir, input.mode, input.full)
 			if err == nil && p.Versions[exact] == nil {
-				if d.r.Options.Network != registry.Offline {
-					p, err = d.r.Client.RefreshMetadataAt(ctx, name, route, d.r.CacheDir, d.r.Options.Network, full)
+				if input.mode != registry.Offline {
+					p, err = input.client.RefreshMetadataAt(ctx, name, input.route, input.cacheDir, input.mode, input.full)
 				}
 				if err == nil && p.Versions[exact] == nil {
 					err = fmt.Errorf("version %s is missing from the full packument", exact)
 				}
 			}
 		}
-	} else if compact {
-		p, err = d.r.Client.RefreshMetadataAt(ctx, name, route, d.r.CacheDir, d.r.Options.Network, full)
+	} else if input.refresh {
+		p, err = input.client.RefreshMetadataAt(ctx, name, input.route, input.cacheDir, input.mode, input.full)
 	} else {
-		p, err = d.r.Client.MetadataAt(ctx, name, route, d.r.CacheDir, d.r.Options.Network, full)
+		p, err = input.client.MetadataAt(ctx, name, input.route, input.cacheDir, input.mode, input.full)
 	}
 	if err != nil {
-		if ctx.Err() != nil {
-			return nil, ctx.Err()
-		}
-		err = &RegistryFailure{name, err.Error()}
-		d.fetchErrors[key] = err
-		return nil, err
+		result.err = &RegistryFailure{name, err.Error()}
+	} else {
+		result.packument, result.history = p, history
 	}
-	d.mergeMetadata(name, p, history)
-	return d.packuments[name], nil
+	return result
 }
 
 // A full response usually supersedes compact metadata. Preserve exact releases
