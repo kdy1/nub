@@ -164,4 +164,6 @@ The Go dependency graph preserves lockfile metadata across structural filters. R
 
 The install-facing Go manifest parser tolerates legacy dependency, script, and engine shapes while validating declared names, workspace patterns, catalogs, and bundled dependencies. Workspace objects preserve authored-empty fields for lockfile serialization. Neutral dependency metadata retains optional-peer and build-denial semantics.
 
+Workspace member matching preserves the reference’s distinct rules for ordinary positive globs, recursive positive globs, and exclusions. Brace expansion, case sensitivity, directory boundaries, and `node_modules` exclusion are covered by Go tests.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
