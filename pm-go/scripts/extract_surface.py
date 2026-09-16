@@ -49,11 +49,11 @@ def fields(body):
 
 
 def inventory():
-    commands = json.loads((ROOT / "pm-go/internal/surface/commands.json").read_text())
+    commands = json.loads((ROOT / "pm-go/internal/surface/commands.json").read_text(encoding="utf-8"))
     definitions = {}
     for tree in ["vendor/aube/crates/aube/src", "crates/nub-cli/src/pm_engine"]:
         for path in sorted((ROOT / tree).rglob("*.rs")):
-            text = path.read_text()
+            text = path.read_text(encoding="utf-8")
             for match in re.finditer(r"^pub struct (\w+)\s*\{", text, re.MULTILINE):
                 definitions.setdefault(match[1], []).append((path, text))
     declarations, bindings = {}, {}
@@ -61,7 +61,7 @@ def inventory():
     def add(name, preferred=None):
         candidates = definitions.get(name, [])
         if preferred:
-            local = [(p, t) for p, t in candidates if str(p.relative_to(ROOT)).startswith(preferred)]
+            local = [(p, t) for p, t in candidates if p.relative_to(ROOT).as_posix().startswith(preferred)]
             if local:
                 candidates = local
         if len(candidates) != 1:
@@ -76,10 +76,10 @@ def inventory():
         for field in record["fields"]:
             if any(re.search(r"\bflatten\b", a) for a in field["attributes"]):
                 nested = field["rust_type"].split("::")[-1]
-                field["flatten"] = add(nested, str(path.parent.relative_to(ROOT)))
+                field["flatten"] = add(nested, path.parent.relative_to(ROOT).as_posix())
         return key
 
-    cli = (ROOT / "crates/nub-cli/src/cli.rs").read_text()
+    cli = (ROOT / "crates/nub-cli/src/cli.rs").read_text(encoding="utf-8")
     for command in commands:
         rust = command["rust_args"]
         if rust in {"cli::Install", "cli::Ci"}:
@@ -108,10 +108,10 @@ def main():
     args = parser.parse_args()
     text = json.dumps(inventory(), indent=2, ensure_ascii=False) + "\n"
     if args.check:
-        if DEST.read_text() != text:
+        if DEST.read_text(encoding="utf-8") != text:
             raise SystemExit("PM argument declarations changed; regenerate with python3 pm-go/scripts/extract_surface.py")
     else:
-        DEST.write_text(text)
+        DEST.write_text(text, encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":
