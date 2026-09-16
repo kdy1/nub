@@ -166,4 +166,6 @@ The install-facing Go manifest parser tolerates legacy dependency, script, and e
 
 Workspace member matching preserves the reference’s distinct rules for ordinary positive globs, recursive positive globs, and exclusions. Brace expansion, case sensitivity, directory boundaries, and `node_modules` exclusion are covered by Go tests.
 
+The Go npm lockfile reader lifts legacy nested shrinkwraps into the common graph and reads v2/v3 install-path maps directly. Nested lookup preserves dependency and peer placement, including parent workspace directories and pointer links. Root workspace patterns filter member importers; local links retain their own source identities. Metadata and declared ranges survive parsing, while incomplete legacy graphs produce the reference diagnostic.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.

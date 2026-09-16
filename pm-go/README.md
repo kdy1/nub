@@ -34,4 +34,6 @@ The common dependency graph preserves resolution metadata through filters and wo
 
 The install-facing manifest model parses workspace string/array/object forms, catalogs, bundled dependencies, optional peers, and neutral dependency metadata. It preserves authored-empty workspace fields and applies the reference tolerance for legacy dependency, script, and engine data.
 
+The npm lockfile reader supports v1/v2/v3 and versionless shrinkwraps. It reconstructs nested dependency and peer placement, distinguishes workspace members from local links, and preserves alias, source, platform, and package metadata. Legacy graphs with missing edges produce a diagnostic. Reading does not rewrite lockfiles; npm writing and install integration remain pending.
+
 The Go executable uses its own `nub-pm-go` global cache and store namespace with the reference XDG/Windows directory precedence. Shared and exclusive file leases are cancellable and tested across processes. Lifecycle scripts and fetched tools use Node from `PATH`; Nub's runtime augmentation, TypeScript transformation, and Node provisioning are outside this executable.
