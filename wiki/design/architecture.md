@@ -176,4 +176,6 @@ Go pnpm key helpers preserve nested peer suffixes, strip write-time patch marker
 
 Go pnpm checksum helpers reproduce the reference’s unordered object/array hash stream, UTF-16 string lengths, and number notation. Local pnpmfile hashes normalize CRLF and combine files in sorted path order. Callers supply the hook paths explicitly, so checksum calculation does not discover pnpm config in another PM’s project.
 
+The Go materializer applies package patches before publishing virtual-store entries. Applied-patch state uses Nub's existing project sidecar and CRLF-normalized SHA-256 fingerprints. Changed selectors invalidate project-local alias and peer placements; global identities carry their patch fingerprints in graph hashes. Installation orchestration remains separate work.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
