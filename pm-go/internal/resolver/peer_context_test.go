@@ -225,12 +225,14 @@ func contextOracleGraphs() []*lockfile.Graph {
 		g.Importers["member"] = []lockfile.DirectDep{direct("plugin", lockfile.Dev)}
 		graphs = append(graphs, g)
 	}
-	// Deterministic small graph corpus includes unreachable nodes, optional
 	for _, kind := range []lockfile.SourceKind{lockfile.Git, lockfile.RemoteTarball} {
 		g := cousinPeerGraph(false)
 		p := packageAt(g, "app")
 		delete(g.Packages, p.DepPath)
-		p.Source = &lockfile.Source{Kind: kind, URL: "https://example.invalid/app", Resolved: "0123456789abcdef0123456789abcdef01234567"}
+		p.Source = &lockfile.Source{Kind: kind, URL: "https://example.invalid/app"}
+		if kind == lockfile.Git {
+			p.Source.Resolved = "0123456789abcdef0123456789abcdef01234567"
+		}
 		p.DepPath = p.Source.DepPath(p.Name)
 		g.Packages[p.DepPath] = p
 		g.Importers["."][0].DepPath = p.DepPath
