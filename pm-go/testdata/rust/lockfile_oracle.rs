@@ -1,6 +1,7 @@
 // Test-only adapter to the unchanged Rust lockfile library. This is not linked
 // into, shipped with, or invoked by the Go package manager.
 mod drift_oracle;
+mod git_oracle;
 mod graph_snapshot;
 mod override_oracle;
 mod peer_oracle;
@@ -9,6 +10,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "git-refs" {
+        git_oracle::refs(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "exec-path" {
         peer_oracle::exec_paths(std::path::Path::new(&args[1]));
         return;

@@ -18,7 +18,7 @@ with subprocess.Popen(
         if event.get("reason") != "compiler-artifact":
             continue
         name = event["target"]["name"]
-        if name in {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "serde_json", "node_semver"}:
+        if name in {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "serde_json", "node_semver"}:
             libs = [p for p in event["filenames"] if p.endswith(".rlib")]
             if len(libs) != 1:
                 raise RuntimeError(f"Expected one reference library for {name}: {libs}")
@@ -26,7 +26,7 @@ with subprocess.Popen(
     if process.wait() != 0:
         sys.exit(process.returncode)
 
-if set(artifacts) != {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "serde_json", "node_semver"}:
+if set(artifacts) != {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "serde_json", "node_semver"}:
     raise RuntimeError(f"Missing reference artifacts: {artifacts}")
 output = root / "target/pm-go/rust-lockfile-oracle"
 output.parent.mkdir(parents=True, exist_ok=True)
