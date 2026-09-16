@@ -19,7 +19,9 @@ import (
 	"github.com/nubjs/nub/pm-go/internal/testutil"
 )
 
-func TestRustClassicGraphOracle(t *testing.T) {
+func TestRustClassicGraphOracle(t *testing.T) { testRustYarnGraphOracle(t, false) }
+func TestRustBerryGraphOracle(t *testing.T)   { testRustYarnGraphOracle(t, true) }
+func testRustYarnGraphOracle(t *testing.T, berry bool) {
 	oracle := os.Getenv("PM_RUST_LOCKFILE_ORACLE")
 	if oracle == "" {
 		t.Skip("Rust library oracle only runs in the reference CI job")
@@ -33,19 +35,32 @@ func TestRustClassicGraphOracle(t *testing.T) {
 		}
 		for _, match := range regexp.MustCompile(`(?s)r#"(.*?)"#`).FindAllSubmatchIndex(source, -1) {
 			data := source[match[2]:match[3]]
-			if IsBerry(string(data)) || !regexp.MustCompile(`(?m)^  version `).Match(data) {
+			if IsBerry(string(data)) != berry || !berry && !regexp.MustCompile(`(?m)^  version `).Match(data) {
 				continue
 			}
 			line := 1 + bytes.Count(source[:match[0]], []byte{'\n'})
 			cases[fmt.Sprintf("%s-line-%d", filepath.Base(file), line)] = data
 		}
 	}
-	for _, data := range []string{
+	shapes := []string{
 		"a@1:\n  version 1\n  version 2\n", "a@1:\n  version 1\n  dependencies:\n    x exotic:x\nx@exotic:x:\n  version 2\n",
 		"a@1:\n  version 1\n  optionalDependencies:\n    x exotic:x\nx@exotic:x:\n  version 2\n",
 		"a@1, a@2:\n  version 1\na@1:\n  version 2\n", "a@1:\n  version 1\na@1:\n  version 2\n  dependencies:\n    missing 1\n",
 		"a@1:\n  dependencies:\n    x 1\n", "@broken:\n  version 1\n", "a@1:\n  version 1\n  resolved https://private/a#hash\n",
-	} {
+	}
+	if berry {
+		shapes = []string{
+			"__metadata: {version: 8}\na@npm:1: {version: 1, resolution: 'a@npm:1'}\n",
+			"__metadata: {version: 8}\na@npm:1: {version: 1, version: 2, resolution: 'a@npm:1'}\n",
+			"__metadata: {version: 8}\na@npm:1: {version: 1, resolution: 'a@npm:1', dependencies: {x: 'exotic:x'}}\nx@exotic:x: {version: 2, resolution: 'x@exotic:x'}\n",
+			"__metadata: {version: 8}\na@npm:1: {version: 1, resolution: 'a@npm:1', optionalDependencies: {x: 'exotic:x'}}\nx@exotic:x: {version: 2, resolution: 'x@exotic:x'}\n",
+			"__metadata: {version: '8'}\na@npm:1: {version: 1, resolution: 'a@npm:1'}\n",
+			"__metadata: {version: 8}\na@npm:1: {version: 1.0, resolution: 'a@npm:1'}\n",
+			"__metadata: {version: 8}\na@npm:1: {version: true, resolution: 'a@npm:1'}\n",
+			"__metadata: {version: 8}\na@npm:1: {version: 1, resolution: 'a@npm:1'}\n---\nx: y\n",
+		}
+	}
+	for _, data := range shapes {
 		cases[fmt.Sprintf("shape-%d", len(cases))] = []byte(data)
 	}
 	if len(cases) < 15 {
@@ -64,7 +79,21 @@ func TestRustClassicGraphOracle(t *testing.T) {
 			// Supply root and member manifests to exercise direct-dependency
 			// lookup, optional refusal, and sibling discovery for every lock.
 			deps := map[string]string{}
-			if blocks, err := tokenizeClassic(string(data)); err == nil {
+			if berry {
+				if doc, err := berryDocument(data); err == nil {
+					for i := 0; i+1 < len(doc.Content); i += 2 {
+						if key := berryString(doc.Content[i]); key != nil {
+							for _, spec := range splitBerryHeader(*key) {
+								if n, _, _, ok := parseBerrySpec(spec); ok {
+									if _, exists := deps[n]; !exists {
+										deps[n] = spec[len(n)+1:]
+									}
+								}
+							}
+						}
+					}
+				}
+			} else if blocks, err := tokenizeClassic(string(data)); err == nil {
 				for _, b := range blocks {
 					for _, spec := range b.specs {
 						if n, ok := specName(spec); ok {
@@ -119,7 +148,7 @@ func TestRustClassicGraphOracle(t *testing.T) {
 					if err := json.Unmarshal(out, &ref); err != nil {
 						t.Fatal(string(out), err)
 					}
-					g, _, err := ParseClassic(path, data, pj, Options{AllowUnsupportedSources: relaxed})
+					g, _, err := Parse(path, data, pj, Options{AllowUnsupportedSources: relaxed})
 					if (err == nil) != ref.OK {
 						t.Fatalf("%s optional=%v acceptance: Go %v; Rust %v (%s)\n%s", mode, optional, err, ref.OK, ref.Error, data)
 					}
@@ -143,12 +172,14 @@ func TestRustClassicGraphOracle(t *testing.T) {
 						b, _ := json.MarshalIndent(b, "", "  ")
 						t.Fatalf("%s optional=%v graph differs\nGo: %s\nRust: %s\nInput: %s", mode, optional, a, b, strings.TrimSpace(string(data)))
 					}
-					compareClassicWriter(t, oracle, path, pjPath, mode, g, pj)
+					if !berry {
+						compareClassicWriter(t, oracle, path, pjPath, mode, g, pj)
+					}
 				}
 			}
 		})
 	}
-	t.Logf("compared %d classic documents in strict/lenient and required/optional modes (%d accepted)", len(cases), accepted)
+	t.Logf("compared %d Yarn documents (berry=%v) in strict/lenient and required/optional modes (%d accepted)", len(cases), berry, accepted)
 }
 
 func compareClassicWriter(t *testing.T, oracle, input, manifestPath, mode string, g *lockfile.Graph, pj *manifest.Package) {

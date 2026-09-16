@@ -15,7 +15,12 @@ import (
 	"github.com/nubjs/nub/pm-go/internal/semver"
 )
 
-type Options struct{ AllowUnsupportedSources bool }
+type Options struct {
+	AllowUnsupportedSources bool
+	// A non-nil map supplies the adapter's identity-scoped override selection.
+	// Nil preserves the standalone engine's manifest-source precedence.
+	Overrides map[string]string
+}
 type Warning struct{ Code, Message string }
 type UnsupportedSource struct{ Name, Spec, Protocol string }
 
