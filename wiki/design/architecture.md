@@ -138,4 +138,6 @@ The Go registry configuration layer tags each npmrc source. Unscoped credentials
 
 The Go semver layer expands npm ranges into comparator sets and admits prereleases only for explicitly selected version tuples. Its CI tests use the pinned node-semver fixture as an independent oracle.
 
+Version selection retains lockfile and dist-tag preferences before scanning candidates. It distinguishes unsatisfied ranges from releases that are too new or have no provable publish age. A blocked stable `latest` tag can fall back only at or below its tagged version; protocol selectors cannot resolve through registry tags.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
