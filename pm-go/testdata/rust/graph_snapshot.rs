@@ -203,5 +203,24 @@ pub fn snapshot(g: &LockfileGraph) -> Value {
                 .collect(),
         ),
     );
+    let identity = aube_lockfile::graph_hash::graph_identity_hash(g, &|_| false);
+    out.insert(
+        "IdentityHash".into(),
+        json!(
+            identity
+                .iter()
+                .map(|b| format!("{b:02x}"))
+                .collect::<String>()
+        ),
+    );
+    out.insert(
+        "NodeHashes".into(),
+        json!(aube_lockfile::graph_hash::compute_graph_hashes(g, &|_| false, None).node_hash),
+    );
+    let mut affected: Vec<_> = aube_lockfile::graph_hash::content_affected_dep_paths(g)
+        .into_iter()
+        .collect();
+    affected.sort();
+    out.insert("ContentAffected".into(), json!(affected));
     Value::Object(out)
 }

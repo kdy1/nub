@@ -87,3 +87,5 @@ Importer freshness checks preserve section-specific specifiers, optional skip re
 Native Berry fixtures begin with an LF lockfile on every OS, following Yarn’s existing-file line-ending preservation. Generated output is compared byte for byte without newline normalization.
 
 Workspace freshness uses the root’s effective override set, resolves catalog and `$dependency` references, detects removed importers, and compares ignored-optionals and recorded runtime pins only in formats that retain resolution metadata. `devEngines` parsing remains a tolerant metadata view and performs no runtime installation or switching. Identity-scoped override and ignore selections are supplied per call.
+
+Graph hashing ports the reference BLAKE3 serialization, cycle handling and edge resolution. Package identity can include patch and materialized-content fingerprints; build-dependent subtrees can include the selected engine. Whole-graph identity stays host independent and retains importer specifiers and dependency sections. Full graph comparisons also compare hashes against Rust. The unchanged-file write guard is not connected yet.

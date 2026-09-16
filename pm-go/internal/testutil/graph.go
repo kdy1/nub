@@ -2,6 +2,7 @@
 package testutil
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"github.com/nubjs/nub/pm-go/internal/lockfile"
 	"reflect"
@@ -18,7 +19,16 @@ func GraphJSON(g *lockfile.Graph) ([]byte, error) {
 			p.Source.Integrity = &s
 		}
 	}
-	return json.Marshal(containers(reflect.ValueOf(g)))
+	snapshot := containers(reflect.ValueOf(g)).(map[string]any)
+	hash := g.IdentityHash(nil)
+	snapshot["IdentityHash"] = hex.EncodeToString(hash[:])
+	snapshot["NodeHashes"] = g.ComputeHashes(lockfile.HashOptions{})
+	affected := g.ContentAffected().Sorted()
+	if affected == nil {
+		affected = []string{}
+	}
+	snapshot["ContentAffected"] = affected
+	return json.Marshal(snapshot)
 }
 func containers(v reflect.Value) any {
 	if !v.IsValid() {
