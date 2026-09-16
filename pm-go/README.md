@@ -24,4 +24,4 @@ Tarball extraction strips the wrapper directory, rejects escaping paths and non-
 
 Dependency helpers preserve scoped coordinate splitting, workspace alias/path/range grammar, and OS/CPU/libc constraints. Linux libc detection checks the active loader before installed loader files, including when the Go executable is built without cgo.
 
-The Go executable uses its own global cache and store. Lifecycle scripts and fetched tools use Node from `PATH`; Nub's runtime augmentation, TypeScript transformation, and Node provisioning are outside this executable.
+The Go executable uses its own `nub-pm-go` global cache and store namespace with the reference XDG/Windows directory precedence. Shared and exclusive file leases are cancellable and tested across processes. Lifecycle scripts and fetched tools use Node from `PATH`; Nub's runtime augmentation, TypeScript transformation, and Node provisioning are outside this executable.

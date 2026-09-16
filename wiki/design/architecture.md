@@ -150,4 +150,6 @@ Tarball extraction runs inside a newly created filesystem root. It strips the wr
 
 Dependency helpers distinguish workspace aliases, relative locators, and version ranges. Platform matching uses npm OS/CPU/libc names and supports additional target architectures. Linux libc detection examines the running loader before installed loader files so cross-compilation tooling does not select the wrong optional packages.
 
+Go cache and store defaults retain the reference platform precedence under the separate `nub-pm-go` namespace. Advisory file leases coordinate processes, support shared readers and exclusive maintenance, and allow cancellation while waiting. Lock files remain in place after release so concurrent processes always lock the same inode.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
