@@ -93,3 +93,5 @@ Graph hashing ports the reference BLAKE3 serialization, cycle handling and edge 
 The format I/O layer keeps graph-equal lockfiles byte-for-byte unchanged, including comments, line endings and mtime. It checks resolved patch fingerprints and can enforce package-extension checksums before suppressing a write. Corrupt or strictly unparseable files take the normal write path. Legacy `lock.yaml` migrates to `nub.lock` on a real change; a duplicate legacy file is removed when the current file already exists. These helpers are not yet wired to install commands.
 
 Native I/O tests retain Bun remote-tarball tuples and Berry custom archive qualifiers through an unchanged write, then remove installed packages and cache contents before a frozen install and a PATH Node resolution check. These exercise file preservation separately from the raw conversion writers' limitations above.
+
+The shared lockfile read boundary rejects unsafe importer, package and dependency aliases before a graph reaches an installer. It also rejects registry-style dependency keys backed by local or remote source resolutions, retaining the reference's error codes and validation order.

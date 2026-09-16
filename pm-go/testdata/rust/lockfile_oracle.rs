@@ -5,17 +5,31 @@ mod graph_snapshot;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
-    if args.len() == 2 && args[0] == "noop-write" {
+    if args.len() == 2 && (args[0] == "noop-write" || args[0] == "read-project") {
         static PROFILE: aube_util::Embedder = aube_util::Embedder {
             no_churn_lockfile_write: true,
             strict_unsupported_source: true,
             lockfile_basename: "nub.lock",
             lockfile_legacy_basenames: &["lock.yaml"],
+            canonical_lockfile_always_wins: false,
+            self_names: &["nub"],
             ..aube_util::AUBE
         };
         aube_util::set_embedder(&PROFILE);
         let dir = std::path::Path::new(&args[1]);
         let manifest = aube_manifest::PackageJson::from_path(&dir.join("package.json")).unwrap();
+        if args[0] == "read-project" {
+            let result = aube_lockfile::parse_lockfile_with_kind(dir, &manifest);
+            println!(
+                "{}",
+                match result {
+                    Ok((graph, _)) =>
+                        serde_json::json!({"ok":true,"graph":graph_snapshot::snapshot(&graph)}),
+                    Err(e) => serde_json::json!({"ok":false,"error":e.to_string()}),
+                }
+            );
+            return;
+        }
         let result =
             aube_lockfile::parse_lockfile_with_kind(dir, &manifest).and_then(|(graph, kind)| {
                 aube_lockfile::write_lockfile_as(dir, &graph, &manifest, kind)

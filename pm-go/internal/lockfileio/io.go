@@ -35,6 +35,17 @@ type WriteResult struct {
 }
 
 func Read(path string, kind identity.Kind, project *manifest.Package, options ReadOptions) (*lockfile.Graph, []Warning, error) {
+	g, warnings, err := readFormat(path, kind, project, options)
+	if err == nil {
+		err = validateGraph(path, g)
+	}
+	if err != nil {
+		return nil, warnings, err
+	}
+	return g, warnings, nil
+}
+
+func readFormat(path string, kind identity.Kind, project *manifest.Package, options ReadOptions) (*lockfile.Graph, []Warning, error) {
 	var warnings []Warning
 	switch kind {
 	case identity.Nub, identity.Pnpm:
