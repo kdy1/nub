@@ -6,6 +6,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/nubjs/nub/pm-go/internal/overridesyntax"
 	"github.com/nubjs/nub/pm-go/internal/semver"
 )
 
@@ -21,11 +22,11 @@ type directOverrideRule struct {
 func CompileDirectOverrides(raw map[string]string) DirectOverrideRules {
 	var rules DirectOverrideRules
 	for _, key := range slices.Sorted(maps.Keys(raw)) {
-		parts, ok := overrideSegments(key)
+		parts, ok := overridesyntax.Split(key)
 		if !ok || len(parts) != 1 {
 			continue
 		}
-		name, requirement, ok := overrideSegment(parts[0])
+		name, requirement, ok := overridesyntax.ParseSegment(parts[0])
 		if ok {
 			rules = append(rules, directOverrideRule{name, requirement, raw[key]})
 		}
@@ -53,79 +54,12 @@ func (rules DirectOverrideRules) Apply(name, rangeText string) *string {
 
 // OverrideTarget also accepts ancestor chains when expanding catalog values.
 func OverrideTarget(key string) (string, bool) {
-	parts, ok := overrideSegments(key)
+	parts, ok := overridesyntax.Split(key)
 	if !ok {
 		return "", false
 	}
-	name, _, ok := overrideSegment(parts[len(parts)-1])
+	name, _, ok := overridesyntax.ParseSegment(parts[len(parts)-1])
 	return name, ok
-}
-
-func overrideSegments(key string) ([]string, bool) {
-	var pnpm, out []string
-	start := 0
-	for i := 0; i < len(key); i++ {
-		if key[i] != '>' {
-			continue
-		}
-		if i == 0 {
-			return nil, false
-		}
-		if !strings.ContainsRune(" |@", rune(key[i-1])) {
-			if start == i {
-				return nil, false
-			}
-			pnpm = append(pnpm, key[start:i])
-			start = i + 1
-		}
-	}
-	if start >= len(key) {
-		return nil, false
-	}
-	pnpm = append(pnpm, key[start:])
-	for _, part := range pnpm {
-		start = 0
-		for i := 0; i < len(part); i++ {
-			if part[i] != '/' {
-				continue
-			}
-			current := part[start:i]
-			scope := strings.HasPrefix(current, "@") && !strings.Contains(current[1:], "/")
-			if !scope {
-				if current == "" {
-					return nil, false
-				}
-				out = append(out, current)
-				start = i + 1
-			}
-		}
-		if start == len(part) {
-			return nil, false
-		}
-		out = append(out, part[start:])
-	}
-	return out, true
-}
-func overrideSegment(s string) (string, *string, bool) {
-	if s == "**" {
-		return "", nil, false
-	}
-	start := 0
-	if strings.HasPrefix(s, "@") {
-		slash := strings.IndexByte(s, '/')
-		if slash < 0 || slash == len(s)-1 {
-			return "", nil, false
-		}
-		start = slash + 1
-	}
-	if at := strings.IndexByte(s[start:], '@'); at >= 0 {
-		if at == 0 || start+at == len(s)-1 {
-			return "", nil, false
-		}
-		req := s[start+at+1:]
-		return s[:start+at], &req, true
-	}
-	return s, nil, true
 }
 
 // This is the reference lower-bound probe, not a general range intersection.
