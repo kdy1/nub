@@ -5,6 +5,30 @@ mod graph_snapshot;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "noop-write" {
+        static PROFILE: aube_util::Embedder = aube_util::Embedder {
+            no_churn_lockfile_write: true,
+            strict_unsupported_source: true,
+            lockfile_basename: "nub.lock",
+            lockfile_legacy_basenames: &["lock.yaml"],
+            ..aube_util::AUBE
+        };
+        aube_util::set_embedder(&PROFILE);
+        let dir = std::path::Path::new(&args[1]);
+        let manifest = aube_manifest::PackageJson::from_path(&dir.join("package.json")).unwrap();
+        let result =
+            aube_lockfile::parse_lockfile_with_kind(dir, &manifest).and_then(|(graph, kind)| {
+                aube_lockfile::write_lockfile_as(dir, &graph, &manifest, kind)
+            });
+        println!(
+            "{}",
+            match result {
+                Ok(_) => serde_json::json!({"ok":true}),
+                Err(e) => serde_json::json!({"ok":false,"error":e.to_string()}),
+            }
+        );
+        return;
+    }
     if args.len() == 3 && args[0] == "importer-drift" {
         drift_oracle::importer(
             std::path::Path::new(&args[1]),
