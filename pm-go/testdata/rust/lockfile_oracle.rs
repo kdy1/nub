@@ -3,6 +3,7 @@
 mod drift_oracle;
 mod git_oracle;
 mod graph_snapshot;
+mod linker_oracle;
 mod override_oracle;
 mod peer_oracle;
 mod registry_oracle;
@@ -12,6 +13,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "dep-filenames" {
+        linker_oracle::filenames(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "registry-urls" {
         registry_oracle::urls(std::path::Path::new(&args[1]));
         return;
