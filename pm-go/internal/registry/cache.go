@@ -141,7 +141,12 @@ func (c *Client) writeMetadata(path string, entry *cachedMetadata) {
 }
 
 func (c *Client) Metadata(ctx context.Context, name, cacheDir string, mode NetworkMode, full bool) (*Packument, error) {
-	registry := c.Config.RegistryFor(name)
+	return c.MetadataAt(ctx, name, c.Config.RegistryFor(name), cacheDir, mode, full)
+}
+
+// MetadataAt routes one request without mutating the shared configuration.
+// URI-scoped credentials and cache partitions use this effective registry.
+func (c *Client) MetadataAt(ctx context.Context, name, registry, cacheDir string, mode NetworkMode, full bool) (*Packument, error) {
 	path, err := MetadataCachePath(cacheDir, name, registry, full)
 	if err != nil {
 		return nil, err
