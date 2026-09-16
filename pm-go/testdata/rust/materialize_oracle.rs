@@ -147,7 +147,7 @@ fn materialize(case: &Value) -> Value {
     json!({"passes":passes})
 }
 
-fn snapshot(root: &Path, relative: &Path, tree: &mut BTreeMap<String, Value>) {
+pub fn snapshot(root: &Path, relative: &Path, tree: &mut BTreeMap<String, Value>) {
     for child in std::fs::read_dir(root.join(relative)).unwrap() {
         let child = child.unwrap();
         let relative = relative.join(child.file_name());

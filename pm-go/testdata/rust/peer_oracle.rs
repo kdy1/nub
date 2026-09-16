@@ -12,7 +12,7 @@ fn strings(v: &Value) -> BTreeMap<String, String> {
         })
         .unwrap_or_default()
 }
-fn graph(v: &Value) -> LockfileGraph {
+pub fn graph(v: &Value) -> LockfileGraph {
     let mut g = LockfileGraph::default();
     for (path, deps) in v["Importers"].as_object().unwrap() {
         g.importers.insert(

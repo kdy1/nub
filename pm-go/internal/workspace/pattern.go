@@ -171,11 +171,31 @@ func tokenize(pattern string) ([]token, bool) {
 // wildcard-matched only when literalSeparator is false. A recursive wildcard
 // occupies a whole component and consumes directory prefixes or a final tail.
 func Match(pattern, path string, literalSeparator bool) bool {
+	return matchWithCase(pattern, path, literalSeparator, true)
+}
+
+// MatchFold uses glob::Pattern's ASCII-only case folding, including its
+// character-range rules. PM hoist patterns allow wildcards across separators.
+func MatchFold(pattern, path string) bool {
+	return matchWithCase(pattern, path, false, false)
+}
+
+func lowerASCII(c rune) rune {
+	if c >= 'A' && c <= 'Z' {
+		return c + ('a' - 'A')
+	}
+	return c
+}
+
+func matchWithCase(pattern, path string, literalSeparator, caseSensitive bool) bool {
 	tokens, ok := tokenize(pattern)
 	if !ok {
 		return false
 	}
 	chars := []rune(path)
+	charsEqual := func(a, b rune) bool {
+		return equal(a, b) || !caseSensitive && a <= 127 && b <= 127 && lowerASCII(a) == lowerASCII(b)
+	}
 	type position struct{ token, char int }
 	memo := map[position]bool{}
 	seen := map[position]bool{}
@@ -222,13 +242,18 @@ func Match(pattern, path string, literalSeparator bool) bool {
 			c := chars[ci]
 			accept := false
 			if t.kind == 'c' {
-				accept = equal(c, t.literal)
+				accept = charsEqual(c, t.literal)
 			} else if !(literalSeparator && separator(c)) {
 				if t.kind == '?' {
 					accept = true
 				} else {
 					for _, r := range t.ranges {
-						if r.low == r.high && equal(c, r.low) || r.low <= c && c <= r.high {
+						foldedRange := false
+						if !caseSensitive && c <= 127 && r.low <= 127 && r.high <= 127 {
+							low, high := lowerASCII(r.low), lowerASCII(r.high)
+							foldedRange = low >= 'a' && low <= 'z' && high >= 'a' && high <= 'z' && low <= lowerASCII(c) && lowerASCII(c) <= high
+						}
+						if r.low == r.high && charsEqual(c, r.low) || r.low <= c && c <= r.high || foldedRange {
 							accept = true
 							break
 						}

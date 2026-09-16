@@ -180,4 +180,6 @@ The Go materializer applies package patches before publishing virtual-store entr
 
 On macOS, Go package materialization strips only the quarantine attribute from indexed executables and native modules, including indexed cache hits. A separate walk handles restored build output without following symlinks. Failures produce a bounded warning and leave other attributes intact.
 
+The Go project-local isolated linker connects materialization to root and workspace dependency links. Public and hidden hoist passes retain their distinct version-selection rules; mutable directory dependencies refresh their contents. Modules paths are checked against both lexical and physical project boundaries before cleanup, including Windows junctions. Shared global layouts and CLI install orchestration remain pending.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
