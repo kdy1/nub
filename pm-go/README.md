@@ -77,3 +77,5 @@ The Berry writer emits reference metadata, root workspace descriptors, declared-
 CI pins Yarn classic 1.22.22 and Berry 4.18.0 as additional test oracles. An isolated registry fixture checks two conflicting transitive versions, rewrites through Go, removes installed packages and cache, then checks frozen installation and PATH Node resolution. The Rust job also compares exact writer output for that native fixture.
 
 Registry fixtures include fixed publication timestamps so native age gates operate on deterministic metadata. Tests can override each version’s timestamp to exercise release-age policy.
+
+Lockfile freshness helpers compare patch configuration using each format’s recorded hash/path model, compare used catalog entries, and detect package-extension checksum changes. Importer/manifest drift and install orchestration are still pending.
