@@ -16,7 +16,7 @@ import (
 )
 
 // Bun is only an isolated test oracle; the Go adapter has no Node dependency.
-func TestPinnedBunAcceptsGoLockfile(t *testing.T) {
+func TestPinnedBunLockfileCompatibility(t *testing.T) {
 	cli := os.Getenv("PM_BUN_BIN")
 	if cli == "" {
 		t.Skip("set PM_BUN_BIN to Bun 1.3.14 executable")
@@ -130,6 +130,25 @@ func TestPinnedBunAcceptsGoLockfile(t *testing.T) {
 			compareNativeRustWriter(t, dir, original, written)
 			if err := os.RemoveAll(filepath.Join(home, "cache")); err != nil {
 				t.Fatal(err)
+			}
+			if name == "remote-tarball" {
+				// The unchanged Rust writer emits a registry slot Bun's remote
+				// tuple parser rejects. Preserve exact parity and make this a
+				// visible negative compatibility case, not an acceptance claim.
+				ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+				defer cancel()
+				cmd := exec.CommandContext(ctx, cli, append(flags, "--frozen-lockfile")...)
+				cmd.Dir, cmd.Env = dir, env
+				out, err := cmd.CombinedOutput()
+				if err == nil || !bytes.Contains(out, []byte("Expected an object")) || !bytes.Contains(out, []byte("lockfile is frozen")) {
+					t.Fatalf("baseline remote tuple rejection changed: %v\n%s", err, out)
+				}
+				after, err := os.ReadFile(path)
+				if err != nil || !bytes.Equal(written, after) {
+					t.Fatal("failed frozen install changed lockfile", err)
+				}
+				t.Log("Bun rejects the reference writer's remote-tarball tuple; unchanged-file orchestration remains pending")
+				return
 			}
 			run(append(flags, "--frozen-lockfile")...)
 			ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)

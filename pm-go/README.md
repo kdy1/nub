@@ -61,3 +61,5 @@ Set `PM_BUN_BIN` to Bun 1.3.14 to run the isolated Bun acceptance oracle. It gen
 The reference Bun writer differs from native Bun for nested-key ordering and the empty registry slot in remote-tarball tuples. The oracle asserts these specific byte differences and compares unmodified Rust/Go output for the generated fixtures. Install-level preservation of an unchanged native file remains pending.
 
 Yarn prerequisites include bounded Berry detection, the classic line tokenizer, npm-alias identity, pinned Git/local source classification, and private-registry URL retention. The classic tokenizer intentionally follows the reference's treatment of optional and peer sections; complete Yarn graph readers and writers are still pending.
+
+Bun 1.3.14 rejects the reference writer's four-element remote-tarball tuple (`Expected an object`) during a frozen install. This fixture is a negative compatibility check, with exact Rust/Go bytes checked in the reference job. Alias/peer/optional, workspace and catalog fixtures require successful cold frozen installs. The remote-tarball result does not establish native acceptance.
