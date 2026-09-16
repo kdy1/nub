@@ -246,8 +246,8 @@ func TestRustDeltaAndBuildGraphOracle(t *testing.T) {
 			h.Add("duplicate")
 			h.Add("duplicate")
 			h.Remove("duplicate")
-			cases = append(cases, map[string]any{"graph": g, "patches": patches, "stored": stored, "selected": selected.Sorted(), "project": root})
-			want = append(want, map[string]any{"leaf": leaf, "subtree": subtree, "digest": digest, "incremented": h.Digest(), "phases": BuildPhases(g, selected), "added": plan.Added, "removed": plan.Removed, "changed": plan.Changed, "touch": plan.TouchedSet().Sorted(), "roots": ChangedSubtreeRoots(stored, subtree)})
+			cases = append(cases, map[string]any{"graph": g, "patches": patches, "stored": stored, "selected": append([]string{}, selected.Sorted()...), "project": root})
+			want = append(want, map[string]any{"leaf": leaf, "subtree": subtree, "digest": digest, "incremented": h.Digest(), "phases": BuildPhases(g, selected), "added": plan.Added, "removed": plan.Removed, "changed": plan.Changed, "touch": append([]string{}, plan.TouchedSet().Sorted()...), "roots": ChangedSubtreeRoots(stored, subtree)})
 		}
 	}
 	data, _ := json.Marshal(cases)
