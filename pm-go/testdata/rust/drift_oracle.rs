@@ -16,6 +16,19 @@ pub fn importer(request: &Path, manifest_path: &Path) {
             .collect()
     };
     let mut graph = LockfileGraph::default();
+    graph.overrides = strings(&input["lockedOverrides"]);
+    for (name, pin) in input["runtimes"].as_object().into_iter().flatten() {
+        graph.runtimes.insert(
+            name.clone(),
+            aube_lockfile::RuntimePin {
+                specifier: pin["Specifier"].as_str().unwrap().to_string(),
+                version: pin["Version"].as_str().unwrap().to_string(),
+                dev: false,
+                has_bin: false,
+                variants: vec![],
+            },
+        );
+    }
     graph.settings.auto_install_peers = input["autoPeers"].as_bool().unwrap();
     graph.pnpmfile_checksum = input["hook"].as_str().map(String::from);
     graph.ignored_optional_dependencies = input["ignored"]
@@ -68,13 +81,31 @@ pub fn importer(request: &Path, manifest_path: &Path) {
             },
         ));
     }
+    let catalogs = input["catalogs"]
+        .as_object()
+        .into_iter()
+        .flatten()
+        .map(|(name, v)| (name.clone(), strings(v)))
+        .collect();
+    let ignored: Vec<String> = input["workspaceIgnored"]
+        .as_array()
+        .into_iter()
+        .flatten()
+        .map(|s| s.as_str().unwrap().to_string())
+        .collect();
+    let kind = match input["kind"].as_str().unwrap_or("npm") {
+        "pnpm" => LockfileKind::Pnpm,
+        "nub" => LockfileKind::Aube,
+        "bun" => LockfileKind::Bun,
+        _ => LockfileKind::Npm,
+    };
     let result = graph.check_drift_workspace_for_kind(
         &manifests,
         &strings(&input["overrides"]),
-        &[],
-        &BTreeMap::new(),
+        &ignored,
+        &catalogs,
         false,
-        LockfileKind::Npm,
+        kind,
     );
     let reason = match result {
         DriftStatus::Fresh => String::new(),

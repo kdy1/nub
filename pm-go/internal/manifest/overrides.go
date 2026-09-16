@@ -3,6 +3,7 @@ package manifest
 import (
 	"maps"
 	"slices"
+	"strings"
 
 	"github.com/nubjs/nub/pm-go/internal/jsonvalue"
 )
@@ -41,6 +42,34 @@ func FlattenOverrides(sources ...*jsonvalue.Value) map[string]string {
 		}
 	}
 	return out
+}
+
+func (p *Package) DirectDependencyRange(name string) *string {
+	for _, section := range []map[string]string{p.Dependencies, p.DevDependencies, p.OptionalDependencies} {
+		if spec, ok := section[name]; ok {
+			return &spec
+		}
+	}
+	return nil
+}
+
+// ResolveOverrideRefs performs the reference's single substitution pass.
+// Missing sibling references are removed and returned in selector order.
+func (p *Package) ResolveOverrideRefs(overrides map[string]string) []string {
+	var missing []string
+	for _, key := range slices.Sorted(maps.Keys(overrides)) {
+		name, ok := strings.CutPrefix(overrides[key], "$")
+		if !ok {
+			continue
+		}
+		if spec := p.DirectDependencyRange(name); spec != nil {
+			overrides[key] = *spec
+		} else {
+			delete(overrides, key)
+			missing = append(missing, key)
+		}
+	}
+	return missing
 }
 
 func orderedOverrideFields(v *jsonvalue.Value) []jsonvalue.Field {

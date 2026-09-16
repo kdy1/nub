@@ -3,6 +3,7 @@ package lockfile
 import (
 	"context"
 	"encoding/json"
+	"github.com/nubjs/nub/pm-go/internal/identity"
 	"github.com/nubjs/nub/pm-go/internal/manifest"
 	"os"
 	"os/exec"
@@ -82,6 +83,9 @@ func TestImporterWorkspaceLinkAndLabel(t *testing.T) {
 }
 
 func compareImporterDrift(t *testing.T, g *Graph, pj string, overrides map[string]string, links Set, want DriftStatus) {
+	compareDrift(t, g, pj, DriftOptions{Kind: identity.Npm, WorkspaceOverrides: overrides}, links, want)
+}
+func compareDrift(t *testing.T, g *Graph, pj string, options DriftOptions, links Set, want DriftStatus) {
 	t.Helper()
 	oracle := os.Getenv("PM_RUST_LOCKFILE_ORACLE")
 	if oracle == "" {
@@ -93,7 +97,7 @@ func compareImporterDrift(t *testing.T, g *Graph, pj string, overrides map[strin
 	if err := os.WriteFile(manifestPath, []byte(pj), 0600); err != nil {
 		t.Fatal(err)
 	}
-	data, err := json.Marshal(map[string]any{"deps": g.RootDeps(), "autoPeers": g.Settings.AutoInstallPeers, "skipped": g.SkippedOptionalDependencies["."], "ignored": g.IgnoredOptionalDependencies.Sorted(), "hook": g.PnpmfileChecksum, "overrides": overrides, "workspaceNames": links.Sorted()})
+	data, err := json.Marshal(map[string]any{"deps": g.RootDeps(), "autoPeers": g.Settings.AutoInstallPeers, "skipped": g.SkippedOptionalDependencies["."], "ignored": g.IgnoredOptionalDependencies.Sorted(), "hook": g.PnpmfileChecksum, "overrides": options.WorkspaceOverrides, "kind": options.Kind, "lockedOverrides": g.Overrides, "catalogs": options.WorkspaceCatalogs, "workspaceIgnored": options.WorkspaceIgnoredOptional, "runtimes": g.Runtimes, "workspaceNames": links.Sorted()})
 	if err != nil {
 		t.Fatal(err)
 	}
