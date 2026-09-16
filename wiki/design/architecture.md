@@ -140,4 +140,6 @@ The Go semver layer expands npm ranges into comparator sets and admits prereleas
 
 Version selection retains lockfile and dist-tag preferences before scanning candidates. It distinguishes unsatisfied ranges from releases that are too new or have no provable publish age. A blocked stable `latest` tag can fall back only at or below its tagged version; protocol selectors cannot resolve through registry tags.
 
+Go registry requests enforce response-size, total-time, and idle-time limits. Retry budgets distinguish temporary status codes from timeouts. Credentials stay stripped after a redirect crosses authorities, and HTTPS redirects cannot downgrade to HTTP. TLS roots, proxies, and credential-helper environments come from the captured execution context.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
