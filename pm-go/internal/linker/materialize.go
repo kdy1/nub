@@ -46,6 +46,7 @@ type Materializer struct {
 	Strategy          Strategy
 	Hashes            lockfile.GraphHashes
 	Patches           map[string]string
+	Quarantine        *Quarantine
 	MaxFilenameLength int
 }
 
@@ -93,6 +94,7 @@ func (m Materializer) EnsurePackage(ctx context.Context, depPath string, graph *
 			return Materialized{}, err
 		}
 		result.Cached = true
+		m.Quarantine.StripIndexed(pkgDir, index)
 		return result, nil
 	}
 	if err := os.MkdirAll(m.Root, 0755); err != nil {
@@ -112,6 +114,7 @@ func (m Materializer) EnsurePackage(ctx context.Context, depPath string, graph *
 			return Materialized{}, &PatchError{key, err.Error()}
 		}
 	}
+	m.Quarantine.StripIndexed(stagedPkg, index)
 	if err := m.linkDependencies(ctx, tmp, entry, graph, pkg, nestedLinks, false); err != nil {
 		return Materialized{}, err
 	}

@@ -178,4 +178,6 @@ Go pnpm checksum helpers reproduce the reference’s unordered object/array hash
 
 The Go materializer applies package patches before publishing virtual-store entries. Applied-patch state uses Nub's existing project sidecar and CRLF-normalized SHA-256 fingerprints. Changed selectors invalidate project-local alias and peer placements; global identities carry their patch fingerprints in graph hashes. Installation orchestration remains separate work.
 
+On macOS, Go package materialization strips only the quarantine attribute from indexed executables and native modules, including indexed cache hits. A separate walk handles restored build output without following symlinks. Failures produce a bounded warning and leave other attributes intact.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
