@@ -61,9 +61,25 @@ func TestRejectsUnsafeEditsAndInvalidPaths(t *testing.T) {
 }
 
 func TestMalformedJSON(t *testing.T) {
-	for _, data := range []string{`{"x":}`, `[] true`, `{"x":1,}`, strings.Repeat("[", 130) + strings.Repeat("]", 130)} {
+	for _, data := range []string{`{"x":}`, `[] true`, `{"x":1,}`, "{\"x\":\"\xff\"}", strings.Repeat("[", 130) + strings.Repeat("]", 130)} {
 		if _, err := Parse([]byte(data)); err == nil {
 			t.Fatal("invalid JSON accepted")
 		}
+	}
+}
+
+func TestJSONStringEscaping(t *testing.T) {
+	input := "\"\\\t\n\r\b\f\x01<>&한글😀\u2028\u2029literal\\u2028"
+	value := String(input)
+	encoded, err := value.MarshalJSON()
+	if err != nil {
+		t.Fatal(err)
+	}
+	decoded, err := Parse(encoded)
+	if err != nil || decoded.Text() != input {
+		t.Fatal(string(encoded), err)
+	}
+	if !strings.Contains(string(encoded), "한글😀\u2028\u2029") || !strings.Contains(string(encoded), `literal\\u2028`) {
+		t.Fatal(string(encoded))
 	}
 }

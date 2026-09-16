@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"unicode/utf8"
 )
 
 type Field struct {
@@ -24,6 +25,9 @@ func String(s string) *Value { return &Value{Kind: 's', Scalar: s} }
 func Null() *Value           { return &Value{Kind: 'n'} }
 
 func Parse(data []byte) (*Value, error) {
+	if !utf8.Valid(data) {
+		return nil, fmt.Errorf("invalid UTF-8 in JSON document")
+	}
 	d := json.NewDecoder(bytes.NewReader(data))
 	d.UseNumber()
 	v, err := read(d, 0)
@@ -135,6 +139,34 @@ func (v *Value) Remove(key string) {
 
 func scalarJSON(value any) []byte {
 	var b bytes.Buffer
+	if s, ok := value.(string); ok {
+		b.WriteByte('"')
+		for _, r := range s {
+			switch r {
+			case '"', '\\':
+				b.WriteByte('\\')
+				b.WriteRune(r)
+			case '\b':
+				b.WriteString(`\b`)
+			case '\f':
+				b.WriteString(`\f`)
+			case '\n':
+				b.WriteString(`\n`)
+			case '\r':
+				b.WriteString(`\r`)
+			case '\t':
+				b.WriteString(`\t`)
+			default:
+				if r < 0x20 {
+					fmt.Fprintf(&b, `\u%04x`, r)
+				} else {
+					b.WriteRune(r)
+				}
+			}
+		}
+		b.WriteByte('"')
+		return b.Bytes()
+	}
 	e := json.NewEncoder(&b)
 	e.SetEscapeHTML(false)
 	if err := e.Encode(value); err != nil {

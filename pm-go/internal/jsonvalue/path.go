@@ -125,10 +125,10 @@ func (v *Value) Set(path []Segment, value *Value) error {
 	if len(path) == 0 {
 		return fmt.Errorf("cannot set a value with an empty property path")
 	}
-	// Bound sparse allocation before modifying any part of the document.
+	// Parsed paths are nonnegative; guard programmatically built segments too.
 	for _, s := range path {
-		if s.IsIndex && (s.Index < 0 || s.Index > 1_000_000) {
-			return fmt.Errorf("array index exceeds manifest size limit")
+		if s.IsIndex && s.Index < 0 {
+			return fmt.Errorf("negative array index")
 		}
 	}
 	for i, s := range path {

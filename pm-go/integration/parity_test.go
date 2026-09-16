@@ -20,6 +20,9 @@ func TestRustManifestParity(t *testing.T) {
 		args       []string
 	}{
 		{"get", `{"name":"example"}`, []string{"pkg", "get", "name"}},
+		{"unicode", "{\"name\":\"한글😀\u2028\u2029\",\"literal\":\"\\\\u2028\"}", []string{"pkg", "get"}},
+		{"unicode-set", `{"name":"example"}`, []string{"pkg", "set", "description=한글😀\u2028\u2029"}},
+		{"numbers", `{"name":"example","n":1e+9,"negativeZero":-0,"decimal":1.0,"huge":18446744073709551616}`, []string{"pkg", "get"}},
 		{"get-json", `{"name":"example","private":true}`, []string{"pkg", "get", "name", "private", "missing"}},
 		{"set", "{\r\n\t\"name\": \"example\"\r\n}", []string{"pkg", "set", "--json", "private=true"}},
 		{"late-json", `{"name":"unchanged"}`, []string{"pkg", "set", "name=changed", "--json"}},
