@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -16,23 +17,36 @@ import (
 )
 
 // The real Yarn executables are test oracles only; Go never invokes them.
-func TestPinnedYarnAcceptsGoRegistryLockfiles(t *testing.T) {
-	reg := testregistry.Start(t,
+func TestPinnedYarnRegistryCompatibility(t *testing.T) {
+	packages := []testregistry.Package{
 		testregistry.Package{Name: "dep", Version: "1.0.0", Files: map[string]string{"index.js": `module.exports="one"`}},
 		testregistry.Package{Name: "dep", Version: "2.0.0", Files: map[string]string{"index.js": `module.exports="two"`}},
 		testregistry.Package{Name: "a", Version: "1.0.0", Manifest: map[string]any{"dependencies": map[string]string{"dep": "^1"}}, Files: map[string]string{"index.js": `module.exports=require("dep")`}},
 		testregistry.Package{Name: "b", Version: "1.0.0", Manifest: map[string]any{"dependencies": map[string]string{"dep": "^2"}}, Files: map[string]string{"index.js": `module.exports=require("dep")`}},
-	)
-	for _, berry := range []bool{false, true} {
+	}
+	for _, scenario := range []struct{ berry, custom bool }{{false, true}, {true, false}, {true, true}} {
+		berry, custom := scenario.berry, scenario.custom
 		version, variable := "1.22.22", "PM_YARN_CLASSIC_CLI"
 		if berry {
 			version, variable = "4.18.0", "PM_YARN_BERRY_CLI"
 		}
-		t.Run(version, func(t *testing.T) {
+		name := version
+		if custom {
+			name += "-custom-archive"
+		}
+		t.Run(name, func(t *testing.T) {
 			cli := os.Getenv(variable)
 			if cli == "" {
 				t.Skip("set " + variable + " to the pinned Yarn bin/yarn.js")
 			}
+			fixtures := append([]testregistry.Package(nil), packages...)
+			if !custom {
+				for i := range fixtures {
+					p := &fixtures[i]
+					p.TarballPath = "/" + p.Name + "/-/" + p.Name + "-" + p.Version + ".tgz"
+				}
+			}
+			reg := testregistry.Start(t, fixtures...)
 			node, err := exec.LookPath("node")
 			if err != nil {
 				t.Fatal(err)
@@ -117,7 +131,18 @@ func TestPinnedYarnAcceptsGoRegistryLockfiles(t *testing.T) {
 			if oracle := os.Getenv("PM_RUST_LOCKFILE_ORACLE"); oracle != "" {
 				compareYarnWriter(t, oracle, path, filepath.Join(dir, "package.json"), "strict", g, project, berry)
 			}
-			if berry && !bytes.Equal(original, written) {
+			expected := original
+			if berry && custom {
+				expected = append([]byte(nil), original...)
+				for _, p := range fixtures {
+					qualifier := "::__archiveUrl=" + url.QueryEscape(reg.URL+"/tarballs/"+p.Name+"-"+p.Version+".tgz")
+					if bytes.Count(expected, []byte(qualifier)) != 1 {
+						t.Fatalf("missing native archive qualifier %s\n%s", qualifier, original)
+					}
+					expected = bytes.ReplaceAll(expected, []byte(qualifier), nil)
+				}
+			}
+			if berry && !bytes.Equal(expected, written) {
 				t.Fatalf("native Berry/Go bytes differ\nNative:\n%s\nGo:\n%s", original, written)
 			}
 			if err := os.WriteFile(path, written, 0600); err != nil {
@@ -131,6 +156,22 @@ func TestPinnedYarnAcceptsGoRegistryLockfiles(t *testing.T) {
 			frozen := "--frozen-lockfile"
 			if berry {
 				frozen = "--immutable"
+			}
+			if berry && custom {
+				ctx, cancel := context.WithTimeout(context.Background(), 90*time.Second)
+				defer cancel()
+				cmd := exec.CommandContext(ctx, node, append([]string{cli}, append(flags, frozen)...)...)
+				cmd.Dir, cmd.Env = dir, env
+				out, err := cmd.CombinedOutput()
+				if err == nil || !bytes.Contains(out, []byte("404")) {
+					t.Fatalf("expected reference archive-URL loss to fail fetching the standard path: %v\n%s", err, out)
+				}
+				after, err := os.ReadFile(path)
+				if err != nil || !bytes.Equal(written, after) {
+					t.Fatal("failed install changed lockfile", err)
+				}
+				t.Log("reference writer loses custom archive qualifiers; native cold install rejects the rewritten source")
+				return
 			}
 			run(append(flags, frozen)...)
 			ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)

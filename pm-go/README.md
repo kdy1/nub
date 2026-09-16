@@ -79,3 +79,5 @@ CI pins Yarn classic 1.22.22 and Berry 4.18.0 as additional test oracles. An iso
 Registry fixtures include fixed publication timestamps so native age gates operate on deterministic metadata. Tests can override each version’s timestamp to exercise release-age policy.
 
 Lockfile freshness helpers compare patch configuration using each format’s recorded hash/path model, compare used catalog entries, and detect package-extension checksum changes. Importer/manifest drift and install orchestration are still pending.
+
+The reference Berry reader/writer drops npm resolution `__archiveUrl` qualifiers for nonstandard archive locations. Native tests assert that exact byte loss separately from the standard-registry acceptance case, and exercise the resulting cold-fetch failure. This is a recorded reference limitation; installation-level preservation of an unchanged lockfile remains pending.

@@ -23,3 +23,29 @@ func TestMetadataPublicationTimes(t *testing.T) {
 		t.Fatal(doc)
 	}
 }
+
+func TestExplicitTarballLocation(t *testing.T) {
+	r := Start(t, Package{Name: "pkg", Version: "1.0.0", TarballPath: "/pkg/-/pkg-1.0.0.tgz"})
+	resp, err := http.Get(r.URL + "/pkg/-/pkg-1.0.0.tgz")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		t.Fatal(resp.Status)
+	}
+	metadata, err := http.Get(r.URL + "/pkg")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer metadata.Body.Close()
+	var doc struct {
+		Versions map[string]struct{ Dist struct{ Tarball string } }
+	}
+	if err := json.NewDecoder(metadata.Body).Decode(&doc); err != nil {
+		t.Fatal(err)
+	}
+	if got := doc.Versions["1.0.0"].Dist.Tarball; got != r.URL+"/pkg/-/pkg-1.0.0.tgz" {
+		t.Fatal(got)
+	}
+}

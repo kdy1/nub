@@ -23,7 +23,8 @@ type Package struct {
 	Manifest map[string]any
 	Files    map[string]string
 	// Empty uses an old, fixed timestamp so native age gates can resolve fixtures.
-	Published string
+	Published   string
+	TarballPath string
 }
 
 type Registry struct {
@@ -96,6 +97,9 @@ func Start(t testing.TB, packages ...Package) *Registry {
 			t.Fatal(err)
 		}
 		path := fmt.Sprintf("/tarballs/%s-%s.tgz", p.Name, p.Version)
+		if p.TarballPath != "" {
+			path = p.TarballPath
+		}
 		tarballs[path] = b.Bytes()
 		hash := sha512.Sum512(b.Bytes())
 		manifest["dist"] = map[string]any{"tarball": r.URL + path, "integrity": "sha512-" + base64.StdEncoding.EncodeToString(hash[:])}
