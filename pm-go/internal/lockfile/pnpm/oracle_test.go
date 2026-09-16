@@ -73,7 +73,7 @@ func TestRustPnpmGraphOracle(t *testing.T) {
 	if oracle == "" {
 		t.Skip("Rust library oracle only runs in the reference CI job")
 	}
-	root := filepath.Join("..", "..", "..", "..", "..")
+	root := filepath.Join("..", "..", "..", "..")
 	cases := map[string][]byte{}
 	files, err := filepath.Glob(filepath.Join(root, "vendor/aube/crates/aube-lockfile/tests/fixtures/pnpm-*.yaml"))
 	if err != nil {

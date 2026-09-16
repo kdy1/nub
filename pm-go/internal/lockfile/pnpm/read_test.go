@@ -197,7 +197,7 @@ func TestGraphRejectsUnsupportedAndIncompleteSources(t *testing.T) {
 	graph(t, strings.ReplaceAll(body, "example.test/a.tgz", "codeload.github.com/a/b/tar.gz/sha"))
 }
 func TestExistingPnpmFixtures(t *testing.T) {
-	dir := filepath.Join("..", "..", "..", "..", "..", "vendor", "aube", "crates", "aube-lockfile", "tests", "fixtures")
+	dir := filepath.Join("..", "..", "..", "..", "vendor", "aube", "crates", "aube-lockfile", "tests", "fixtures")
 	files, err := filepath.Glob(filepath.Join(dir, "pnpm-*.yaml"))
 	if err != nil {
 		t.Fatal(err)
