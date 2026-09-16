@@ -87,8 +87,9 @@ The command registry and aliases are extracted from the Rust adapter and checked
 ## Validation boundary
 
 - CI runs Go tests with the race detector, vet, and cgo-disabled builds on Linux, macOS, and Windows.
-- Rust differential tests currently cover manifest commands only. They do not establish install or full PM parity.
+- Rust differential tests cover manifest commands and npm library serialization. A test-only probe uses the unchanged Rust libraries; production Go never loads it. These cases do not establish install or full PM parity.
 - The pinned npm oracle exercises lockfile round trips and clean installs against an isolated registry. It does not run the Go installer, which has no handler yet.
+- A workspace conflict fixture retains the reference writer's redundant member-local hoist. Its difference from native npm is asserted explicitly, without normalizing it out of Rust/Go byte comparisons. The install orchestrator's unchanged-lockfile policy is still unimplemented.
 - Node-semver 7.7.4 is an independent range oracle. Production range handling is Go code.
 - Full Rust regressions, interruption/retry/concurrent-install scenarios, every incumbent lockfile acceptance matrix, and performance measurements remain unverified.
 

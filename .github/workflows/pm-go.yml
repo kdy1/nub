@@ -72,12 +72,17 @@ jobs:
           go-version: '1.26.x'
           cache: false
       - uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '22'
+      - name: Install pinned npm oracle
+        run: npm install --prefix "$RUNNER_TEMP/pm-go-npm" npm@11.19.0 --ignore-scripts --no-audit --no-fund
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6
         with:
           key: pm-go-reference
           cache-on-failure: true
       - name: Build Rust reference
-        run: cargo build --locked -p nub-cli --profile fast
+        run: python3 pm-go/scripts/build_rust_oracle.py
       - name: Build Go executable
         working-directory: pm-go
         env:
@@ -89,3 +94,9 @@ jobs:
           PM_RUST_BIN: ${{ github.workspace }}/target/fast/nub
           PM_GO_BIN: ${{ github.workspace }}/target/pm-go/nub-pm-go
         run: go test -v ./integration
+      - name: Compare lockfile libraries and npm acceptance
+        working-directory: pm-go
+        env:
+          PM_RUST_LOCKFILE_ORACLE: ${{ github.workspace }}/target/pm-go/rust-lockfile-oracle
+          PM_NPM_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/npm/bin/npm-cli.js
+        run: go test -v ./internal/lockfile/npm

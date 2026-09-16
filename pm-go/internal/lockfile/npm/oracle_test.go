@@ -11,6 +11,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/nubjs/nub/pm-go/internal/jsonvalue"
 	"github.com/nubjs/nub/pm-go/internal/manifest"
 	"github.com/nubjs/nub/pm-go/internal/testregistry"
 )
@@ -122,6 +123,24 @@ func TestNPMOracleAcceptsGoLockfile(t *testing.T) {
 			if err != nil || len(warnings) != 0 {
 				t.Fatalf("parse: %v %v", warnings, err)
 			}
+			var rustWritten []byte
+			if oracle := os.Getenv("PM_RUST_LOCKFILE_ORACLE"); oracle != "" {
+				ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+				cmd := exec.CommandContext(ctx, oracle, path, manifestPath)
+				cmd.Dir, cmd.Env = dir, env
+				output, err := cmd.CombinedOutput()
+				cancel()
+				if err != nil {
+					t.Fatalf("Rust lockfile oracle: %v\n%s", err, output)
+				}
+				rustWritten, err = os.ReadFile(path)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(path, original, 0644); err != nil {
+					t.Fatal(err)
+				}
+			}
 			if err := Write(path, g, m); err != nil {
 				t.Fatal(err)
 			}
@@ -129,8 +148,27 @@ func TestNPMOracleAcceptsGoLockfile(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if !bytes.Equal(original, written) {
-				t.Fatalf("npm to Go byte drift\noriginal:\n%s\nGo:\n%s", original, written)
+			if rustWritten != nil && !bytes.Equal(rustWritten, written) {
+				t.Fatalf("Rust/Go byte mismatch\nRust:\n%s\nGo:\n%s", rustWritten, written)
+			}
+			expected := original
+			if name == "workspace" {
+				// The reference writer's member-local tree retains this extra
+				// hoist after its parent is reused at root. Record the precise
+				// difference; do not normalize it out of Rust/Go comparisons.
+				v, err := jsonvalue.Parse(original)
+				if err != nil {
+					t.Fatal(err)
+				}
+				packages := v.Get("packages")
+				packages.Put("packages/member/node_modules/dep", packages.Get("node_modules/b/node_modules/dep").Clone())
+				expected, err = v.Pretty()
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
+			if !bytes.Equal(expected, written) {
+				t.Fatalf("unexpected npm to Go difference\nexpected:\n%s\nGo:\n%s", expected, written)
 			}
 			run("ci")
 			ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
@@ -145,8 +183,8 @@ func TestNPMOracleAcceptsGoLockfile(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if !bytes.Equal(written, after) {
-				t.Fatalf("npm rewrote Go lockfile\nGo:\n%s\nnpm:\n%s", written, after)
+			if !bytes.Equal(original, after) {
+				t.Fatalf("npm output changed from its original lockfile\noriginal:\n%s\nafter Go and npm:\n%s", original, after)
 			}
 		})
 	}
