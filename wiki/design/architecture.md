@@ -152,4 +152,6 @@ Dependency helpers distinguish workspace aliases, relative locators, and version
 
 Go cache and store defaults retain the reference platform precedence under the separate `nub-pm-go` namespace. Advisory file leases coordinate processes, support shared readers and exclusive maintenance, and allow cancellation while waiting. Lock files remain in place after release so concurrent processes always lock the same inode.
 
+The Go CAS streams files into temporary storage, computes BLAKE3 keys, and publishes complete files under shard locks. Executability lives in package indexes while shared CAS files remain non-executable. Index keys include tarball integrity; read-only fallback stores are never modified. Missing or truncated files invalidate a cache read.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.

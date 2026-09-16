@@ -3,6 +3,7 @@ package store
 import (
 	"fmt"
 	"path/filepath"
+	"strings"
 )
 
 const Namespace = "nub-pm-go"
@@ -10,7 +11,7 @@ const Namespace = "nub-pm-go"
 // DefaultDirs preserves the reference's platform precedence, with an isolated
 // namespace. home and env belong to the invocation, never the process globals.
 func DefaultDirs(platform, home string, env map[string]string) (root, cache string, err error) {
-	if xdg, ok := env["XDG_CACHE_HOME"]; ok {
+	if xdg := strings.TrimSpace(env["XDG_CACHE_HOME"]); xdg != "" {
 		cache = filepath.Join(xdg, Namespace)
 	} else if local, ok := env["LOCALAPPDATA"]; platform == "windows" && ok {
 		cache = filepath.Join(local, Namespace)
@@ -19,7 +20,7 @@ func DefaultDirs(platform, home string, env map[string]string) (root, cache stri
 	}
 	if local, ok := env["LOCALAPPDATA"]; platform == "windows" && ok {
 		root = filepath.Join(local, Namespace, "store", "v1", "files")
-	} else if xdg, ok := env["XDG_DATA_HOME"]; ok {
+	} else if xdg := strings.TrimSpace(env["XDG_DATA_HOME"]); xdg != "" {
 		root = filepath.Join(xdg, Namespace, "store", "v1", "files")
 	} else if home != "" {
 		root = filepath.Join(home, ".local", "share", Namespace, "store", "v1", "files")

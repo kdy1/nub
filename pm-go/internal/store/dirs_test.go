@@ -29,3 +29,10 @@ func TestDefaultDirs(t *testing.T) {
 		t.Fatal(root, cache, err)
 	}
 }
+
+func TestDefaultDirsTrimXDG(t *testing.T) {
+	root, cache, err := DefaultDirs("linux", "home", map[string]string{"XDG_DATA_HOME": " ", "XDG_CACHE_HOME": "  cache  "})
+	if err != nil || root != filepath.Join("home", ".local/share/nub-pm-go/store/v1/files") || cache != filepath.Join("cache", "nub-pm-go") {
+		t.Fatal(root, cache, err)
+	}
+}

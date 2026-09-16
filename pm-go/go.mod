@@ -7,4 +7,9 @@ require (
 	github.com/gofrs/flock v0.13.1
 )
 
-require golang.org/x/sys v0.47.0 // indirect
+require github.com/klauspost/cpuid/v2 v2.0.9 // indirect
+
+require (
+	golang.org/x/sys v0.47.0 // indirect
+	lukechampine.com/blake3 v1.4.1
+)
