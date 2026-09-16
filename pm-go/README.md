@@ -49,3 +49,5 @@ The pnpm/nub.lock adapter reads v9+ graphs, scores pnpm 11 document streams, and
 Set `PM_PNPM_CLI` to pnpm 10.15.1's `pnpm.cjs` to enable the isolated pnpm acceptance oracle. It generates alias/peer/optional, workspace, catalog, and remote-tarball locks, rewrites them with Go, and checks frozen installs and Node resolution. CI runs this with PATH Node and no Rust addon.
 
 Shared JSON parsing rejects invalid UTF-8 and unpaired UTF-16 escapes. Typed lockfile readers can retain repeated object fields for format-specific duplicate checks, while manifest values keep last-value-wins behavior.
+
+Bun's text-lockfile decoder preserves JSONC byte offsets, validates typed fields, retains unknown metadata, and distinguishes registry and Git tuple layouts. Binary `bun.lockb` is outside the reference reader's supported formats.
