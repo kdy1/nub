@@ -125,3 +125,11 @@ Three Cargo workspaces, and the splits are structural rather than organizational
 The JavaScript runtime — preloads, hooks, polyfills, worker shims — is compressed into the binary at build time and inflated once into a per-user cache directory, verified against digests baked into the executable. Extraction publishes by rename, so a concurrent reader sees a complete directory or none.
 
 The full transformer links into the addon only. The CLI binary carries a parser subset and never the transformer.
+
+## Separate Go package manager
+
+An experimental Go executable lives in `pm-go`. It has its own module and command inventory; it does not change Rust Nub's dispatch or use the Rust engine as a fallback.
+
+The inventory is checked against the Rust PM registry. Commands without a Go handler exit with an explicit error. The comparison harness records exit status, both output streams, file bytes, permissions, and symlinks in isolated project fixtures.
+
+Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.

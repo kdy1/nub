@@ -1,0 +1,414 @@
+[
+  {
+    "canonical": "install",
+    "aliases": [
+      "i"
+    ],
+    "family": "Install",
+    "rust_args": "cli::Install"
+  },
+  {
+    "canonical": "ci",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "cli::Ci"
+  },
+  {
+    "canonical": "pm",
+    "aliases": [],
+    "family": "Management",
+    "rust_args": "cli::run_pm"
+  },
+  {
+    "canonical": "add",
+    "aliases": [
+      "a"
+    ],
+    "family": "Install",
+    "rust_args": "commands::add::AddArgs"
+  },
+  {
+    "canonical": "remove",
+    "aliases": [
+      "rm",
+      "uninstall",
+      "un",
+      "uni"
+    ],
+    "family": "Install",
+    "rust_args": "commands::remove::RemoveArgs"
+  },
+  {
+    "canonical": "update",
+    "aliases": [
+      "up"
+    ],
+    "family": "Install",
+    "rust_args": "commands::update::UpdateArgs"
+  },
+  {
+    "canonical": "import",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::import::ImportArgs"
+  },
+  {
+    "canonical": "dedupe",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::dedupe::DedupeArgs"
+  },
+  {
+    "canonical": "prune",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::prune::PruneArgs"
+  },
+  {
+    "canonical": "rebuild",
+    "aliases": [
+      "rb"
+    ],
+    "family": "Install",
+    "rust_args": "commands::rebuild::RebuildArgs"
+  },
+  {
+    "canonical": "fetch",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::fetch::FetchArgs"
+  },
+  {
+    "canonical": "link",
+    "aliases": [
+      "ln"
+    ],
+    "family": "Install",
+    "rust_args": "commands::link::LinkArgs"
+  },
+  {
+    "canonical": "unlink",
+    "aliases": [
+      "dislink"
+    ],
+    "family": "Install",
+    "rust_args": "commands::unlink::UnlinkArgs"
+  },
+  {
+    "canonical": "approve-builds",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::approve_builds::ApproveBuildsArgs"
+  },
+  {
+    "canonical": "ignored-builds",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::ignored_builds::IgnoredBuildsArgs"
+  },
+  {
+    "canonical": "patch",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::patch::PatchArgs"
+  },
+  {
+    "canonical": "patch-commit",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::patch_commit::PatchCommitArgs"
+  },
+  {
+    "canonical": "patch-remove",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::patch_remove::PatchRemoveArgs"
+  },
+  {
+    "canonical": "clean",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::clean::CleanArgs"
+  },
+  {
+    "canonical": "purge",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::clean::CleanArgs"
+  },
+  {
+    "canonical": "deploy",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::deploy::DeployArgs"
+  },
+  {
+    "canonical": "dlx",
+    "aliases": [
+      "x"
+    ],
+    "family": "Install",
+    "rust_args": "commands::dlx::DlxArgs"
+  },
+  {
+    "canonical": "create",
+    "aliases": [],
+    "family": "Install",
+    "rust_args": "commands::create::CreateArgs"
+  },
+  {
+    "canonical": "recursive",
+    "aliases": [
+      "multi",
+      "m"
+    ],
+    "family": "Install",
+    "rust_args": "commands::recursive::RecursiveArgs"
+  },
+  {
+    "canonical": "list",
+    "aliases": [
+      "ls"
+    ],
+    "family": "Info",
+    "rust_args": "commands::list::ListArgs"
+  },
+  {
+    "canonical": "la",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::list::ListArgs"
+  },
+  {
+    "canonical": "ll",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::list::ListArgs"
+  },
+  {
+    "canonical": "why",
+    "aliases": [
+      "w"
+    ],
+    "family": "Info",
+    "rust_args": "commands::why::WhyArgs"
+  },
+  {
+    "canonical": "outdated",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::outdated::OutdatedArgs"
+  },
+  {
+    "canonical": "audit",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::audit::AuditArgs"
+  },
+  {
+    "canonical": "licenses",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::licenses::LicensesArgs"
+  },
+  {
+    "canonical": "deprecations",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::deprecations::DeprecationsArgs"
+  },
+  {
+    "canonical": "peers",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::peers::PeersArgs"
+  },
+  {
+    "canonical": "query",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::query::QueryArgs"
+  },
+  {
+    "canonical": "check",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::check::CheckArgs"
+  },
+  {
+    "canonical": "bin",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::bin::BinArgs"
+  },
+  {
+    "canonical": "root",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::root::RootArgs"
+  },
+  {
+    "canonical": "sbom",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::sbom::SbomArgs"
+  },
+  {
+    "canonical": "view",
+    "aliases": [
+      "info",
+      "show",
+      "v"
+    ],
+    "family": "Info",
+    "rust_args": "commands::view::ViewArgs"
+  },
+  {
+    "canonical": "search",
+    "aliases": [],
+    "family": "Info",
+    "rust_args": "commands::search::SearchArgs"
+  },
+  {
+    "canonical": "publish",
+    "aliases": [],
+    "family": "Publish",
+    "rust_args": "commands::publish::PublishArgs"
+  },
+  {
+    "canonical": "pack",
+    "aliases": [],
+    "family": "Publish",
+    "rust_args": "commands::pack::PackArgs"
+  },
+  {
+    "canonical": "version",
+    "aliases": [],
+    "family": "Publish",
+    "rust_args": "commands::version::VersionArgs"
+  },
+  {
+    "canonical": "deprecate",
+    "aliases": [],
+    "family": "Publish",
+    "rust_args": "commands::deprecate::DeprecateArgs"
+  },
+  {
+    "canonical": "undeprecate",
+    "aliases": [],
+    "family": "Publish",
+    "rust_args": "commands::undeprecate::UndeprecateArgs"
+  },
+  {
+    "canonical": "dist-tag",
+    "aliases": [
+      "dist-tags"
+    ],
+    "family": "Publish",
+    "rust_args": "commands::dist_tag::DistTagArgs"
+  },
+  {
+    "canonical": "unpublish",
+    "aliases": [],
+    "family": "Publish",
+    "rust_args": "commands::unpublish::UnpublishArgs"
+  },
+  {
+    "canonical": "login",
+    "aliases": [
+      "adduser"
+    ],
+    "family": "Publish",
+    "rust_args": "commands::login::LoginArgs"
+  },
+  {
+    "canonical": "logout",
+    "aliases": [],
+    "family": "Publish",
+    "rust_args": "commands::logout::LogoutArgs"
+  },
+  {
+    "canonical": "whoami",
+    "aliases": [],
+    "family": "Publish",
+    "rust_args": "commands::whoami::WhoamiArgs"
+  },
+  {
+    "canonical": "owner",
+    "aliases": [
+      "owners"
+    ],
+    "family": "Publish",
+    "rust_args": "commands::owner::OwnerArgs"
+  },
+  {
+    "canonical": "token",
+    "aliases": [],
+    "family": "Publish",
+    "rust_args": "commands::token::TokenArgs"
+  },
+  {
+    "canonical": "store",
+    "aliases": [],
+    "family": "StoreConfig",
+    "rust_args": "commands::store::StoreArgs"
+  },
+  {
+    "canonical": "cache",
+    "aliases": [],
+    "family": "StoreConfig",
+    "rust_args": "commands::cache::CacheArgs"
+  },
+  {
+    "canonical": "cat-file",
+    "aliases": [],
+    "family": "StoreConfig",
+    "rust_args": "commands::cat_file::CatFileArgs"
+  },
+  {
+    "canonical": "cat-index",
+    "aliases": [],
+    "family": "StoreConfig",
+    "rust_args": "commands::cat_index::CatIndexArgs"
+  },
+  {
+    "canonical": "find-hash",
+    "aliases": [],
+    "family": "StoreConfig",
+    "rust_args": "commands::find_hash::FindHashArgs"
+  },
+  {
+    "canonical": "config",
+    "aliases": [
+      "c"
+    ],
+    "family": "StoreConfig",
+    "rust_args": "commands::config::ConfigArgs"
+  },
+  {
+    "canonical": "get",
+    "aliases": [],
+    "family": "StoreConfig",
+    "rust_args": "commands::config::GetArgs"
+  },
+  {
+    "canonical": "set",
+    "aliases": [],
+    "family": "StoreConfig",
+    "rust_args": "commands::config::SetArgs"
+  },
+  {
+    "canonical": "pkg",
+    "aliases": [],
+    "family": "StoreConfig",
+    "rust_args": "commands::pkg::PkgArgs"
+  },
+  {
+    "canonical": "set-script",
+    "aliases": [
+      "ss"
+    ],
+    "family": "StoreConfig",
+    "rust_args": "commands::set_script::SetScriptArgs"
+  }
+]

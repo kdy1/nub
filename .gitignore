@@ -170,6 +170,10 @@ tests/bench/RESULTS.md
 # local-only design corpus (symlink to external dir) — never tracked
 internal
 
+# Go's internal packages are source code, not the maintainer's private corpus.
+!pm-go/internal/
+!pm-go/internal/**
+
 # The repo root is nub-identity — `nub.lock` is the tracked lockfile and
 # devEngines.packageManager names nub — so every other PM's root lockfile is
 # residue. A root pnpm-lock.yaml (beside a workspace yaml) additionally marks
