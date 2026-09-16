@@ -172,9 +172,7 @@ func testRustYarnGraphOracle(t *testing.T, berry bool) {
 						b, _ := json.MarshalIndent(b, "", "  ")
 						t.Fatalf("%s optional=%v graph differs\nGo: %s\nRust: %s\nInput: %s", mode, optional, a, b, strings.TrimSpace(string(data)))
 					}
-					if !berry {
-						compareClassicWriter(t, oracle, path, pjPath, mode, g, pj)
-					}
+					compareYarnWriter(t, oracle, path, pjPath, mode, g, pj, berry)
 				}
 			}
 		})
@@ -182,12 +180,16 @@ func testRustYarnGraphOracle(t *testing.T, berry bool) {
 	t.Logf("compared %d Yarn documents (berry=%v) in strict/lenient and required/optional modes (%d accepted)", len(cases), berry, accepted)
 }
 
-func compareClassicWriter(t *testing.T, oracle, input, manifestPath, mode string, g *lockfile.Graph, pj *manifest.Package) {
+func compareYarnWriter(t *testing.T, oracle, input, manifestPath, mode string, g *lockfile.Graph, pj *manifest.Package, berry bool) {
 	t.Helper()
 	output := filepath.Join(filepath.Dir(input), "output.lock")
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
-	result, err := exec.CommandContext(ctx, oracle, "yarn-classic-write", input, manifestPath, output, mode).CombinedOutput()
+	command := "yarn-classic-write"
+	if berry {
+		command = "yarn-berry-write"
+	}
+	result, err := exec.CommandContext(ctx, oracle, command, input, manifestPath, output, mode).CombinedOutput()
 	if err != nil {
 		t.Fatal(string(result), err)
 	}
@@ -198,7 +200,12 @@ func compareClassicWriter(t *testing.T, oracle, input, manifestPath, mode string
 	if err := json.Unmarshal(result, &ref); err != nil {
 		t.Fatal(string(result), err)
 	}
-	got, err := EncodeClassic(g, pj)
+	var got []byte
+	if berry {
+		got, err = EncodeBerry(g, pj)
+	} else {
+		got, err = EncodeClassic(g, pj)
+	}
 	if (err == nil) != ref.OK {
 		t.Fatalf("writer acceptance Go %v; Rust %v (%s)", err, ref.OK, ref.Error)
 	}

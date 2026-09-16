@@ -5,7 +5,7 @@ mod graph_snapshot;
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
     if (args.len() == 4 && args[0] == "yarn-graph")
-        || (args.len() == 5 && args[0] == "yarn-classic-write")
+        || (args.len() == 5 && (args[0] == "yarn-classic-write" || args[0] == "yarn-berry-write"))
     {
         if args.last().unwrap() == "strict" {
             static STRICT: aube_util::Embedder = aube_util::Embedder {
@@ -18,6 +18,16 @@ fn main() {
             .expect("reference manifest");
         let result = aube_lockfile::yarn::parse(std::path::Path::new(&args[1]), &manifest);
         let result = match result {
+            Ok(graph) if args[0] == "yarn-berry-write" => {
+                match aube_lockfile::yarn::write_berry(
+                    std::path::Path::new(&args[3]),
+                    &graph,
+                    &manifest,
+                ) {
+                    Ok(()) => serde_json::json!({"ok": true}),
+                    Err(error) => serde_json::json!({"ok": false, "error": error.to_string()}),
+                }
+            }
             Ok(graph) if args[0] == "yarn-classic-write" => {
                 match aube_lockfile::yarn::write_classic(
                     std::path::Path::new(&args[3]),
