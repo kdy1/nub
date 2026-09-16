@@ -21,7 +21,9 @@ func TestRustManifestParity(t *testing.T) {
 	}{
 		{"get", `{"name":"example"}`, []string{"pkg", "get", "name"}},
 		{"get-json", `{"name":"example","private":true}`, []string{"pkg", "get", "name", "private", "missing"}},
-		{"set", "{\r\n\t\"name\": \"example\"\r\n}", []string{"pkg", "set", "private=true", "--json"}},
+		{"set", "{\r\n\t\"name\": \"example\"\r\n}", []string{"pkg", "set", "--json", "private=true"}},
+		{"late-json", `{"name":"unchanged"}`, []string{"pkg", "set", "name=changed", "--json"}},
+		{"get-late-json", `{"name":"example"}`, []string{"pkg", "get", "name", "--json"}},
 		{"set-nested", `{"name":"example","a":5}`, []string{"pkg", "set", "a[1].name=value"}},
 		{"delete", `{"name":"example","a":[1,2,3]}`, []string{"pkg", "delete", "a[1]"}},
 		{"fix", `{"name":10,"version":{},"dependencies":false,"scripts":[],"bin":null}`, []string{"pkg", "fix"}},
@@ -46,7 +48,11 @@ func TestRustManifestParity(t *testing.T) {
 				if err != nil {
 					t.Fatal(err)
 				}
-				if result.Code != 0 {
+				wantCode := 0
+				if tc.name == "late-json" {
+					wantCode = 1
+				}
+				if result.Code != wantCode {
 					t.Fatalf("%s failed: %s", binary, result.Err)
 				}
 				results = append(results, result)

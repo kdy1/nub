@@ -22,7 +22,7 @@ func TestPkgEditAndRead(t *testing.T) {
 	if err := os.WriteFile(path, []byte("{\n  \"name\": \"example\"\n}\n"), 0644); err != nil {
 		t.Fatal(err)
 	}
-	if _, stderr, code := fixtureCommand(t, dir, "pkg", "set", "private=true", "contributors[0].name=\"A\"", "--json"); code != 0 {
+	if _, stderr, code := fixtureCommand(t, dir, "pkg", "set", "--json", "private=true", "contributors[0].name=\"A\""); code != 0 {
 		t.Fatal(stderr)
 	}
 	if out, stderr, code := fixtureCommand(t, dir, "pkg", "get", "private"); code != 0 || out != "true\n" {
@@ -58,7 +58,8 @@ func TestPkgFailureDoesNotWrite(t *testing.T) {
 	for _, args := range [][]string{
 		{"pkg", "set", "name=changed", "invalid"},
 		{"pkg", "set", "name=changed", "__proto__.x=bad"},
-		{"pkg", "set", "name=\"changed\"", "private=not-json", "--json"},
+		{"pkg", "set", "--json", "name=\"changed\"", "private=not-json"},
+		{"pkg", "set", "name=changed", "--json"},
 		{"pkg", "delete", "name", "x["},
 	} {
 		if _, _, code := fixtureCommand(t, dir, args...); code == 0 {
@@ -83,12 +84,12 @@ func TestPkgDirAndOptionBoundary(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(target, "package.json"), []byte(`{"name":"target"}`), 0644); err != nil {
 		t.Fatal(err)
 	}
-	for _, args := range [][]string{{"-C", "target", "pkg", "get", "name"}, {"pkg", "get", "name", "--dir=target"}, {"pkg", "-Ctarget", "get", "name"}} {
+	for _, args := range [][]string{{"-C", "target", "pkg", "get", "name"}, {"pkg", "get", "--dir=target", "name"}, {"pkg", "-Ctarget", "get", "name"}} {
 		if out, stderr, code := fixtureCommand(t, dir, args...); code != 0 || out != "target\n" {
 			t.Fatal(args, out, stderr)
 		}
 	}
-	if _, err, code := fixtureCommand(t, target, "pkg", "get", "name", "--not-an-option"); code == 0 || !strings.Contains(err, "unknown option") {
+	if _, err, code := fixtureCommand(t, target, "pkg", "get", "--not-an-option", "name"); code == 0 || !strings.Contains(err, "unknown option") {
 		t.Fatal(code, err)
 	}
 }

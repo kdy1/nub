@@ -57,7 +57,7 @@ func Run(ctx context.Context, args []string, env Environment) int {
 	}
 	if c.Name == "pkg" || c.Name == "set-script" {
 		if err := runPkg(c.Name, tail, env); err != nil {
-			fmt.Fprintln(env.Err, err)
+			fmt.Fprintf(env.Err, "  × %s\n\n", err)
 			return 1
 		}
 		return 0

@@ -13,10 +13,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: pm-go-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
   test:
     if: github.event_name != 'pull_request' || github.event.label.name == 'ci'
@@ -25,6 +21,9 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    concurrency:
+      group: pm-go-test-${{ matrix.os }}-${{ github.event_name }}-${{ github.ref }}
+      cancel-in-progress: false
     timeout-minutes: 15
     defaults:
       run:
@@ -50,6 +49,9 @@ jobs:
   parity:
     if: github.event_name != 'pull_request' || github.event.label.name == 'ci'
     runs-on: ubuntu-latest
+    concurrency:
+      group: pm-go-parity-${{ github.event_name }}-${{ github.ref }}
+      cancel-in-progress: false
     timeout-minutes: 45
     env:
       NUB_ALLOW_INCOMPLETE_RUNTIME: '1'
@@ -65,6 +67,7 @@ jobs:
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6
         with:
           key: pm-go-reference
+          cache-on-failure: true
       - name: Build Rust reference
         run: cargo build --locked -p nub-cli --profile fast
       - name: Build Go executable

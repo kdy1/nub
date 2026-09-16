@@ -29,11 +29,11 @@ func manifestPath(env Environment, args arguments) (string, error) {
 
 func runPkg(name string, args []string, env Environment) error {
 	defs := []option{}
-	stopAfter := 0
+	// The reference parser's automatic double-dash starts capturing at the
+	// first variadic argument, including subsequent option-looking tokens.
+	stopAfter := 2
 	if name == "pkg" {
 		defs = append(defs, option{"json", nil, false})
-	} else {
-		stopAfter = 2
 	}
 	a, err := parseArgs(args, defs, stopAfter)
 	if err != nil {
