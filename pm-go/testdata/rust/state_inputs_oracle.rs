@@ -27,12 +27,13 @@ pub fn manifests(path: &Path) {
         ..aube_util::AUBE
     };
     aube_util::set_embedder(&PROFILE);
-    let cases: Vec<serde_json::Value> =
-        serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
+    let cases: Vec<String> = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
     let results: Vec<String> = cases
         .iter()
         .map(|case| {
-            let input = case.to_string().parse().unwrap();
+            // Parse the original manifest once. Round-tripping a Value through
+            // JSON before crossing crate identities can change f64 rounding.
+            let input = case.parse().unwrap();
             aube_util::hash::manifest_install_shape_digest(&input)
                 .iter()
                 .map(|b| format!("{b:02x}"))

@@ -55,12 +55,10 @@ func TestRustInstallShapeOracle(t *testing.T) {
 		}
 	}
 	var want []string
-	var raw []json.RawMessage
 	for _, item := range corpus {
 		want = append(want, shape(t, item))
-		raw = append(raw, json.RawMessage(item))
 	}
-	data, _ := json.Marshal(raw)
+	data, _ := json.Marshal(corpus)
 	path := filepath.Join(t.TempDir(), "shapes.json")
 	if err := os.WriteFile(path, data, 0644); err != nil {
 		t.Fatal(err)
