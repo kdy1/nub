@@ -22,6 +22,8 @@ type Package struct {
 	Version  string
 	Manifest map[string]any
 	Files    map[string]string
+	// Empty uses an old, fixed timestamp so native age gates can resolve fixtures.
+	Published string
 }
 
 type Registry struct {
@@ -98,8 +100,13 @@ func Start(t testing.TB, packages ...Package) *Registry {
 		hash := sha512.Sum512(b.Bytes())
 		manifest["dist"] = map[string]any{"tarball": r.URL + path, "integrity": "sha512-" + base64.StdEncoding.EncodeToString(hash[:])}
 		if metadata[p.Name] == nil {
-			metadata[p.Name] = map[string]any{"name": p.Name, "versions": map[string]any{}, "dist-tags": map[string]string{}}
+			metadata[p.Name] = map[string]any{"name": p.Name, "versions": map[string]any{}, "dist-tags": map[string]string{}, "time": map[string]string{}}
 		}
+		published := p.Published
+		if published == "" {
+			published = "2020-01-01T00:00:00.000Z"
+		}
+		metadata[p.Name]["time"].(map[string]string)[p.Version] = published
 		metadata[p.Name]["versions"].(map[string]any)[p.Version] = manifest
 		metadata[p.Name]["dist-tags"].(map[string]string)["latest"] = p.Version
 	}

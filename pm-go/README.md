@@ -75,3 +75,5 @@ The Berry reader accepts metadata versions 3 and later, preserves checksums and 
 The Berry writer emits reference metadata, root workspace descriptors, declared-range headers, patch resolutions, bins and peer metadata, sorted by header descriptor. It preserves the Rust writer’s canonical package collapse and source representation. Patch conflicts fail before the destination changes. Native Yarn acceptance and installation-level preservation are separate pending checks.
 
 CI pins Yarn classic 1.22.22 and Berry 4.18.0 as additional test oracles. An isolated registry fixture checks two conflicting transitive versions, rewrites through Go, removes installed packages and cache, then checks frozen installation and PATH Node resolution. The Rust job also compares exact writer output for that native fixture.
+
+Registry fixtures include fixed publication timestamps so native age gates operate on deterministic metadata. Tests can override each version’s timestamp to exercise release-age policy.
