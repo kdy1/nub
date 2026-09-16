@@ -3,10 +3,15 @@
 mod drift_oracle;
 mod graph_snapshot;
 mod override_oracle;
+mod peer_oracle;
 mod semver_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "peer-hoist" {
+        peer_oracle::run(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "overrides" {
         override_oracle::run(std::path::Path::new(&args[1]));
         return;
