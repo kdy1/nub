@@ -10,6 +10,61 @@ pub fn run(path: &Path) {
     println!("{}", serde_json::to_string(&results).unwrap());
 }
 
+pub fn patches(path: &Path) {
+    let cases: Vec<Value> = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
+    let results: Vec<_> = cases
+        .iter()
+        .map(|case| {
+            let root = PathBuf::from(case["root"].as_str().unwrap());
+            let store = Store::with_dirs(
+                root.parent().unwrap().join("oracle-cas"),
+                root.parent().unwrap().join("oracle-cache"),
+            )
+            .with_virtual_store_dir(root.clone());
+            let mut patches = BTreeMap::new();
+            patches.insert(
+                "pkg@1.0.0".to_string(),
+                case["patch"].as_str().unwrap().to_string(),
+            );
+            let linker = aube_linker::Linker::new(&store, aube_linker::LinkStrategy::Copy)
+                .with_patches(patches);
+            let pkg = LockedPackage {
+                name: "pkg".into(),
+                version: "1.0.0".into(),
+                dep_path: "pkg@1.0.0".into(),
+                ..Default::default()
+            };
+            let mut graph = LockfileGraph::default();
+            graph.packages.insert(pkg.dep_path.clone(), pkg.clone());
+            let mut index = PackageIndex::default();
+            for (name, file) in case["index"].as_object().unwrap() {
+                index.insert(
+                    name.clone(),
+                    StoredFile {
+                        hex_hash: file["hex_hash"].as_str().unwrap().into(),
+                        store_path: PathBuf::from(file["store_path"].as_str().unwrap()),
+                        executable: file["executable"].as_bool().unwrap(),
+                        size: file["size"].as_u64(),
+                    },
+                );
+            }
+            let result = linker.ensure_in_virtual_store(
+                &pkg.dep_path,
+                &graph,
+                &pkg,
+                &index,
+                &mut aube_linker::LinkStats::default(),
+                None,
+            );
+            let error = result.err().map(|e| e.to_string());
+            let mut tree = BTreeMap::new();
+            snapshot(&root, Path::new(""), &mut tree);
+            json!({"error":error,"tree":tree})
+        })
+        .collect();
+    println!("{}", serde_json::to_string(&results).unwrap());
+}
+
 fn strings(value: &Value) -> BTreeMap<String, String> {
     value
         .as_object()
@@ -29,6 +84,7 @@ fn materialize(case: &Value) -> Value {
     )
     .with_virtual_store_dir(root.clone());
     let linker = aube_linker::Linker::new(&store, aube_linker::LinkStrategy::Copy)
+        .with_patches(strings(&case["patches"]))
         .with_virtual_store_dir_max_length(case["limit"].as_u64().unwrap() as usize)
         .with_graph_hashes(GraphHashes {
             node_hash: strings(&case["hashes"]),

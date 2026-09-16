@@ -14,6 +14,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "patches" {
+        materialize_oracle::patches(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "materialize" {
         materialize_oracle::run(std::path::Path::new(&args[1]));
         return;

@@ -38,13 +38,14 @@ func ValidatePackageLinkName(name string) error {
 	return nil
 }
 
-// Materializer publishes complete unpatched package entries into a virtual
+// Materializer publishes complete package entries into a virtual
 // store. Root may be a project-local or Go-global store. Hashes are used only
 // for global identities; caller-owned graph/index data must remain immutable.
 type Materializer struct {
 	Root              string
 	Strategy          Strategy
 	Hashes            lockfile.GraphHashes
+	Patches           map[string]string
 	MaxFilenameLength int
 }
 
@@ -105,6 +106,11 @@ func (m Materializer) EnsurePackage(ctx context.Context, depPath string, graph *
 	stagedPkg := filepath.Join(tmp, entry, "node_modules", filepath.FromSlash(pkg.Name))
 	if err := FillFiles(ctx, index, stagedPkg, m.Strategy); err != nil {
 		return Materialized{}, err
+	}
+	if key, patch, ok := lockfile.LookupPatch(pkg, m.Patches); ok {
+		if err := ApplyPatch(ctx, stagedPkg, patch); err != nil {
+			return Materialized{}, &PatchError{key, err.Error()}
+		}
 	}
 	if err := m.linkDependencies(ctx, tmp, entry, graph, pkg, nestedLinks, false); err != nil {
 		return Materialized{}, err
