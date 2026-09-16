@@ -2,9 +2,14 @@
 // into, shipped with, or invoked by the Go package manager.
 mod drift_oracle;
 mod graph_snapshot;
+mod semver_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "semver" {
+        semver_oracle::run(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && (args[0] == "noop-write" || args[0] == "read-project") {
         static PROFILE: aube_util::Embedder = aube_util::Embedder {
             no_churn_lockfile_write: true,
