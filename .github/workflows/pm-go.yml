@@ -37,12 +37,18 @@ jobs:
         with:
           go-version: '1.26.x'
           cache: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '22'
+      - name: Install pinned npm oracle
+        run: npm install --prefix "$RUNNER_TEMP/pm-go-npm" npm@11.19.0 --ignore-scripts --no-audit --no-fund
       - name: Formatting
         run: test -z "$(gofmt -l .)"
       - run: go vet ./...
       - run: go test -race ./...
         env:
           PM_SEMVER_ORACLE: '1'
+          PM_NPM_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/npm/bin/npm-cli.js
       - name: Build without cgo
         env:
           CGO_ENABLED: '0'
