@@ -57,3 +57,5 @@ The Bun v1/v2 graph reader resolves nested/scoped package keys and workspace ove
 The Bun writer emits v1 JSONC with the parsed config version, native field order, registry URLs, Git cache tags, workspace tuples, catalogs, and unknown metadata. It uses the reference's first-importer-wins root hoist behavior and reads member manifests when available. Native fixture bytes and Rust graph-to-writer output are checked separately from install integration.
 
 Set `PM_BUN_BIN` to Bun 1.3.14 to run the isolated Bun acceptance oracle. It generates native locks for aliases/peers/optionals, workspaces, catalogs and remote tarballs, checks Go output, clears the fixture cache, and performs frozen installs followed by PATH Node resolution probes. The CI setup pins the Bun executable version and the setup action revision.
+
+The reference Bun writer differs from native Bun for nested-key ordering and the empty registry slot in remote-tarball tuples. The oracle asserts these specific byte differences and compares unmodified Rust/Go output for the generated fixtures. Install-level preservation of an unchanged native file remains pending.

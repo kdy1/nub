@@ -126,9 +126,8 @@ func TestPinnedBunAcceptsGoLockfile(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if !bytes.Equal(original, written) {
-				t.Fatalf("bun/Go bytes differ\nbun:\n%s\nGo:\n%s", original, written)
-			}
+			assertNativeRewrite(t, name, original, written)
+			compareNativeRustWriter(t, dir, original, written)
 			if err := os.RemoveAll(filepath.Join(home, "cache")); err != nil {
 				t.Fatal(err)
 			}
@@ -145,9 +144,79 @@ func TestPinnedBunAcceptsGoLockfile(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if !bytes.Equal(written, after) {
-				t.Fatalf("bun changed Go lockfile\nbefore:\n%s\nafter:\n%s", written, after)
+			// Bun restores its own nested ordering and tarball tuple shape.
+			if !bytes.Equal(original, after) {
+				t.Fatalf("bun rewrote more than the recorded reference differences\nnative:\n%s\nafter:\n%s", original, after)
 			}
 		})
+	}
+}
+
+// These are explicit baseline writer differences from native Bun, not graph
+// normalization. Every other byte must match, and Rust/Go compare unmodified
+// output bytes in the reference job.
+func assertNativeRewrite(t *testing.T, name string, original, written []byte) {
+	t.Helper()
+	expected := string(original)
+	switch name {
+	case "aliases-peers-optional", "workspace":
+		lines := strings.Split(expected, "\n")
+		nested := ""
+		for i, line := range lines {
+			if strings.HasPrefix(line, `    "b/dep":`) {
+				nested = line
+				lines = append(lines[:i-1], lines[i+1:]...)
+				break
+			}
+		}
+		if nested == "" {
+			t.Fatal("native fixture lost nested dependency")
+		}
+		for i, line := range lines {
+			if strings.HasPrefix(line, `    "dep":`) {
+				lines = append(lines[:i], append([]string{nested, ""}, lines[i:]...)...)
+				break
+			}
+		}
+		expected = strings.Join(lines, "\n")
+	case "remote-tarball":
+		if strings.Count(expected, `", {}, "sha512-`) != 1 {
+			t.Fatal("native tarball tuple shape changed")
+		}
+		expected = strings.Replace(expected, `", {}, "sha512-`, `", "", {}, "sha512-`, 1)
+	}
+	if !bytes.Equal([]byte(expected), written) {
+		t.Fatalf("Go differs from the reference's expected native rewrite\nexpected:\n%s\nGo:\n%s", expected, written)
+	}
+}
+func compareNativeRustWriter(t *testing.T, dir string, original, written []byte) {
+	t.Helper()
+	oracle := os.Getenv("PM_RUST_LOCKFILE_ORACLE")
+	if oracle == "" {
+		return
+	}
+	input, output := filepath.Join(dir, "reference.input"), filepath.Join(dir, "reference.output")
+	if err := os.WriteFile(input, original, 0600); err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	out, err := exec.CommandContext(ctx, oracle, "bun-write", input, filepath.Join(dir, "package.json"), output, "strict").CombinedOutput()
+	if err != nil {
+		t.Fatal(string(out), err)
+	}
+	var ref struct {
+		OK    bool
+		Error string
+	}
+	if err := json.Unmarshal(out, &ref); err != nil || !ref.OK {
+		t.Fatal(string(out), err)
+	}
+	want, err := os.ReadFile(output)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(want, written) {
+		t.Fatalf("native fixture Rust/Go bytes differ\nRust: %s\nGo: %s", want, written)
 	}
 }
