@@ -9,6 +9,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
+	"github.com/nubjs/nub/pm-go/internal/fsutil"
 	"github.com/nubjs/nub/pm-go/internal/jsonvalue"
 	"github.com/nubjs/nub/pm-go/internal/manifest"
 )
@@ -55,11 +56,11 @@ func (m *BinLinks) LinkDirectory(binDir, pkgDir, relative string, opts BinOption
 	if filepath.IsAbs(relative) {
 		binsRoot = relative
 	}
-	canonicalRoot, err := filepath.EvalSymlinks(pkgDir)
+	canonicalRoot, err := fsutil.Canonicalize(pkgDir)
 	if err != nil {
 		return nil
 	}
-	canonicalBins, err := filepath.EvalSymlinks(binsRoot)
+	canonicalBins, err := fsutil.Canonicalize(binsRoot)
 	if err != nil || !strictPathChild(canonicalRoot, canonicalBins) {
 		return nil
 	}

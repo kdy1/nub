@@ -6,7 +6,10 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
+
+	"github.com/nubjs/nub/pm-go/internal/fsutil"
 )
 
 func TestDirectoryLinksRelocateAndReplaceOnlyUnpopulatedSlots(t *testing.T) {
@@ -81,5 +84,37 @@ func TestDirectoryLinksRelocateAndReplaceOnlyUnpopulatedSlots(t *testing.T) {
 	cancel()
 	if err := CreateDirLink(ctx, target, filepath.Join(parent, "cancelled")); !errors.Is(err, context.Canceled) {
 		t.Fatal(err)
+	}
+}
+
+func TestCanonicalizeDirectoryLinksAndNestedPaths(t *testing.T) {
+	root := t.TempDir()
+	target := filepath.Join(root, "physical", strings.Repeat("deep", 40), strings.Repeat("path", 40))
+	file := binFixture(t, target, "nested/file", "data")
+	link := filepath.Join(root, "link")
+	if err := CreateDirLink(t.Context(), target, link); err != nil {
+		t.Fatal(err)
+	}
+	for _, relative := range []string{"", "nested", "nested/file"} {
+		got, err := fsutil.Canonicalize(filepath.Join(link, relative))
+		if err != nil {
+			t.Fatal(relative, err)
+		}
+		want, err := fsutil.Canonicalize(filepath.Join(target, relative))
+		if err != nil || got != want {
+			t.Fatal(relative, got, want, err)
+		}
+	}
+	if _, err := fsutil.Canonicalize(filepath.Join(link, "absent")); !os.IsNotExist(err) {
+		t.Fatal(err)
+	}
+	if _, err := fsutil.Canonicalize("relative"); err == nil {
+		t.Fatal("relative path used process cwd")
+	}
+	if err := os.Remove(link); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := os.Stat(file); err != nil {
+		t.Fatal("removing a link removed its target", err)
 	}
 }

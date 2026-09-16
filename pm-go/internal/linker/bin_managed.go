@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"runtime"
 	"slices"
+
+	"github.com/nubjs/nub/pm-go/internal/fsutil"
 )
 
 type binEntry struct {
@@ -65,7 +67,7 @@ func (m *BinLinks) create(binDir, name, target string, opts BinOptions, preserve
 	// through a junction may report AlreadyExists for an absent leaf.
 	mkdirRoot := binDir
 	if runtime.GOOS == "windows" {
-		if canonical, err := filepath.EvalSymlinks(filepath.Dir(binDir)); err == nil {
+		if canonical, err := fsutil.Canonicalize(filepath.Dir(binDir)); err == nil {
 			mkdirRoot = filepath.Join(stripVerbatim(canonical), filepath.Base(binDir))
 		}
 	}
