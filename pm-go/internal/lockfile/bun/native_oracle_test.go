@@ -37,7 +37,12 @@ func TestPinnedBunLockfileCompatibility(t *testing.T) {
 	)
 	for _, name := range []string{"aliases-peers-optional", "workspace", "catalog", "remote-tarball"} {
 		t.Run(name, func(t *testing.T) {
-			dir := t.TempDir()
+			// Windows TEMP can use an 8.3 alias. Bun combines its real path
+			// with the cwd spelling when computing workspace symlink paths.
+			dir, err := filepath.EvalSymlinks(t.TempDir())
+			if err != nil {
+				t.Fatal(err)
+			}
 			home := filepath.Join(dir, "home")
 			write := func(path, body string) {
 				t.Helper()
