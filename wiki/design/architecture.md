@@ -174,4 +174,6 @@ The Go npm writer emits v3 with npm’s scalar/object key ordering, declared ran
 
 Go pnpm key helpers preserve nested peer suffixes, strip write-time patch markers, and record transitive alias remaps. Registry-qualified versions remain distinguishable from reserved source protocols. Malformed peer suffixes retain the reference diagnostic behavior.
 
+Go pnpm checksum helpers reproduce the reference’s unordered object/array hash stream, UTF-16 string lengths, and number notation. Local pnpmfile hashes normalize CRLF and combine files in sorted path order. Callers supply the hook paths explicitly, so checksum calculation does not discover pnpm config in another PM’s project.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
