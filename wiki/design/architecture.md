@@ -158,4 +158,6 @@ The Go CAS streams files into temporary storage, computes BLAKE3 keys, and publi
 
 Tarball and local-directory imports now produce Go CAS indexes. Local imports skip `.git`, `node_modules`, and symlinks. HTTP tarball requests match authentication against the full tarball URL, request identity content encoding, apply download limits, and refuse network access in offline mode.
 
+The Go lockfile source model distinguishes local directories, archives, links, portals, generators, Git repositories, and remote tarballs. Source keys hash normalized identities, including Git commits and subdirectories. Graph-edge lookup accepts full keys, version tails, and the hashed keys used for pinned remote sources.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
