@@ -40,12 +40,22 @@ func Read(path string) (*Document, error) {
 func (d *Document) Save() error {
 	indent := "  "
 	width := int(^uint(0) >> 1)
+	rootIndent := ""
+	seenRoot := false
 	for _, line := range strings.Split(string(d.original), "\n") {
 		trimmed := strings.TrimLeft(line, " \t")
 		n := len(line) - len(trimmed)
-		if n > 0 && len(strings.TrimSpace(trimmed)) > 0 && n < width {
-			width = n
-			indent = line[:n]
+		if len(strings.TrimSpace(trimmed)) == 0 {
+			continue
+		}
+		if !seenRoot {
+			rootIndent = line[:n]
+			seenRoot = true
+			continue
+		}
+		if n > len(rootIndent) && strings.HasPrefix(line, rootIndent) && n-len(rootIndent) < width {
+			width = n - len(rootIndent)
+			indent = line[len(rootIndent):n]
 		}
 	}
 	data, err := d.Root.Format(indent, bytes.Contains(d.original, []byte("\r\n")), bytes.HasSuffix(d.original, []byte("\n")))

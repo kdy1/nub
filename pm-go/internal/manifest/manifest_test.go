@@ -13,6 +13,7 @@ func TestSavePreservesSurfaceStyle(t *testing.T) {
 		{"tabs-crlf-no-newline", "{\r\n\t\"name\": \"a\",\r\n\t\"version\": \"1.0.0\"\r\n}", "{\r\n\t\"name\": \"b\",\r\n\t\"version\": \"1.0.0\"\r\n}"},
 		{"spaces-lf", "{\n    \"name\": \"a\"\n}\n", "{\n    \"name\": \"b\"\n}\n"},
 		{"compact-default", "{\"name\":\"a\"}", "{\n  \"name\": \"b\"\n}"},
+		{"indented-root", "  {\n    \"name\": \"a\"\n  }", "{\n  \"name\": \"b\"\n}"},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			path := filepath.Join(t.TempDir(), "package.json")
