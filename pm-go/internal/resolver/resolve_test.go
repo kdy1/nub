@@ -28,6 +28,8 @@ func resolutionRegistry(t *testing.T) *testregistry.Registry {
 		testregistry.Package{Name: "parent", Version: "2.0.0", Published: "2020-04-01T00:00:00.000Z", Manifest: map[string]any{"dependencies": map[string]string{"child": "*"}, "peerDependencies": map[string]string{"peer": "^1"}}},
 		testregistry.Package{Name: "peer", Version: "1.0.0"},
 		testregistry.Package{Name: "peer", Version: "1.8.0"},
+		testregistry.Package{Name: "trusted", Version: "1.0.0", Published: "2020-01-01T00:00:00.000Z", Manifest: map[string]any{"approver": "reviewer"}},
+		testregistry.Package{Name: "trusted", Version: "2.0.0", Published: "2020-02-01T00:00:00.000Z"},
 		testregistry.Package{Name: "cycle", Version: "1.0.0", Manifest: map[string]any{"dependencies": map[string]string{"cycle": "1.0.0"}}},
 		testregistry.Package{Name: "optional", Version: "1.0.0", Manifest: map[string]any{"os": []string{"unavailable-os"}}},
 		testregistry.Package{Name: "bundle", Version: "1.0.0", Manifest: map[string]any{"dependencies": map[string]string{"embedded": "*", "child": "1.0.0"}, "bundledDependencies": []string{"embedded"}, "peerDependenciesMeta": map[string]any{"meta-peer": map[string]bool{"optional": true}}}},
@@ -148,6 +150,10 @@ func TestRustResolutionGraphOracle(t *testing.T) {
 		`{"dependencies":{"alias":"workspace:local@^3"}}`,
 		`{"dependencies":{"alias":"workspace:local@^99"}}`,
 		`{"dependencies":{"alias":"workspace:./local"}}`,
+		`{"optionalDependencies":{"child":"1.0.0"}}`,
+		`{"optionalDependencies":{"child":"99.0.0"}}`,
+		`{"optionalDependencies":{"trusted":"2.0.0"}}`,
+		`{"dependencies":{"parent":"1.0.0"},"optionalDependencies":{"alias-a":"npm:child@1.0.0","alias-b":"npm:child@1.5.0"}}`,
 	}
 	var cases []map[string]any
 	for mode := Highest; mode <= LowestDirect; mode++ {

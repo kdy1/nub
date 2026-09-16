@@ -145,6 +145,7 @@ type driver struct {
 	fetchErrors                   map[string]error
 	routes                        map[string]string
 	trust                         TrustOptions
+	histories                     map[string]TrustHistory
 }
 
 func newDriver(r *Resolver, existing *lockfile.Graph, workspace map[string]string, manifests []lockfile.ImporterManifest) *driver {
@@ -176,6 +177,7 @@ func newDriver(r *Resolver, existing *lockfile.Graph, workspace map[string]strin
 		d.declared[importer.Path] = names
 	}
 	d.preprocessor = taskPreprocessor{Catalogs: r.Options.Catalogs, Overrides: CompileOverrides(r.Options.Overrides), NamedRegistries: r.Options.NamedRegistries}
+	d.histories = map[string]TrustHistory{}
 	now := time.Time{}
 	if r.Now != nil {
 		now = r.Now()

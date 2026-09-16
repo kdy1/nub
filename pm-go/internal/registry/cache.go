@@ -147,18 +147,28 @@ func (c *Client) Metadata(ctx context.Context, name, cacheDir string, mode Netwo
 // MetadataAt routes one request without mutating the shared configuration.
 // URI-scoped credentials and cache partitions use this effective registry.
 func (c *Client) MetadataAt(ctx context.Context, name, registry, cacheDir string, mode NetworkMode, full bool) (*Packument, error) {
+	return c.metadataAt(ctx, name, registry, cacheDir, mode, full, false)
+}
+
+// RefreshMetadataAt fetches without replaying a stale or partial cached body.
+// Existing cache files stay intact until a complete fresh response is ready.
+func (c *Client) RefreshMetadataAt(ctx context.Context, name, registry, cacheDir string, mode NetworkMode, full bool) (*Packument, error) {
+	return c.metadataAt(ctx, name, registry, cacheDir, mode, full, true)
+}
+
+func (c *Client) metadataAt(ctx context.Context, name, registry, cacheDir string, mode NetworkMode, full, refresh bool) (*Packument, error) {
 	path, err := MetadataCachePath(cacheDir, name, registry, full)
 	if err != nil {
 		return nil, err
 	}
 	cached := readMetadata(path)
-	if cached != nil && (mode != Normal || c.fresh(cached)) {
+	if !refresh && cached != nil && (mode != Normal || c.fresh(cached)) {
 		return Parse(cached.Body)
 	}
 	if mode == Offline {
 		return nil, &OfflineMiss{name}
 	}
-	key := fmt.Sprintf("%t\x00%s\x00%s\x00%s", full, registry, name, cacheDir)
+	key := fmt.Sprintf("%t\x00%t\x00%s\x00%s\x00%s", refresh, full, registry, name, cacheDir)
 	c.mu.Lock()
 	if active := c.flights[key]; active != nil {
 		c.mu.Unlock()
@@ -177,12 +187,15 @@ func (c *Client) MetadataAt(ctx context.Context, name, registry, cacheDir string
 	c.mu.Unlock()
 	defer func() { c.mu.Lock(); delete(c.flights, key); close(f.done); c.mu.Unlock() }()
 	// A writer may have published between the first read and flight acquisition.
-	if recheck := readMetadata(path); recheck != nil {
+	if recheck := readMetadata(path); !refresh && recheck != nil {
 		cached = recheck
 		if mode == PreferOffline || c.fresh(cached) {
 			f.body = cached.Body
 			return Parse(f.body)
 		}
+	}
+	if refresh {
+		cached = nil
 	}
 	f.body, f.err = c.fetchMetadata(ctx, name, registry, path, cached, full)
 	if f.err != nil {

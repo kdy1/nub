@@ -197,32 +197,15 @@ func (d *driver) process(ctx context.Context, task resolveTask) error {
 		return err
 	}
 	name := task.registryName()
-	packument := d.packuments[name]
-	if packument == nil && d.fetchErrors[name] == nil {
-		if d.r.Client == nil {
-			return &RegistryFailure{name, "registry client is unavailable"}
+	packument, err := d.metadata(ctx, task)
+	if err != nil {
+		if ctx.Err() != nil {
+			return ctx.Err()
 		}
-		full := d.keepTimes() && !d.r.Options.RegistrySupportsTime
-		if route := d.routes[name]; route != "" {
-			packument, err = d.r.Client.MetadataAt(ctx, name, route, d.r.CacheDir, d.r.Options.Network, full)
-		} else {
-			packument, err = d.r.Client.Metadata(ctx, name, d.r.CacheDir, d.r.Options.Network, full)
-		}
-		if err != nil {
-			d.fetchErrors[name] = &RegistryFailure{name, err.Error()}
-		} else {
-			d.packuments[name] = packument
-		}
-	}
-	if err := ctx.Err(); err != nil {
-		return err
-	}
-	if err := d.fetchErrors[name]; err != nil {
 		if task.Type == lockfile.Optional {
 			d.done(task)
 			return nil
 		}
-		delete(d.fetchErrors, name)
 		return err
 	}
 	if d.cutoffPending && !task.Root {
@@ -253,7 +236,11 @@ func (d *driver) process(ctx context.Context, task resolveTask) error {
 	}
 	picked := PreferNonVulnerable(name, packument, task.Range, result.Version, opts, d.r.Options.VulnerableRanges)
 	if !d.r.Options.TrustOff {
-		if trustErr := CheckNoTrustDowngrade(packument, picked.Version, picked, d.trust); trustErr != nil {
+		history, compact := d.histories[name]
+		if !compact {
+			history = HistoryFor(packument)
+		}
+		if trustErr := history.Check(packument.Name, picked.Version, EvidenceFor(picked), d.trust); trustErr != nil {
 			if trustErr.MissingTime {
 				return trustErr
 			}
