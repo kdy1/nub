@@ -29,3 +29,7 @@ tests/compile-augmentation/fixtures/**  text eol=lf
 # PowerShell 5.1 reads a BOM-less script in the ANSI codepage and is happiest with
 # CRLF; keep this probe byte-identical on every checkout.
 tests/compile-hide-console/*.ps1 text eol=crlf
+# gofmt requires LF on every checkout, including Windows runners.
+*.go text eol=lf
+go.mod text eol=lf
+go.sum text eol=lf
