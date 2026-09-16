@@ -59,6 +59,9 @@ func parseRaw(data []byte) (*rawLock, error) {
 	if !utf8.Valid(data) {
 		return nil, fmt.Errorf("invalid UTF-8 in lockfile")
 	}
+	if raw := trySubset(data); raw != nil {
+		return raw, nil
+	}
 	loader, err := yaml.NewLoader(bytes.NewReader(data), yaml.WithUniqueKeys(false))
 	if err != nil {
 		return nil, err

@@ -69,7 +69,7 @@ packages:
 		"catalogs: {default: {a: {specifier: '*'}}}", "patchedDependencies: {a: 123}",
 		"packages: {a: {resolution: {variants: [{resolution: {url: x}}]}}}",
 		"packages: {a: {resolution: {variants: [{targets: [], resolution: {url: x, bin: 3}}]}}}",
-		"lockfileVersion: 10", // duplicate struct field
+		"lockfileVersion: 10\nunknown: true", // general-parser duplicate struct field
 	} {
 		if _, err := parseRaw([]byte("lockfileVersion: '9.0'\n" + extra + "\n")); err == nil {
 			t.Errorf("accepted invalid shape: %s", extra)

@@ -109,7 +109,12 @@ func TestRustPnpmGraphOracle(t *testing.T) {
 		"patchedDependencies: {a: 123}", "patchedDependencies: {a: '123'}",
 		"packages: {a@1.0.0: &a {hasBin: true}, b@1.0.0: *a}",
 		"snapshots: {a@1.0.0: {dependencies: {x: 1.0.0, x: 2.0.0}}}",
-		"lockfileVersion: 10", "---\nlockfileVersion: '9.0'\nsettings: {}",
+		"lockfileVersion: 10", "lockfileVersion: 10\nunknown: true",
+		"packageExtensionsChecksum: null",
+		"packages:\n  a@1.0.0:\n",
+		"packages:\n  a@1.0.0: {}\npackages:\n  b@1.0.0: {}",
+		"importers:\n  .:\n    dependencies:\n      a:\n        specifier: '*'\n        version: 1.0.0\n        version: 2.0.0\npackages:\n  a@2.0.0: {}",
+		"---\nlockfileVersion: '9.0'\nsettings: {}",
 	} {
 		cases[fmt.Sprintf("shape-%d", len(cases))] = []byte("lockfileVersion: '9.0'\n" + extra + "\n")
 	}
