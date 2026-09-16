@@ -134,4 +134,6 @@ The inventory is checked against the Rust PM registry. Commands without a Go han
 
 The Go manifest editor implements `pkg get/set/delete/fix` and `set-script`. It retains property order and the source file's JSON style, and publishes edits by rename only after every requested change succeeds.
 
+The Go registry configuration layer tags each npmrc source. Unscoped credentials bind to the registry declared by the same source. URI and package scope determine credential selection; project files cannot set credential helpers or proxies, expand environment secrets, or disable TLS validation. File discovery and environment lookup take an explicit execution context.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
