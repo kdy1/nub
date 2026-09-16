@@ -102,40 +102,29 @@ type Lockfile struct {
 }
 
 func Detect(root string, manifest *jsonvalue.Value) (Lockfile, error) {
+	return DetectWithBranch(root, manifest, "")
+}
+
+// DetectWithBranch uses the already-resolved Git branch. The settings owner
+// decides whether branch lockfiles are enabled for this identity.
+func DetectWithBranch(root string, manifest *jsonvalue.Value, branch string) (Lockfile, error) {
 	var existing []Lockfile
-	for _, k := range []Kind{Pnpm, Bun, Yarn, Shrinkwrap, Npm, Nub} {
-		path := filepath.Join(root, k.Filename())
-		if _, err := os.Stat(path); err == nil {
-			existing = append(existing, Lockfile{Kind: k, Path: path, Existing: true})
-		} else if !os.IsNotExist(err) {
-			return Lockfile{}, err
+	for _, candidate := range Candidates(root, true, branch) {
+		if _, err := os.Stat(candidate.Path); err == nil {
+			candidate.Existing = true
+			existing = append(existing, candidate)
 		}
-	}
-	legacy := filepath.Join(root, "lock.yaml")
-	if _, err := os.Stat(legacy); err == nil {
-		existing = append(existing, Lockfile{Kind: Nub, Path: legacy, Existing: true})
-	} else if !os.IsNotExist(err) {
-		return Lockfile{}, err
 	}
 	decl := UnanimousDeclaration(manifest)
 	want := Kind(decl.Name)
 	known := want == Npm || want == Pnpm || want == Yarn || want == Bun
 	fresh := func(kind Kind) Lockfile {
-		return Lockfile{Kind: kind, Path: filepath.Join(root, kind.Filename()), Declared: decl.Name != ""}
+		return Lockfile{Kind: kind, Path: filepath.Join(root, kind.BranchFilename(branch)), Declared: decl.Name != ""}
 	}
 	finish := func(lock Lockfile) (Lockfile, error) {
 		lock.Declared = decl.Name != ""
-		if lock.Kind == Yarn {
-			data, err := os.ReadFile(lock.Path)
-			if err != nil {
-				return Lockfile{}, err
-			}
-			for _, line := range strings.Split(string(data), "\n") {
-				if strings.HasPrefix(line, "__metadata:") {
-					lock.Kind = YarnBerry
-					break
-				}
-			}
+		if lock.Kind == Yarn && IsBerryPath(lock.Path) {
+			lock.Kind = YarnBerry
 		}
 		return lock, nil
 	}

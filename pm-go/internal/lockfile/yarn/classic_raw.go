@@ -3,9 +3,10 @@ package yarn
 
 import (
 	"fmt"
-	"os"
 	"strings"
 	"unicode"
+
+	"github.com/nubjs/nub/pm-go/internal/identity"
 )
 
 type classicBlock struct {
@@ -25,15 +26,7 @@ func IsBerry(content string) bool {
 // IsBerryPath mirrors the reference's bounded byte-level discovery probe.
 // Parse-time detection scans the full text and also accepts leading whitespace.
 func IsBerryPath(path string) bool {
-	f, err := os.Open(path)
-	if err != nil {
-		return false
-	}
-	defer f.Close()
-	buf := make([]byte, 4096)
-	n, _ := f.Read(buf)
-	prefix := string(buf[:n])
-	return strings.HasPrefix(prefix, "__metadata:") || strings.Contains(prefix, "\n__metadata:")
+	return identity.IsBerryPath(path)
 }
 func tokenizeClassic(content string) ([]classicBlock, error) {
 	var blocks []classicBlock

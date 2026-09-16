@@ -95,3 +95,5 @@ The format I/O layer keeps graph-equal lockfiles byte-for-byte unchanged, includ
 Native I/O tests retain Bun remote-tarball tuples and Berry custom archive qualifiers through an unchanged write, then remove installed packages and cache contents before a frozen install and a PATH Node resolution check. These exercise file preservation separately from the raw conversion writers' limitations above.
 
 The shared lockfile read boundary rejects unsafe importer, package and dependency aliases before a graph reaches an installer. It also rejects registry-style dependency keys backed by local or remote source resolutions, retaining the reference's error codes and validation order.
+
+Project I/O uses declaration-aware family precedence, keeps npm shrinkwrap priority, excludes Nub files during import and rejects unsupported binary Bun lockfiles. Reads retain the reference's fallback precedence on ambiguous declarations; writes refuse the ambiguity. An already-resolved branch selects `nub.<branch>.lock` or `pnpm-lock.<branch>.yaml`, with base-file fallback on reads. The future install session owns identity-scoped settings and Git branch resolution.

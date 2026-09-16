@@ -100,3 +100,36 @@ func TestOverrideIdentityAndVersionMatrix(t *testing.T) {
 		t.Fatal("pnpm settings model drift")
 	}
 }
+
+func TestBranchCandidateOrder(t *testing.T) {
+	want := []string{"pnpm-lock.feature!port.yaml", "pnpm-lock.yaml", "bun.lock", "yarn.lock", "npm-shrinkwrap.json", "package-lock.json", "nub.feature!port.lock", "nub.lock", "lock.yaml"}
+	candidates := Candidates("project", true, "feature/port")
+	if len(candidates) != len(want) {
+		t.Fatal(candidates)
+	}
+	for i, candidate := range candidates {
+		if filepath.Base(candidate.Path) != want[i] {
+			t.Fatal(candidates)
+		}
+	}
+	if got := Candidates("project", false, "feature/port"); len(got) != 6 {
+		t.Fatal(got)
+	}
+}
+
+func TestDetectionUsesBoundedBerryProbe(t *testing.T) {
+	for _, body := range []string{"__metadata:\n", strings.Repeat("#", 4096) + "\n__metadata:\n", "  __metadata:\n"} {
+		dir := t.TempDir()
+		if err := os.WriteFile(filepath.Join(dir, "yarn.lock"), []byte(body), 0600); err != nil {
+			t.Fatal(err)
+		}
+		got, err := Detect(dir, nil)
+		want := Yarn
+		if body == "__metadata:\n" {
+			want = YarnBerry
+		}
+		if err != nil || got.Kind != want {
+			t.Fatal(got, err)
+		}
+	}
+}
