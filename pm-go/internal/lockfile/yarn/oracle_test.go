@@ -14,6 +14,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/nubjs/nub/pm-go/internal/lockfile"
 	"github.com/nubjs/nub/pm-go/internal/manifest"
 	"github.com/nubjs/nub/pm-go/internal/testutil"
 )
@@ -142,9 +143,42 @@ func TestRustClassicGraphOracle(t *testing.T) {
 						b, _ := json.MarshalIndent(b, "", "  ")
 						t.Fatalf("%s optional=%v graph differs\nGo: %s\nRust: %s\nInput: %s", mode, optional, a, b, strings.TrimSpace(string(data)))
 					}
+					compareClassicWriter(t, oracle, path, pjPath, mode, g, pj)
 				}
 			}
 		})
 	}
 	t.Logf("compared %d classic documents in strict/lenient and required/optional modes (%d accepted)", len(cases), accepted)
+}
+
+func compareClassicWriter(t *testing.T, oracle, input, manifestPath, mode string, g *lockfile.Graph, pj *manifest.Package) {
+	t.Helper()
+	output := filepath.Join(filepath.Dir(input), "output.lock")
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	result, err := exec.CommandContext(ctx, oracle, "yarn-classic-write", input, manifestPath, output, mode).CombinedOutput()
+	if err != nil {
+		t.Fatal(string(result), err)
+	}
+	var ref struct {
+		OK    bool
+		Error string
+	}
+	if err := json.Unmarshal(result, &ref); err != nil {
+		t.Fatal(string(result), err)
+	}
+	got, err := EncodeClassic(g, pj)
+	if (err == nil) != ref.OK {
+		t.Fatalf("writer acceptance Go %v; Rust %v (%s)", err, ref.OK, ref.Error)
+	}
+	if err != nil {
+		return
+	}
+	want, err := os.ReadFile(output)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(got, want) {
+		t.Fatalf("classic writer differs\nGo: %s\nRust: %s", got, want)
+	}
 }

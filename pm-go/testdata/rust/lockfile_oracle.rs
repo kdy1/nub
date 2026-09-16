@@ -4,8 +4,10 @@ mod graph_snapshot;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
-    if args.len() == 4 && args[0] == "yarn-graph" {
-        if args[3] == "strict" {
+    if (args.len() == 4 && args[0] == "yarn-graph")
+        || (args.len() == 5 && args[0] == "yarn-classic-write")
+    {
+        if args.last().unwrap() == "strict" {
             static STRICT: aube_util::Embedder = aube_util::Embedder {
                 strict_unsupported_source: true,
                 ..aube_util::AUBE
@@ -16,6 +18,16 @@ fn main() {
             .expect("reference manifest");
         let result = aube_lockfile::yarn::parse(std::path::Path::new(&args[1]), &manifest);
         let result = match result {
+            Ok(graph) if args[0] == "yarn-classic-write" => {
+                match aube_lockfile::yarn::write_classic(
+                    std::path::Path::new(&args[3]),
+                    &graph,
+                    &manifest,
+                ) {
+                    Ok(()) => serde_json::json!({"ok": true}),
+                    Err(error) => serde_json::json!({"ok": false, "error": error.to_string()}),
+                }
+            }
             Ok(graph) => serde_json::json!({"ok": true, "graph": graph_snapshot::snapshot(&graph)}),
             Err(error) => serde_json::json!({"ok": false, "error": error.to_string()}),
         };
