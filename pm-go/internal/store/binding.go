@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/nubjs/nub/pm-go/internal/filelock"
 	"github.com/nubjs/nub/pm-go/internal/fsutil"
 )
 
@@ -46,6 +47,11 @@ func (s *Store) SaveBinding(ctx context.Context, url, sri string) error {
 	if err := s.prepare(ctx); err != nil {
 		return err
 	}
+	lease, err := filelock.Acquire(ctx, filepath.Join(s.VersionDir(), ".binding-locks", Hash([]byte(url))+".lock"), false)
+	if err != nil {
+		return err
+	}
+	defer lease.Close()
 	if previous, ok := readBinding(s.VersionDir(), url); ok && previous == sri {
 		return nil
 	}

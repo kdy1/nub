@@ -51,5 +51,5 @@ func publish(f *os.File, path string, data []byte) error {
 	if err := f.Close(); err != nil {
 		return err
 	}
-	return os.Rename(name, path)
+	return renameAtomic(name, path)
 }
