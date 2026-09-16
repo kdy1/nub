@@ -148,4 +148,6 @@ Go store integrity verification selects the strongest supported SRI algorithm an
 
 Tarball extraction runs inside a newly created filesystem root. It strips the wrapper component, rejects traversal and non-regular entries, validates gzip completion, and enforces the reference archive limits. Failed extraction removes its partial tree; existing destinations are never merged or overwritten.
 
+Dependency helpers distinguish workspace aliases, relative locators, and version ranges. Platform matching uses npm OS/CPU/libc names and supports additional target architectures. Linux libc detection examines the running loader before installed loader files so cross-compilation tooling does not select the wrong optional packages.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
