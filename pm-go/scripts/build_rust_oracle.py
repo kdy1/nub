@@ -10,7 +10,7 @@ import sys
 
 root = Path(__file__).resolve().parents[2]
 artifacts = {}
-required = {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3"}
+required = {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex"}
 with subprocess.Popen(
     ["cargo", "build", "--locked", "-p", "nub-cli", "--profile", "fast",
      "--message-format=json-render-diagnostics"],
@@ -42,7 +42,7 @@ end = state_source.index("/// Check if install is needed.", start)
 state_probe = "use rayon::prelude::*;\nuse serde::{Deserialize, Serialize};\nuse std::{collections::BTreeMap, path::Path};\n"
 state_probe += state_source[start:end]
 state_probe += "\n#[derive(Deserialize)]\n" + re.search(r"(?ms)^struct InstalledManifest \{.*?^\}", state_source).group()
-for name in ["verify_install_layout", "gvs_nested_links_are_current", "stale_gvs_nested_link", "read_installed_package_manifest", "hash_file_if_exists", "empty_blake3_hash"]:
+for name in ["verify_install_layout", "gvs_nested_links_are_current", "stale_gvs_nested_link", "read_installed_package_manifest", "hash_file_if_exists", "empty_blake3_hash", "package_jsons_stale", "deferred_dep_builds_stale", "preview_list", "hash_file", "license_state_fingerprint"]:
     state_probe += "\n" + re.search(r"(?ms)^(?:pub )?fn " + name + r"\(.*?^\}", state_source).group()
 state_path = output.parent / "state-reference.rs"
 state_path.write_text(state_probe)
