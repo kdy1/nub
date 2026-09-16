@@ -60,10 +60,12 @@ Set `PM_BUN_BIN` to Bun 1.3.14 to run the isolated Bun acceptance oracle. It gen
 
 The reference Bun writer differs from native Bun for nested-key ordering and the empty registry slot in remote-tarball tuples. The oracle asserts these specific byte differences and compares unmodified Rust/Go output for the generated fixtures. Install-level preservation of an unchanged native file remains pending.
 
-Yarn prerequisites include bounded Berry detection, the classic line tokenizer, npm-alias identity, pinned Git/local source classification, and private-registry URL retention. The classic tokenizer intentionally follows the reference's treatment of optional and peer sections; complete Yarn graph readers and writers are still pending.
+Yarn prerequisites include bounded Berry detection, the classic line tokenizer, npm-alias identity, pinned Git/local source classification, and private-registry URL retention. The classic tokenizer intentionally follows the reference's treatment of optional and peer sections.
 
 Bun 1.3.14 rejects the reference writer's four-element remote-tarball tuple (`Expected an object`) during a frozen install. This fixture is a negative compatibility check, with exact Rust/Go bytes checked in the reference job. Alias/peer/optional, workspace and catalog fixtures require successful cold frozen installs. The remote-tarball result does not establish native acceptance.
 
-The Yarn classic graph reader resolves aliases and pinned sources, reconstructs workspace importers from member manifests, links matching sibling workspaces, and applies Nub's required/optional unsupported-source policy. The Rust differential suite compares full graphs with required and optional root declarations in both strict and lenient modes. Yarn writers and Berry graph parsing remain pending.
+The Yarn classic graph reader resolves aliases and pinned sources, reconstructs workspace importers from member manifests, links matching sibling workspaces, and applies Nub's required/optional unsupported-source policy. The Rust differential suite compares full graphs with required and optional root declarations in both strict and lenient modes. Berry graph parsing and writing remain pending.
 
 The Yarn classic conversion writer groups exact and declared ranges, retains authored local/Git descriptors, quotes scoped dependency keys, and rejects Git conversion when the original declaration cannot be recovered. This writer is for explicit PM conversion; it does not enable ordinary writes to existing classic projects. Reader/writer output is compared with the unchanged Rust libraries.
+
+Direct override matching preserves version-selector priority, pnpm/Yarn ancestor boundaries, and the reference lower-bound probe. Nested npm override objects can be flattened after callers select the permitted configuration sources; flattening does not read branded configuration itself.
