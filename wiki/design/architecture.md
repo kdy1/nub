@@ -162,4 +162,6 @@ The Go lockfile source model distinguishes local directories, archives, links, p
 
 The Go dependency graph preserves lockfile metadata across structural filters. Reachability and shortest-depth walks handle cycles and all importer roots. Platform filtering removes optional and bundled edges before collecting unreachable packages; required paths remain. Peer propagation excludes injected peer edges and a package’s own peers.
 
+The install-facing Go manifest parser tolerates legacy dependency, script, and engine shapes while validating declared names, workspace patterns, catalogs, and bundled dependencies. Workspace objects preserve authored-empty fields for lockfile serialization. Neutral dependency metadata retains optional-peer and build-denial semantics.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
