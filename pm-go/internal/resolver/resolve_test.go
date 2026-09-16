@@ -95,6 +95,8 @@ func TestResolveHooksAndExtensionsDoNotMutateInputs(t *testing.T) {
 			p.Dependencies["child"] = "2.0.0"
 			p.Name = "forged"
 			p.Version = "99.0.0"
+			*p.Dist.Integrity = "tampered"
+			*p.Deprecated = "forged deprecation"
 			p.Dist = nil
 			p.OS = []string{"unavailable-os"}
 		}
@@ -114,7 +116,7 @@ func TestResolveHooksAndExtensionsDoNotMutateInputs(t *testing.T) {
 			parent = p
 		}
 	}
-	if parent == nil || parent.Version != "1.0.0" || parent.Integrity == nil || len(parent.OS) != 0 || parent.Dependencies["child"] != "2.0.0" || parent.Dependencies["bundle"] != "1.0.0" || calls["parent"] != 1 {
+	if parent == nil || parent.Version != "1.0.0" || parent.Integrity == nil || *parent.Integrity == "tampered" || parent.Deprecated == nil || *parent.Deprecated != "old" || len(parent.OS) != 0 || parent.Dependencies["child"] != "2.0.0" || parent.Dependencies["bundle"] != "1.0.0" || calls["parent"] != 1 {
 		t.Fatal(parent, calls)
 	}
 }
@@ -142,6 +144,10 @@ func TestRustResolutionGraphOracle(t *testing.T) {
 		`{"dependencies":{"local":"file:./local","linked":"link:./local","portaled":"portal:./local"}}`,
 		`{"dependencies":{"child":"no-such-tag"}}`,
 		`{"dependencies":{"absent":"workspace:*"}}`,
+		`{"dependencies":{"local":"workspace:^3"}}`,
+		`{"dependencies":{"alias":"workspace:local@^3"}}`,
+		`{"dependencies":{"alias":"workspace:local@^99"}}`,
+		`{"dependencies":{"alias":"workspace:./local"}}`,
 	}
 	var cases []map[string]any
 	for mode := Highest; mode <= LowestDirect; mode++ {
@@ -154,9 +160,11 @@ func TestRustResolutionGraphOracle(t *testing.T) {
 					r.Options.AutoInstallPeers = autoPeers
 					r.Options.Catalogs = Catalogs{"default": {"child": "^1"}}
 					r.Options.Overrides = map[string]string{"parent>child": "1.0.0"}
-					g, err := r.Resolve(t.Context(), []lockfile.ImporterManifest{p}, nil, nil)
+					r.Options.WorkspaceImporters = map[string]string{"local": "local"}
+					workspace := map[string]string{"local": "3.2.1"}
+					g, err := r.Resolve(t.Context(), []lockfile.ImporterManifest{p}, nil, workspace)
 					if err == nil && reuse {
-						g, err = r.Resolve(t.Context(), []lockfile.ImporterManifest{p}, g, nil)
+						g, err = r.Resolve(t.Context(), []lockfile.ImporterManifest{p}, g, workspace)
 					}
 					result := map[string]any{"ok": err == nil}
 					if err != nil {

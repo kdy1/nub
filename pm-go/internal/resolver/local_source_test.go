@@ -46,6 +46,13 @@ func TestLocalRebasingAndOverrideAnchors(t *testing.T) {
 	if got := sourceJoin(root, filepath.Join(root, "absolute")); got != filepath.Join(root, "absolute") {
 		t.Fatal(got)
 	}
+	if runtime.GOOS == "windows" {
+		for _, local := range []string{`\package`, `/package`} {
+			if got := sourceJoin(`C:\project`, local); got != "C:"+local {
+				t.Fatal(local, got)
+			}
+		}
+	}
 	parent := lockfile.NewPackage("parent", "1.0.0")
 	parent.Source = &lockfile.Source{Kind: lockfile.Directory, Path: "vendor/parent"}
 	resolved := map[string]*lockfile.Package{parent.DepPath: parent}

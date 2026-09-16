@@ -21,6 +21,10 @@ pub fn run(path: &std::path::Path) {
                 .with_project_root(case["root"].as_str().unwrap().into())
                 .with_resolution_mode(mode)
                 .with_auto_install_peers(case["autoPeers"].as_bool().unwrap())
+                .with_workspace_member_importers(std::collections::BTreeMap::from([(
+                    "local".into(),
+                    "local".into(),
+                )]))
                 .with_catalogs(std::collections::BTreeMap::from([(
                     "default".into(),
                     std::collections::BTreeMap::from([("child".into(), "^1".into())]),
@@ -32,10 +36,17 @@ pub fn run(path: &std::path::Path) {
             let manifest =
                 aube_manifest::PackageJson::from_slice(case["manifest"].to_string().as_bytes())
                     .unwrap();
-            let mut result = resolver.resolve(&manifest, None).await;
+            let manifests = [(".".to_string(), manifest)];
+            let workspace =
+                std::collections::HashMap::from([("local".to_string(), "3.2.1".to_string())]);
+            let mut result = resolver
+                .resolve_workspace(&manifests, None, &workspace)
+                .await;
             if case["reuse"].as_bool().unwrap() {
                 if let Ok(graph) = result {
-                    result = resolver.resolve(&manifest, Some(&graph)).await;
+                    result = resolver
+                        .resolve_workspace(&manifests, Some(&graph), &workspace)
+                        .await;
                 }
             }
             results.push(match result {

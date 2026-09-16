@@ -25,12 +25,25 @@ func cloneVersion(p *registry.Version) *registry.Version {
 	out.Libc = slices.Clone(p.Libc)
 	out.Bundled = slices.Clone(p.Bundled)
 	out.Raw = p.Raw.Clone()
+	out.Deprecated = copyScalar(p.Deprecated)
+	out.License = copyScalar(p.License)
+	out.Funding = copyScalar(p.Funding)
 	if p.Dist != nil {
 		dist := *p.Dist
+		dist.Integrity = copyScalar(p.Dist.Integrity)
+		dist.Shasum = copyScalar(p.Dist.Shasum)
+		dist.UnpackedSize = copyScalar(p.Dist.UnpackedSize)
 		dist.Attestations = p.Dist.Attestations.Clone()
 		out.Dist = &dist
 	}
 	return &out
+}
+
+func copyScalar[T any](value *T) *T {
+	if value == nil {
+		return nil
+	}
+	return new(*value)
 }
 
 func (r *Resolver) hookVersion(ctx context.Context, p *registry.Version) (*registry.Version, error) {

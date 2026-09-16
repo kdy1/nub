@@ -36,7 +36,7 @@ func sourceJoin(root, local string) string {
 	if filepath.IsAbs(local) || filepath.VolumeName(local) != "" {
 		return local
 	}
-	if runtime.GOOS == "windows" && strings.HasPrefix(local, `\`) {
+	if runtime.GOOS == "windows" && (strings.HasPrefix(local, `\`) || strings.HasPrefix(local, "/")) {
 		return filepath.VolumeName(root) + local
 	}
 	// Keep unresolved '..' components until the caller chooses normalization.
