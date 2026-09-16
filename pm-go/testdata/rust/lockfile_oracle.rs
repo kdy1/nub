@@ -1,9 +1,17 @@
 // Test-only adapter to the unchanged Rust lockfile library. This is not linked
 // into, shipped with, or invoked by the Go package manager.
+mod drift_oracle;
 mod graph_snapshot;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 3 && args[0] == "importer-drift" {
+        drift_oracle::importer(
+            std::path::Path::new(&args[1]),
+            std::path::Path::new(&args[2]),
+        );
+        return;
+    }
     if (args.len() == 4 && args[0] == "yarn-graph")
         || (args.len() == 5 && (args[0] == "yarn-classic-write" || args[0] == "yarn-berry-write"))
     {
