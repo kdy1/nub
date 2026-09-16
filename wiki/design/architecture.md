@@ -132,4 +132,6 @@ An experimental Go executable lives in `pm-go`. It has its own module and comman
 
 The inventory is checked against the Rust PM registry. Commands without a Go handler exit with an explicit error. The comparison harness records exit status, both output streams, file bytes, permissions, and symlinks in isolated project fixtures.
 
+The Go manifest editor implements `pkg get/set/delete/fix` and `set-script`. It retains property order and the source file's JSON style, and publishes edits by rename only after every requested change succeeds.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.

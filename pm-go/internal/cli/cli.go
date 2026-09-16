@@ -41,14 +41,26 @@ func Run(ctx context.Context, args []string, env Environment) int {
 		fmt.Fprintln(env.Out, Version)
 		return 0
 	}
-	c, ok := surface.Lookup(args[0])
+	name, tail, err := commandArgs(args)
+	if err != nil {
+		fmt.Fprintln(env.Err, err)
+		return 1
+	}
+	c, ok := surface.Lookup(name)
 	if !ok {
-		fmt.Fprintf(env.Err, "Unknown command: %s\n", args[0])
+		fmt.Fprintf(env.Err, "Unknown command: %s\n", name)
 		return 1
 	}
 	if message, ok := refused(c.Name); ok {
-		fmt.Fprintf(env.Err, "nub-pm-go %s: %s\n", args[0], message)
+		fmt.Fprintf(env.Err, "nub-pm-go %s: %s\n", name, message)
 		return 1
+	}
+	if c.Name == "pkg" || c.Name == "set-script" {
+		if err := runPkg(c.Name, tail, env); err != nil {
+			fmt.Fprintln(env.Err, err)
+			return 1
+		}
+		return 0
 	}
 	// A recorded command is not evidence of an implemented command.
 	fmt.Fprintf(env.Err, "ERR_NUB_GO_NOT_PORTED: %s is not implemented in the Go executable\n", c.Name)

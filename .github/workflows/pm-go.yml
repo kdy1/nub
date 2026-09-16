@@ -3,11 +3,11 @@ name: Go package manager
 on:
   push:
     branches: [main, codex/go-pm-port]
-    paths: ['pm-go/**', '.github/workflows/pm-go.yml']
+    paths: ['pm-go/**', '.github/workflows/pm-go.yml', '.gitattributes']
   pull_request:
     types: [labeled]
     branches: [main]
-    paths: ['pm-go/**', '.github/workflows/pm-go.yml']
+    paths: ['pm-go/**', '.github/workflows/pm-go.yml', '.gitattributes']
   workflow_dispatch: {}
 
 permissions:
@@ -46,3 +46,35 @@ jobs:
         env:
           CGO_ENABLED: '0'
         run: go build -o ../target/pm-go/ ./cmd/nub-pm-go
+
+  parity:
+    if: github.event_name != 'pull_request' || github.event.label.name == 'ci'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      NUB_ALLOW_INCOMPLETE_RUNTIME: '1'
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.x'
+          cache: false
+      - uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6
+        with:
+          key: pm-go-reference
+      - name: Build Rust reference
+        run: cargo build --locked -p nub-cli --profile fast
+      - name: Build Go executable
+        working-directory: pm-go
+        env:
+          CGO_ENABLED: '0'
+        run: go build -o ../target/pm-go/nub-pm-go ./cmd/nub-pm-go
+      - name: Compare the same fixture in both executables
+        working-directory: pm-go
+        env:
+          PM_RUST_BIN: ${{ github.workspace }}/target/fast/nub
+          PM_GO_BIN: ${{ github.workspace }}/target/pm-go/nub-pm-go
+        run: go test -v ./integration
