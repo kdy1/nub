@@ -46,8 +46,11 @@ for name in ["verify_install_layout", "gvs_nested_links_are_current", "stale_gvs
     state_probe += "\n" + re.search(r"(?ms)^(?:pub )?fn " + name + r"\(.*?^\}", state_source).group()
 state_path = output.parent / "state-reference.rs"
 state_path.write_text(state_probe)
+delta_source = (root / "vendor/aube/crates/aube/src/commands/install/delta.rs").read_text()
+delta_path = output.parent / "delta-reference.rs"
+delta_path.write_text(delta_source[delta_source.index("use aube_lockfile::"):delta_source.index("#[cfg(test)]")])
 command = ["rustc", "--edition=2024", str(root / "pm-go/testdata/rust/lockfile_oracle.rs"),
            "-o", str(output)]
 for name, path in sorted(artifacts.items()):
     command.extend(["--extern", f"{name}={path}", "-L", f"dependency={Path(path).parent}"])
-subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path)})
+subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path)})

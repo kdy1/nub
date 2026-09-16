@@ -1,5 +1,6 @@
 // Test-only adapter to the unchanged Rust lockfile library. This is not linked
 // into, shipped with, or invoked by the Go package manager.
+mod delta_oracle;
 mod drift_oracle;
 mod git_oracle;
 mod graph_snapshot;
@@ -17,6 +18,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "delta" {
+        delta_oracle::run(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "state" {
         state_oracle::run(std::path::Path::new(&args[1]));
         return;
