@@ -117,4 +117,4 @@ jobs:
           PM_YARN_CLASSIC_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/yarn/bin/yarn.js
           PM_YARN_BERRY_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/@yarnpkg/cli-dist/bin/yarn.js
           PM_BUN_BIN: ${{ steps.bun.outputs.bun-path }}
-        run: go test -v ./internal/gitcache ./internal/semver ./internal/resolver ./internal/lockfile ./internal/lockfileio ./internal/lockfile/npm ./internal/lockfile/pnpm ./internal/lockfile/bun ./internal/lockfile/yarn
+        run: go test -v ./internal/registry ./internal/gitcache ./internal/semver ./internal/resolver ./internal/lockfile ./internal/lockfileio ./internal/lockfile/npm ./internal/lockfile/pnpm ./internal/lockfile/bun ./internal/lockfile/yarn

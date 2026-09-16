@@ -150,6 +150,8 @@ func TestRustResolutionGraphOracle(t *testing.T) {
 		`{"dependencies":{"alias":"workspace:local@^3"}}`,
 		`{"dependencies":{"alias":"workspace:local@^99"}}`,
 		`{"dependencies":{"alias":"workspace:./local"}}`,
+		`{"dependencies":{"child":"private:^1"}}`,
+		`{"dependencies":{"alias":"private:child@1.5.0"}}`,
 		`{"optionalDependencies":{"child":"1.0.0"}}`,
 		`{"optionalDependencies":{"child":"99.0.0"}}`,
 		`{"optionalDependencies":{"trusted":"2.0.0"}}`,
@@ -162,6 +164,7 @@ func TestRustResolutionGraphOracle(t *testing.T) {
 				p := importer(t, ".", fixture)
 				for _, reuse := range []bool{false, true} {
 					r := New(resolutionClient(t, server, root), processenv.Environment{Dir: root}, t.TempDir())
+					r.Options.NamedRegistries = map[string]string{"private": server.URL}
 					r.Options.Mode = mode
 					r.Options.AutoInstallPeers = autoPeers
 					r.Options.Catalogs = Catalogs{"default": {"child": "^1"}}

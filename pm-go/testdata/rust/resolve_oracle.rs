@@ -20,6 +20,10 @@ pub fn run(path: &std::path::Path) {
             let mut resolver = aube_resolver::Resolver::new(client)
                 .with_project_root(case["root"].as_str().unwrap().into())
                 .with_resolution_mode(mode)
+                .with_named_registries(std::collections::BTreeMap::from([(
+                    "private".into(),
+                    case["registry"].as_str().unwrap().into(),
+                )]))
                 .with_auto_install_peers(case["autoPeers"].as_bool().unwrap())
                 .with_workspace_member_importers(std::collections::BTreeMap::from([(
                     "local".into(),

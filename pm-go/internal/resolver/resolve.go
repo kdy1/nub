@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"maps"
-	"net/url"
 	"os"
 	"path/filepath"
 	"slices"
@@ -335,9 +334,7 @@ func (d *driver) finalize() (*lockfile.Graph, error) {
 	if len(o.NamedRegistries) > 0 && d.r.Client != nil {
 		for _, p := range out.Packages {
 			if p.Source == nil && p.TarballURL != nil {
-				a, ea := url.Parse(*p.TarballURL)
-				b, eb := url.Parse(d.r.Client.Config.RegistryFor(p.RegistryName()))
-				if ea == nil && eb == nil && a.Host != b.Host {
+				if !registry.SameRegistryHost(*p.TarballURL, d.r.Client.Config.RegistryFor(p.RegistryName())) {
 					p.ForceTarballURL = true
 				}
 			}

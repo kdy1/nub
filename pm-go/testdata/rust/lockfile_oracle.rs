@@ -5,12 +5,17 @@ mod git_oracle;
 mod graph_snapshot;
 mod override_oracle;
 mod peer_oracle;
+mod registry_oracle;
 mod resolve_oracle;
 mod semver_oracle;
 mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "registry-urls" {
+        registry_oracle::urls(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "resolve" {
         resolve_oracle::run(std::path::Path::new(&args[1]));
         return;
