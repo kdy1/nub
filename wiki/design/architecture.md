@@ -156,4 +156,6 @@ Go cache and store defaults retain the reference platform precedence under the s
 
 The Go CAS streams files into temporary storage, computes BLAKE3 keys, and publishes complete files under shard locks. Executability lives in package indexes while shared CAS files remain non-executable. Index keys include tarball integrity; read-only fallback stores are never modified. Missing or truncated files invalidate a cache read.
 
+Tarball and local-directory imports now produce Go CAS indexes. Local imports skip `.git`, `node_modules`, and symlinks. HTTP tarball requests match authentication against the full tarball URL, request identity content encoding, apply download limits, and refuse network access in offline mode.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.

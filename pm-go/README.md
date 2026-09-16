@@ -26,4 +26,6 @@ Dependency helpers preserve scoped coordinate splitting, workspace alias/path/ra
 
 The content-addressed store uses BLAKE3 file keys, atomic publication, integrity-partitioned package indexes, and read-only fallback stores. CAS files remain non-executable; indexes carry per-package executable bits. Tests cover process concurrency, interrupted imports, truncated files, and maintenance locks.
 
+Tarball and local-directory imports produce store indexes. Local directory imports skip `.git`, `node_modules`, and symlinks. Registry tarball downloads enforce URL schemes, offline policy, URI-scoped authentication, and response limits.
+
 The Go executable uses its own `nub-pm-go` global cache and store namespace with the reference XDG/Windows directory precedence. Shared and exclusive file leases are cancellable and tested across processes. Lifecycle scripts and fetched tools use Node from `PATH`; Nub's runtime augmentation, TypeScript transformation, and Node provisioning are outside this executable.
