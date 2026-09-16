@@ -63,7 +63,13 @@ func TestCommandUsesExplicitDirectoryAndVariables(t *testing.T) {
 		t.Fatal(err)
 	}
 	var out bytes.Buffer
-	env := Environment{Dir: t.TempDir(), Vars: []string{"GO_PM_PROCESS_CHILD=1", "ONLY_CHILD=present"}, Out: &out, Err: &out}
+	// Windows TEMP may use an 8.3 alias. Pass one canonical fixture path to
+	// the child so Getwd and the expected directory use the same spelling.
+	dir, err := filepath.EvalSymlinks(t.TempDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	env := Environment{Dir: dir, Vars: []string{"GO_PM_PROCESS_CHILD=1", "ONLY_CHILD=present"}, Out: &out, Err: &out}
 	cmd, err := env.Command(context.Background(), exe, "-test.run=^TestProcessEnvironmentChild$")
 	if err != nil {
 		t.Fatal(err)
