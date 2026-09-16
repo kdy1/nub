@@ -1,4 +1,4 @@
-// Package jsonvalue preserves object insertion order and JSON number spelling.
+// Package jsonvalue preserves object insertion order and reference JSON number semantics.
 package jsonvalue
 
 import (
@@ -85,7 +85,11 @@ func read(d *json.Decoder, depth int) (*Value, error) {
 	case string:
 		return String(token), nil
 	case json.Number:
-		return &Value{Kind: 'd', Scalar: token}, nil
+		value, err := number(token.String())
+		if err != nil {
+			return nil, err
+		}
+		return &Value{Kind: 'd', Scalar: value}, nil
 	case bool:
 		return &Value{Kind: 'b', Scalar: token}, nil
 	default:

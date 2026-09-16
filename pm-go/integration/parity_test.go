@@ -23,6 +23,8 @@ func TestRustManifestParity(t *testing.T) {
 		{"unicode", "{\"name\":\"한글😀\u2028\u2029\",\"literal\":\"\\\\u2028\"}", []string{"pkg", "get"}},
 		{"unicode-set", `{"name":"example"}`, []string{"pkg", "set", "description=한글😀\u2028\u2029"}},
 		{"numbers", `{"name":"example","n":1e+9,"negativeZero":-0,"decimal":1.0,"huge":18446744073709551616}`, []string{"pkg", "get"}},
+		{"number-boundaries", `{"values":[1e-5,1e-6,1e15,1e16,-9223372036854775808,-9223372036854775809,18446744073709551615,1.234567890123456789,0.000000000000000000000000000001,1e-309,1e-9999,-1e-9999,0e999999999999999999999,5.0507837461e-27]}`, []string{"pkg", "get"}},
+		{"number-mutation", `{"n":1e9,"values":[-0,18446744073709551616]}`, []string{"pkg", "set", "name=example"}},
 		{"get-json", `{"name":"example","private":true}`, []string{"pkg", "get", "name", "private", "missing"}},
 		{"set", "{\r\n\t\"name\": \"example\"\r\n}", []string{"pkg", "set", "--json", "private=true"}},
 		{"late-json", `{"name":"unchanged"}`, []string{"pkg", "set", "name=changed", "--json"}},

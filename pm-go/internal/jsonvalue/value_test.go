@@ -83,3 +83,24 @@ func TestJSONStringEscaping(t *testing.T) {
 		t.Fatal(string(encoded))
 	}
 }
+
+func TestReferenceNumberModel(t *testing.T) {
+	for input, want := range map[string]string{
+		"1e+9": "1000000000.0", "-0": "-0.0", "1.0": "1.0", "18446744073709551615": "18446744073709551615", "18446744073709551616": "1.8446744073709552e+19",
+		"-9223372036854775808": "-9223372036854775808", "-9223372036854775809": "-9.223372036854776e+18", "1e-5": "0.00001", "1e-6": "1e-6", "1e15": "1000000000000000.0", "1e16": "1e+16", "1e-9999": "0.0", "-1e-9999": "-0.0", "0e9999999999999999999": "0.0",
+	} {
+		value, err := Parse([]byte(input))
+		if err != nil {
+			t.Fatal(input, err)
+		}
+		got, err := value.MarshalJSON()
+		if err != nil || string(got) != want {
+			t.Errorf("%s: %s want %s (%v)", input, got, want, err)
+		}
+	}
+	for _, input := range []string{"1e309", "-1e309", "1e999999999999999"} {
+		if _, err := Parse([]byte(input)); err == nil {
+			t.Fatal("overflow accepted", input)
+		}
+	}
+}
