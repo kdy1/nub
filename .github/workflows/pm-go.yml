@@ -101,4 +101,4 @@ jobs:
         env:
           PM_RUST_LOCKFILE_ORACLE: ${{ github.workspace }}/target/pm-go/rust-lockfile-oracle
           PM_NPM_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/npm/bin/npm-cli.js
-        run: go test -v ./internal/lockfile/npm
+        run: go test -v ./internal/lockfile/npm ./internal/lockfile/pnpm
