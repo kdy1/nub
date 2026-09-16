@@ -184,4 +184,6 @@ The Go isolated linker connects materialization to root and workspace dependency
 
 The Go hoisted linker places real directories, sharing compatible versions across workspace members and nesting conflicts. Root declarations outrank member and transitive preferences. Hoisting boundaries retain visible matching ancestors; members outside the root retain independent trees. Materialization orders parents before nested children and preserves build output only for complete placements vouched for by the caller.
 
+The recorded Rust PM baseline rejects PnP installation before writes. Go install-policy helpers retain the Yarn-identity guard, Berry's default, environment and ancestor configuration precedence, and explicit engine-linker refusal. This does not affect read-only commands or add a PnP writer.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
