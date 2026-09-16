@@ -20,4 +20,6 @@ Metadata caches separate registry URLs and full/abbreviated responses. They supp
 
 The store integrity layer verifies SHA-1/256/384/512 SRI values using the strongest supported algorithm, including multiple digests and SRI options. Tarball manifest checks preserve the reference implementation's version normalization and name checks.
 
+Tarball extraction strips the wrapper directory, rejects escaping paths and non-regular entries, and enforces decompressed-size, per-file, and entry-count limits. Extraction creates a new tree, preserves executable status, and removes partial output on failure. Windows filename checks apply on Windows.
+
 The Go executable uses its own global cache and store. Lifecycle scripts and fetched tools use Node from `PATH`; Nub's runtime augmentation, TypeScript transformation, and Node provisioning are outside this executable.

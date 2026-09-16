@@ -146,4 +146,6 @@ Registry metadata caches partition by registry URL and response format. Fresh en
 
 Go store integrity verification selects the strongest supported SRI algorithm and accepts any matching digest within that algorithm. Package-content validation checks the tarball manifest's name and version, preserving the reference's normalization for leading `v`, build metadata, and non-registry locators.
 
+Tarball extraction runs inside a newly created filesystem root. It strips the wrapper component, rejects traversal and non-regular entries, validates gzip completion, and enforces the reference archive limits. Failed extraction removes its partial tree; existing destinations are never merged or overwritten.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.
