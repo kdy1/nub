@@ -144,4 +144,6 @@ Go registry requests enforce response-size, total-time, and idle-time limits. Re
 
 Registry metadata caches partition by registry URL and response format. Fresh entries avoid a request; stale entries use conditional requests unless offline policy selects the cached copy. Failed or malformed responses leave the previous cache entry intact. Concurrent readers share a fetch and receive separate parsed metadata objects.
 
+Go store integrity verification selects the strongest supported SRI algorithm and accepts any matching digest within that algorithm. Package-content validation checks the tarball manifest's name and version, preserving the reference's normalization for leading `v`, build metadata, and non-registry locators.
+
 Node runtime augmentation and provisioning remain outside the Go executable. Its package scripts use Node from `PATH`.

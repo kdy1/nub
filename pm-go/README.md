@@ -18,4 +18,6 @@ Registry transport uses source-scoped credentials, TLS roots and client certific
 
 Metadata caches separate registry URLs and full/abbreviated responses. They support offline and prefer-offline reads, conditional revalidation, atomic replacement, corruption recovery, and concurrent request deduplication. Cache locations are supplied by the caller.
 
+The store integrity layer verifies SHA-1/256/384/512 SRI values using the strongest supported algorithm, including multiple digests and SRI options. Tarball manifest checks preserve the reference implementation's version normalization and name checks.
+
 The Go executable uses its own global cache and store. Lifecycle scripts and fetched tools use Node from `PATH`; Nub's runtime augmentation, TypeScript transformation, and Node provisioning are outside this executable.
