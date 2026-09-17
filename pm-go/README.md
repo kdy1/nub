@@ -181,3 +181,5 @@ Removing a state sidecar uses file-only unlink semantics on each platform. A dir
 A Rust policy probe compares shared-store selection, explicit conflicts, prewarm overrides and mixed-tree mode detection across the complete boolean/optional-boolean matrix, including empty and false-valued CI variables.
 
 `internal/settings` resolves scalar and list values from invocation-owned CLI, environment, project, user and managed sources. Its checked catalog covers the baseline's 152 declarations; object settings remain with dedicated readers. It retains per-source invalid-value behavior, enum defaults, aliases, explicit hoisting and managed hardening. Pnpm-named sources are identity gated, and YAML cannot choose Nub's layout. The Rust differential probe calls the original generated accessors. File discovery, native config lowering and complete install-session consumers remain pending.
+
+Settings YAML scalars preserve numeric-separator and timestamp spellings as strings, following the reference reader. Numeric values rendered into string settings retain its exponent notation.

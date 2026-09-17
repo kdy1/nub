@@ -50,21 +50,22 @@ func fromYAML(d definition, root *yaml.Node) any {
 		if n == nil {
 			continue
 		}
-		if n.Kind == yaml.ScalarNode && n.Tag == "!!str" {
+		tag := scalarTag(n)
+		if n.Kind == yaml.ScalarNode && tag == "!!str" {
 			if v := parse(d, n.Value); v != nil {
 				return v
 			}
 		}
 		switch d.Kind {
 		case "bool":
-			if n.Tag == "!!bool" {
+			if tag == "!!bool" {
 				var b bool
 				if n.Decode(&b) == nil {
 					return b
 				}
 			}
 		case "int":
-			if n.Tag == "!!int" {
+			if tag == "!!int" {
 				var v uint64
 				if n.Decode(&v) == nil {
 					return v
@@ -79,7 +80,7 @@ func fromYAML(d definition, root *yaml.Node) any {
 				list := []string{}
 				for _, child := range n.Content {
 					v := unalias(child)
-					if v != nil && v.Kind == yaml.ScalarNode && v.Tag == "!!str" {
+					if v != nil && v.Kind == yaml.ScalarNode && scalarTag(v) == "!!str" {
 						list = append(list, v.Value)
 					}
 				}
@@ -94,7 +95,7 @@ func yamlScalar(n *yaml.Node) (string, bool) {
 	if n.Kind != yaml.ScalarNode {
 		return "", false
 	}
-	switch n.Tag {
+	switch scalarTag(n) {
 	case "!!str":
 		return n.Value, true
 	case "!!bool":
@@ -134,11 +135,18 @@ func yamlScalar(n *yaml.Node) (string, bool) {
 			}
 			return s, true
 		}
-		prefix := "+"
-		if e < 0 {
-			prefix = ""
-		}
-		return mantissa + "e" + prefix + strconv.Itoa(e), true
+		return mantissa + "e" + strconv.Itoa(e), true
 	}
 	return "", false
+}
+
+// yaml_serde does not infer numeric separators or timestamps. Go's YAML reader
+// infers both, so preserve their lexical form when no explicit tag was written.
+func scalarTag(n *yaml.Node) string {
+	if n.Style&yaml.TaggedStyle == 0 {
+		if n.Tag == "!!timestamp" || (n.Tag == "!!int" || n.Tag == "!!float") && strings.Contains(n.Value, "_") {
+			return "!!str"
+		}
+	}
+	return n.Tag
 }
