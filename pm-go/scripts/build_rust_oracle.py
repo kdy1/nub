@@ -10,7 +10,7 @@ import sys
 
 root = Path(__file__).resolve().parents[2]
 artifacts = {}
-required = {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "aube_settings", "yaml_serde", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex", "miette"}
+required = {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "aube_settings", "yaml_serde", "anyhow", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex", "miette"}
 with subprocess.Popen(
     ["cargo", "build", "--locked", "-p", "nub-cli", "--profile", "fast",
      "--message-format=json-render-diagnostics"],
@@ -69,8 +69,28 @@ gvs_path = output.parent / "gvs-reference.rs"
 gvs_path.write_text(gvs_probe)
 settings_path = output.parent / "settings-reference.rs"
 subprocess.run([sys.executable, str(root / "pm-go/scripts/extract_settings.py"), "--oracle", str(settings_path)], check=True)
+native_source = (root / "crates/nub-cli/src/project_config.rs").read_text()
+adapter_source = (root / "crates/nub-cli/src/pm_engine/mod.rs").read_text()
+native_probe = "use serde_json::Value;\nuse std::{path::PathBuf, time::Duration};\ntype Result<T> = std::result::Result<T, ConfigError>;\n"
+for name, kind, derive in [("ConfigError", "enum", "Debug"), ("InstallConfig", "struct", "Debug, Default, Clone, PartialEq"), ("LinkerConfig", "enum", "Debug, Clone, PartialEq"), ("Hoist", "enum", "Debug, Clone, PartialEq")]:
+    native_probe += f"\n#[derive({derive})]\n" + re.search(r"(?ms)^pub " + kind + " " + name + r" \{.*?^\}", native_source).group()
+native_probe += "\npub type PublicHoist = Vec<String>;\n"
+for name in ["INSTALL_KEYS", "LINKER_STRATEGY_KEYS"]:
+    native_probe += re.search(r"(?ms)^(?:pub\(crate\) )?const " + name + r":.*?^\];", native_source).group() + "\n"
+for name in ["child", "named_path", "as_object", "as_str", "as_string_array", "reject_unknown_keys", "validate_linker", "validate_hoist", "linker_without_options", "unknown_strategy", "validate_install", "parse_duration"]:
+    native_probe += "\n" + re.search(r"(?ms)^(?:pub\(crate\) )?fn " + name + r"(?:<[^\n]*>)?\(.*?^\}", native_source).group()
+native_probe += "\npub fn parse(v: &Value) -> Result<InstallConfig> { validate_install(v, \"install\") }\n"
+native_path = output.parent / "native-install-reference.rs"
+native_path.write_text(native_probe)
+lower_probe = "use anyhow::Result;\n#[derive(Debug, Default, PartialEq, Eq)]\n"
+lower_probe += re.search(r"(?ms)^struct NativeInstallSettings \{.*?^\}", adapter_source).group()
+lower_probe += "\n#[derive(Clone, Copy, PartialEq, Eq)]\n" + re.search(r"(?ms)^enum VirtualStoreLocality \{.*?^\}", adapter_source).group()
+for name in ["lower_native_install_settings", "scoped_install_settings"]:
+    lower_probe += "\n" + re.search(r"(?ms)^fn " + name + r"\(.*?^\}", adapter_source).group()
+lower_path = output.parent / "native-lower-reference.rs"
+lower_path.write_text(lower_probe)
 command = ["rustc", "--edition=2024", str(root / "pm-go/testdata/rust/lockfile_oracle.rs"),
            "-o", str(output)]
 for name, path in sorted(artifacts.items()):
     command.extend(["--extern", f"{name}={path}", "-L", f"dependency={Path(path).parent}"])
-subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path), "PM_GVS_ORACLE_SOURCE": str(gvs_path), "PM_SETTINGS_ORACLE_SOURCE": str(settings_path)})
+subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path), "PM_GVS_ORACLE_SOURCE": str(gvs_path), "PM_SETTINGS_ORACLE_SOURCE": str(settings_path), "PM_NATIVE_INSTALL_ORACLE_SOURCE": str(native_path), "PM_NATIVE_LOWER_ORACLE_SOURCE": str(lower_path)})

@@ -8,6 +8,8 @@ mod gvs_oracle;
 mod isolated_oracle;
 mod linker_oracle;
 mod materialize_oracle;
+mod native_config_oracle;
+pub use native_config_oracle::project_config;
 mod override_oracle;
 mod peer_oracle;
 mod registry_oracle;
@@ -20,6 +22,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "native-install" {
+        native_config_oracle::run(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "settings" {
         settings_oracle::run(std::path::Path::new(&args[1]));
         return;
