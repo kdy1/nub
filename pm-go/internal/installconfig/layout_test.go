@@ -56,13 +56,17 @@ func TestNativeSettingsDriveActualLayouts(t *testing.T) {
 	for _, strategy := range []string{"global-virtual-store", "isolated", "hoisted"} {
 		t.Run(strategy, func(t *testing.T) {
 			root := t.TempDir()
+			// macOS exposes its temporary directory through /var -> /private/var.
+			root, err := fsutil.Canonicalize(root)
+			if err != nil {
+				t.Fatal(err)
+			}
 			project := filepath.Join(root, "project")
 			if err := os.MkdirAll(project, 0755); err != nil {
 				t.Fatal(err)
 			}
 			cfg := settings.Context{Defaults: NubDefaults(DefaultsInput{TrulyFresh: true})}
 			native := nativeConfig(t, `{"linker":"`+strategy+`","publicHoist":["child"]}`)
-			var err error
 			cfg.ProjectConfig, _, err = native.Lower(cfg.Defaults, true, false)
 			if err != nil {
 				t.Fatal(err)

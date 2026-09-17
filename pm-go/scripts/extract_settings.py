@@ -17,6 +17,16 @@ SOURCE = ROOT / "vendor/aube/crates/aube-settings/settings.toml"
 DEST = ROOT / "pm-go/internal/settings/catalog.json"
 
 
+def unsupported_settings():
+    profile = (ROOT / "crates/nub-cli/src/pm_engine/identity.rs").read_text(encoding="utf-8")
+    block = re.search(r"(?ms)^    unsupported_settings: &\[(.*?)^    \],", profile)[1]
+    entries = {}
+    for match in re.finditer(r'\(\s*"([^"]+)",\s*("(?:\\.|[^"\\])*")\s*,?\s*\)', block, re.DOTALL):
+        entries[match[1]] = json.loads(re.sub(r"\\\n\s*", "", match[2]))
+    assert len(entries) == 15, "audit changes to Nub's unsupported setting declarations"
+    return entries, block
+
+
 def kebab(name):
     return re.sub(r"([a-z0-9])([A-Z])", r"\1-\2", name).lower()
 
@@ -56,6 +66,7 @@ def default_value(name, row, kind):
 
 def catalog():
     result = []
+    unsupported, _ = unsupported_settings()
     for name, row in sorted(tomllib.loads(SOURCE.read_text(encoding="utf-8")).items()):
         sources = row.get("sources", {})
         env = []
@@ -85,12 +96,16 @@ def catalog():
                            defaultText=row["default"], cli=sources.get("cli", []), env=env, npmrc=npmrc,
                            yaml=sources.get("workspaceYaml", []), precedence=order, variants=variants,
                            layout=row.get("layout", False), npmShared=row.get("npmShared", False),
-                           managed=row.get("managedPolicy", ""), explicit=row.get("explicitAccessor", False)))
+                           managed=row.get("managedPolicy", ""), explicit=row.get("explicitAccessor", False),
+                           unsupportedAdvice=unsupported.get(name, "")))
+    assert set(unsupported).issubset({row["name"] for row in result})
     return result
 
 
 def oracle(rows):
+    _, unsupported = unsupported_settings()
     lines = ["// Generated test-only calls to the baseline's public typed accessors.",
+             "const NUB_UNSUPPORTED_SETTINGS: &[(&str, &str)] = &[" + unsupported + "];",
              "fn resolved(name: &str, explicit: bool, ctx: &aube_settings::ResolveCtx<'_>) -> serde_json::Value {", "match name {"]
     for row in rows:
         if row["kind"] == "unsupported":

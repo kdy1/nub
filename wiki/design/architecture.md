@@ -138,6 +138,8 @@ The Go registry configuration layer tags each npmrc source. Unscoped credentials
 
 The Go typed settings resolver takes invocation-owned source bags and applies the reference CLI, environment, file and managed-policy rules. Pnpm-named inputs are identity gated; workspace YAML layout fields are excluded under Nub. Its checked setting catalog and differential probe track the original engine accessors. Complete settings-file and install-session assembly remains in progress.
 
+The settings npmrc view splits the shared loader's entries into user and project tiers and applies pnpm 11's key policy without filtering registry authentication. Nub's unsupported engine settings are excluded across aliases and source tiers.
+
 The Go native install-block validator preserves strategy-specific linker options, field replacement, additive ejection patterns and release-age rounding. Its lowering step applies layout across identities while limiting native resolution fields to Nub-owned projects. The enclosing JSONC loader is still separate work.
 
 Go layout configuration now applies resolved settings to the isolated and hoisted linker plans. Default settings inspect the supplied root and workspace manifests for store compatibility, retaining the reference's injected-dependency and framework-version gates. Session discovery and full install orchestration remain in progress.

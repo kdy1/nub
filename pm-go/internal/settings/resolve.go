@@ -33,7 +33,7 @@ func (c Context) Resolve(name string) any { return c.resolve(name, false) }
 // --config overrides are part of this same CLI source.
 func (c Context) CLIString(name string) *string {
 	d, ok := definitions[name]
-	if !ok || d.Kind != "string" && d.Kind != "enum" {
+	if !ok || d.UnsupportedAdvice != "" || d.Kind != "string" && d.Kind != "enum" {
 		return nil
 	}
 	v := fromEntries(d, c.CLI, true)
@@ -77,6 +77,12 @@ func (c Context) resolve(name string, explicit bool) any {
 	d, ok := definitions[name]
 	if !ok || d.Kind == "unsupported" {
 		return nil
+	}
+	if d.UnsupportedAdvice != "" {
+		if explicit {
+			return nil
+		}
+		return cloneValue(d.Default)
 	}
 	var value any
 	for _, source := range d.Precedence {

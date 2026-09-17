@@ -40,7 +40,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "ranked:off<on<required",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "advisoryCheck",
@@ -83,7 +84,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "ranked:off<on<required",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "advisoryCheckEveryInstall",
@@ -122,7 +124,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "advisoryCheckOnInstall",
@@ -165,7 +168,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "ranked:off<on<required",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "allowBuilds",
@@ -195,7 +199,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "allowedDeprecatedVersions",
@@ -228,7 +233,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "allowedUnpopularPackages",
@@ -267,7 +273,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "managedWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "aubeNoAutoInstall",
@@ -308,7 +315,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub does not auto-install before a run. Use `verifyDeps` in nub.jsonc, or `verify-deps-before-run` in .npmrc, to choose what happens when dependencies are stale."
   },
   {
     "name": "aubeNoLock",
@@ -349,7 +357,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "audit.ignore",
@@ -387,7 +396,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "audit.level",
@@ -427,7 +437,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "auditConfig.ignoreCves",
@@ -460,7 +471,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "auditConfig.ignoreGhsas",
@@ -493,7 +505,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "autoInstallPeers",
@@ -534,7 +547,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "blockExoticSubdeps",
@@ -573,7 +587,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "cacheDir",
@@ -610,7 +625,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "catalogMode",
@@ -651,7 +667,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "catalogPrune",
@@ -690,7 +707,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "childConcurrency",
@@ -729,7 +747,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "ci",
@@ -766,7 +785,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub detects CI from the `CI` environment variable, not from config. Set `CI=1`, or pass `--frozen-lockfile` / `--no-frozen-lockfile` to pin the install mode."
   },
   {
     "name": "cleanupUnusedCatalogs",
@@ -805,7 +825,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "color",
@@ -848,7 +869,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "dangerouslyAllowAllBuilds",
@@ -887,7 +909,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "falseWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "dedupeDirectDeps",
@@ -926,7 +949,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "dedupePeerDependents",
@@ -965,7 +989,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "dedupePeers",
@@ -1004,7 +1029,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "defaultLockfileFormat",
@@ -1050,7 +1076,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "defaultTrust",
@@ -1087,7 +1114,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "deployAllFiles",
@@ -1126,7 +1154,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub does not implement `deploy`. For now: pnpm deploy."
   },
   {
     "name": "deprecationWarnings",
@@ -1172,7 +1201,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "disableGlobalVirtualStoreForPackages",
@@ -1216,7 +1246,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "diskMaterializePackages",
@@ -1255,7 +1286,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "dlxCacheMaxAge",
@@ -1292,7 +1324,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "enableGlobalVirtualStore",
@@ -1334,7 +1367,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "enableModulesDir",
@@ -1371,7 +1405,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "enablePrePostScripts",
@@ -1408,7 +1443,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub always runs `pre`/`post` scripts for a named script, like npm. Pass `--ignore-scripts` to `nub run` to skip the whole lifecycle."
   },
   {
     "name": "engineStrict",
@@ -1445,7 +1481,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "excludeLinksFromLockfile",
@@ -1484,7 +1521,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "extendNodePath",
@@ -1521,7 +1559,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "fetchMinSpeedKiBps",
@@ -1558,7 +1597,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "fetchRetries",
@@ -1597,7 +1637,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "fetchRetryFactor",
@@ -1636,7 +1677,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "fetchRetryMaxtimeout",
@@ -1675,7 +1717,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "fetchRetryMintimeout",
@@ -1714,7 +1757,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "fetchStallTimeout",
@@ -1751,7 +1795,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "fetchTimeout",
@@ -1790,7 +1835,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "fetchWarnTimeoutMs",
@@ -1827,7 +1873,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "forceMetadataPrimer",
@@ -1864,7 +1911,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "gitBranchLockfile",
@@ -1903,7 +1951,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "gitShallowHosts",
@@ -1946,7 +1995,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "globalBinDir",
@@ -1983,7 +2033,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "globalDir",
@@ -2020,7 +2071,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "globalPnpmfile",
@@ -2052,7 +2104,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "globalVirtualStoreDir",
@@ -2091,7 +2144,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "hoist",
@@ -2129,7 +2183,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": true
+    "explicit": true,
+    "unsupportedAdvice": ""
   },
   {
     "name": "hoistPattern",
@@ -2170,7 +2225,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "hoistWorkspacePackages",
@@ -2209,7 +2265,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "hoistingLimits",
@@ -2252,7 +2309,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "httpProxy",
@@ -2293,7 +2351,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "httpsProxy",
@@ -2337,7 +2396,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "ignoreCompatibilityDb",
@@ -2374,7 +2434,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "ignoreScripts",
@@ -2415,7 +2476,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "ignoredOptionalDependencies",
@@ -2454,7 +2516,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "jailBuildExclusions",
@@ -2493,7 +2556,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "managedWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "jailBuildPermissions",
@@ -2523,7 +2587,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "jailBuilds",
@@ -2562,7 +2627,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "linkConcurrency",
@@ -2601,7 +2667,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "linkWorkspacePackages",
@@ -2644,7 +2711,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "localAddress",
@@ -2681,7 +2749,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "lockfile",
@@ -2719,7 +2788,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "lockfileDir",
@@ -2760,7 +2830,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "lockfileIncludeTarballUrl",
@@ -2799,7 +2870,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "loglevel",
@@ -2846,7 +2918,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "lowDownloadThreshold",
@@ -2885,7 +2958,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "max",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "managePackageManagerVersions",
@@ -2924,7 +2998,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub does not download or switch package-manager versions. `nub pm pin` records the project's manager, and `nub upgrade` updates nub itself."
   },
   {
     "name": "maxsockets",
@@ -2960,7 +3035,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "mergeGitBranchLockfilesBranchPattern",
@@ -2999,7 +3075,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "minimumPackageAge",
@@ -3038,7 +3115,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "max",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "minimumReleaseAge",
@@ -3077,7 +3155,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "max",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "minimumReleaseAgeExclude",
@@ -3116,7 +3195,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "managedWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "minimumReleaseAgeStrict",
@@ -3155,7 +3235,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "modulesCacheMaxAge",
@@ -3192,7 +3273,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "modulesDir",
@@ -3231,7 +3313,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "networkConcurrency",
@@ -3272,7 +3355,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "noProxy",
@@ -3316,7 +3400,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "nodeDownloadMirrors",
@@ -3349,7 +3434,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub provisions Node itself and does not read the engine's download mirrors. Install the version another way and `nub node pin` it."
   },
   {
     "name": "nodeLinker",
@@ -3394,7 +3480,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "nodeOptions",
@@ -3432,7 +3519,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "nodeVersion",
@@ -3469,7 +3557,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "npmPath",
@@ -3506,7 +3595,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub never shells out to npm; every package-manager verb runs in-process."
   },
   {
     "name": "npmrcAuthFile",
@@ -3543,7 +3633,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "optimisticRepeatInstall",
@@ -3580,7 +3671,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub does not auto-install before a run, so there is no repeat install to skip. Use `verifyDeps` in nub.jsonc, or `verify-deps-before-run` in .npmrc, to choose what happens when dependencies are stale."
   },
   {
     "name": "overrides",
@@ -3612,7 +3704,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "packageExtensions",
@@ -3645,7 +3738,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "packageImportMethod",
@@ -3692,7 +3786,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "packageManagerStrict",
@@ -3729,7 +3824,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub does not enforce another package manager's pin. `nub pm pin` records the project's manager, and `nub pm which` reports the one in force."
   },
   {
     "name": "packageManagerStrictVersion",
@@ -3766,7 +3862,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub does not enforce another package manager's pinned version. `nub pm pin` records the project's manager."
   },
   {
     "name": "packumentMaxBytes",
@@ -3803,7 +3900,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "paranoid",
@@ -3841,7 +3939,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "peerDependencyRules.allowAny",
@@ -3880,7 +3979,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "peerDependencyRules.allowedVersions",
@@ -3913,7 +4013,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "peerDependencyRules.ignoreMissing",
@@ -3952,7 +4053,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "peersSuffixMaxLength",
@@ -3991,7 +4093,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "pnpmfilePath",
@@ -4025,7 +4128,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "preferFrozenLockfile",
@@ -4066,7 +4170,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "preferSymlinkedExecutables",
@@ -4103,7 +4208,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "publicHoistPattern",
@@ -4144,7 +4250,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "recursiveInstall",
@@ -4181,7 +4288,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "registries",
@@ -4214,7 +4322,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "registrySupportsTimeField",
@@ -4253,7 +4362,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "requiredScripts",
@@ -4290,7 +4400,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "resolutionMode",
@@ -4333,7 +4444,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "resolvePeersFromWorkspaceRoot",
@@ -4372,7 +4484,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "runtimeInstaller",
@@ -4415,7 +4528,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub provisions Node itself rather than delegating to another installer. Manage versions with `nub node install` and `nub node pin`."
   },
   {
     "name": "runtimeOnFail",
@@ -4459,7 +4573,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub provisions Node itself and installs a missing pin on demand. Manage versions with `nub node install` and `nub node pin`."
   },
   {
     "name": "saveExact",
@@ -4496,7 +4611,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "savePrefix",
@@ -4535,7 +4651,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "saveWorkspaceProtocol",
@@ -4578,7 +4695,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "scriptShell",
@@ -4615,7 +4733,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "securityScanner",
@@ -4654,7 +4773,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "shamefullyHoist",
@@ -4695,7 +4815,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "sharedWorkspaceLockfile",
@@ -4734,7 +4855,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "shellEmulator",
@@ -4771,7 +4893,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "sideEffectsCache",
@@ -4812,7 +4935,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "sideEffectsCacheReadonly",
@@ -4849,7 +4973,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "stateDir",
@@ -4886,7 +5011,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "storeDir",
@@ -4925,7 +5051,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "strictDepBuilds",
@@ -4962,7 +5089,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "strictPeerDependencies",
@@ -5001,7 +5129,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "strictSsl",
@@ -5038,7 +5167,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "strictStoreIntegrity",
@@ -5079,7 +5209,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "strictStorePkgContentCheck",
@@ -5116,7 +5247,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "supportedArchitectures",
@@ -5149,7 +5281,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "symlink",
@@ -5185,7 +5318,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "tag",
@@ -5221,7 +5355,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "tarballMaxBytes",
@@ -5258,7 +5393,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "trustPolicy",
@@ -5300,7 +5436,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "ranked:off<no-downgrade",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "trustPolicyExclude",
@@ -5339,7 +5476,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "managedWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "trustPolicyIgnoreAfter",
@@ -5378,7 +5516,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "unsafePerm",
@@ -5415,7 +5554,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "update.ignoreDeps",
@@ -5454,7 +5594,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "updateConfig.ignoreDependencies",
@@ -5493,7 +5634,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "updateNotifier",
@@ -5530,7 +5672,8 @@
     "layout": false,
     "npmShared": true,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub does not check for its own updates while running a command. Run `nub upgrade` when you want a new version."
   },
   {
     "name": "updateRewritesSpecifier",
@@ -5567,7 +5710,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "useBetaCli",
@@ -5604,7 +5748,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub has no beta-gated commands."
   },
   {
     "name": "useRunningStoreServer",
@@ -5641,7 +5786,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "useStderr",
@@ -5678,7 +5824,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": "nub chooses its own output streams. Redirect the command's stdout or stderr in your shell instead."
   },
   {
     "name": "verifyDepsBeforeRun",
@@ -5715,7 +5862,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "verifyStoreIntegrity",
@@ -5756,7 +5904,8 @@
     "layout": false,
     "npmShared": false,
     "managed": "trueWins",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "virtualStoreDir",
@@ -5795,7 +5944,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "virtualStoreDirMaxLength",
@@ -5832,7 +5982,8 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   },
   {
     "name": "virtualStoreOnly",
@@ -5869,6 +6020,7 @@
     "layout": true,
     "npmShared": false,
     "managed": "",
-    "explicit": false
+    "explicit": false,
+    "unsupportedAdvice": ""
   }
 ]

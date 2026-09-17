@@ -4,6 +4,7 @@ include!(env!("PM_SETTINGS_ORACLE_SOURCE"));
 pub fn run(path: &std::path::Path) {
     static PROFILE: aube_util::Embedder = aube_util::Embedder {
         read_branded_settings_env: false,
+        unsupported_settings: NUB_UNSUPPORTED_SETTINGS,
         ..aube_util::AUBE
     };
     aube_util::set_embedder(&PROFILE);

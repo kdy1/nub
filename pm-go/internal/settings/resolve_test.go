@@ -108,3 +108,18 @@ func TestIndependentInvocationValues(t *testing.T) {
 		t.Fatal("unknown/complex setting resolved")
 	}
 }
+
+func TestUnsupportedEngineSettingsCannotReenterThroughAliases(t *testing.T) {
+	c := Context{CLI: []Entry{{"npm-path", "/foreign/npm"}, {"ci", "true"}}, Env: []Entry{{"CI", "true"}}, ProjectNpmrc: []Entry{{"npmPath", "/foreign/other"}}, Managed: []Entry{{"npmPath", "/managed/npm"}}}
+	if c.Resolve("npmPath") != nil || c.CLIString("npmPath") != nil || c.Explicit("ci") != nil {
+		t.Fatal("unrouted settings were consumed")
+	}
+	for _, key := range []string{"npm-path", "npmPath", "runtimeInstaller", "enable-pre-post-scripts"} {
+		if UnsupportedAdvice(key) == "" {
+			t.Fatal(key)
+		}
+	}
+	if UnsupportedAdvice("node-linker") != "" {
+		t.Fatal("supported layout setting refused")
+	}
+}

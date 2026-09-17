@@ -13,6 +13,7 @@ var catalogJSON []byte
 
 type definition struct {
 	Name, Type, Kind, DefaultText               string
+	UnsupportedAdvice                           string
 	Default                                     any
 	CLI, Env, Npmrc, YAML, Precedence, Variants []string
 	Layout, NpmShared, Explicit                 bool
@@ -52,6 +53,18 @@ func Names() []string {
 	}
 	slices.Sort(out)
 	return out
+}
+
+// UnsupportedAdvice recognizes canonical names and file aliases, including
+// settings omitted from the active resolver. Config writers use this to refuse
+// an inert key instead of treating it as arbitrary free-form configuration.
+func UnsupportedAdvice(key string) string {
+	for _, d := range definitions {
+		if d.UnsupportedAdvice != "" && (d.Name == key || slices.Contains(d.Npmrc, key) || slices.Contains(d.YAML, key)) {
+			return d.UnsupportedAdvice
+		}
+	}
+	return ""
 }
 
 func cloneValue(v any) any {
