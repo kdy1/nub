@@ -7,6 +7,7 @@ mod graph_snapshot;
 mod gvs_oracle;
 mod install_policy_oracle;
 mod isolated_oracle;
+mod jsonc_oracle;
 mod linker_oracle;
 mod managed_oracle;
 mod materialize_oracle;
@@ -24,6 +25,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "jsonc-read" {
+        jsonc_oracle::reads(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "settings-yaml" {
         settings_oracle::sources(std::path::Path::new(&args[1]));
         return;

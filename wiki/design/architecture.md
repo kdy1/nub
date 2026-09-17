@@ -144,6 +144,8 @@ The Go managed-file reader combines the existing system policy with an explicitl
 
 Go settings file bundles load npmrc, managed and native-project source tiers per invocation. Pnpm's global YAML requires its v11 configuration model; workspace YAML requires pnpm identity. The raw YAML reader validates unknown values as well as consumed settings, rejects duplicate nested mapping keys, and retains root-key overwrite behavior. Global YAML errors discard that source; project YAML errors propagate.
 
+The Go JSONC input boundary retains the regular-file, 1 MiB read, UTF-8 and leading-BOM rules. A raw-text nesting guard bounds configuration input at 64 levels before recursive parsing, ignoring delimiters inside strings and comments. Native configuration parsing and discovery remain in progress.
+
 The settings npmrc view splits the shared loader's entries into user and project tiers and applies pnpm 11's key policy without filtering registry authentication. Nub's unsupported engine settings are excluded across aliases and source tiers.
 
 The Go native install-block validator preserves strategy-specific linker options, field replacement, additive ejection patterns and release-age rounding. Its lowering step applies layout across identities while limiting native resolution fields to Nub-owned projects. The enclosing JSONC loader is still separate work.

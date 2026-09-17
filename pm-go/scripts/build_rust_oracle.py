@@ -11,6 +11,7 @@ import sys
 root = Path(__file__).resolve().parents[2]
 artifacts = {}
 required = {"aube", "aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "aube_settings", "yaml_serde", "toml_edit", "anyhow", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex", "miette"}
+required.add("nub_json_guard")
 with subprocess.Popen(
     ["cargo", "build", "--locked", "-p", "nub-cli", "--profile", "fast",
      "--message-format=json-render-diagnostics"],
@@ -75,6 +76,13 @@ managed_probe += re.search(r"(?ms)^    pub\(super\) fn entries\(&self\).*?^    \
 managed_probe += re.search(r"(?ms)^fn toml_value_to_raw\(.*?^\}", managed_source).group()
 managed_path = output.parent / "managed-reference.rs"
 managed_path.write_text(managed_probe)
+jsonc_source = (root / "crates/nub-cli/src/jsonc.rs").read_text()
+jsonc_probe = "use std::{path::Path, io::Read};\n"
+for name in ["MAX_FILE_BYTES", "UTF8_BOM"]:
+    jsonc_probe += re.search(r"(?m)^(?:pub\(crate\) )?const " + name + r":.*;$", jsonc_source).group() + "\n"
+jsonc_probe += re.search(r"(?ms)^pub\(crate\) fn read_guarded\(.*?^\}", jsonc_source).group()
+jsonc_path = output.parent / "jsonc-read-reference.rs"
+jsonc_path.write_text(jsonc_probe)
 native_source = (root / "crates/nub-cli/src/project_config.rs").read_text()
 adapter_source = (root / "crates/nub-cli/src/pm_engine/mod.rs").read_text()
 native_probe = "use serde_json::Value;\nuse std::{path::PathBuf, time::Duration};\ntype Result<T> = std::result::Result<T, ConfigError>;\n"
@@ -99,4 +107,4 @@ command = ["rustc", "--edition=2024", str(root / "pm-go/testdata/rust/lockfile_o
            "-o", str(output)]
 for name, path in sorted(artifacts.items()):
     command.extend(["--extern", f"{name}={path}", "-L", f"dependency={Path(path).parent}"])
-subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path), "PM_GVS_ORACLE_SOURCE": str(gvs_path), "PM_SETTINGS_ORACLE_SOURCE": str(settings_path), "PM_MANAGED_ORACLE_SOURCE": str(managed_path), "PM_NATIVE_INSTALL_ORACLE_SOURCE": str(native_path), "PM_NATIVE_LOWER_ORACLE_SOURCE": str(lower_path)})
+subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path), "PM_GVS_ORACLE_SOURCE": str(gvs_path), "PM_SETTINGS_ORACLE_SOURCE": str(settings_path), "PM_MANAGED_ORACLE_SOURCE": str(managed_path), "PM_JSONC_READ_ORACLE_SOURCE": str(jsonc_path), "PM_NATIVE_INSTALL_ORACLE_SOURCE": str(native_path), "PM_NATIVE_LOWER_ORACLE_SOURCE": str(lower_path)})
