@@ -92,7 +92,9 @@ func settingsCorpus() []oracleCase {
 			cases = append(cases, oracleCase{Name: name, Explicit: true}, oracleCase{Name: name, Explicit: true, Defaults: []Entry{{name, raw}}})
 		}
 	}
-	for _, raw := range []string{"0x10", "0o10", "0b10", "1_000", "1.0", "1e3", "-0.0", "1e-6", "1e16", ".nan", ".inf", "-.inf", "true", "!custom value", "012", "00", "+012", "-012", "+0", "18446744073709551615", "18446744073709551616", "1e999", "+1.0", ".5", "1.", "1E+20", "2026-09-17", "null", "~", "yes", "on", "y", "1_0.5", "0X10"} {
+	// Source parsing rejects integers outside the YAML Value model; this
+	// corpus compares typed accessors after successful source parsing.
+	for _, raw := range []string{"0x10", "0o10", "0b10", "1_000", "1.0", "1e3", "-0.0", "1e-6", "1e16", ".nan", ".inf", "-.inf", "true", "!custom value", "012", "00", "+012", "-012", "+0", "18446744073709551615", "1e999", "+1.0", ".5", "1.", "1E+20", "2026-09-17", "null", "~", "yes", "on", "y", "1_0.5", "0X10"} {
 		for _, name := range []string{"savePrefix", "networkConcurrency", "autoInstallPeers"} {
 			cases = append(cases, oracleCase{Name: name, Pnpm: true, WorkspaceYAML: name + ": " + raw})
 		}
