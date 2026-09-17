@@ -2,6 +2,8 @@ package settings
 
 import (
 	"bytes"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -171,7 +173,13 @@ func (r *yamlSourceReader) read(n *yaml.Node, depth int, root bool) (*yaml.Node,
 func localYAMLTag(tag string) bool {
 	return strings.HasPrefix(tag, "!") && !strings.HasPrefix(tag, "!!")
 }
-func yamlKey(parts []string) string { data, _ := json.Marshal(parts); return string(data) }
+func yamlKey(parts []string) string {
+	data, _ := json.Marshal(parts)
+	// Child identities must stay bounded. Embedding an escaped JSON string at
+	// each parent would double its escapes repeatedly for deeply nested input.
+	sum := sha256.Sum256(data)
+	return hex.EncodeToString(sum[:])
+}
 
 // referenceScalar applies yaml_serde's Value schema instead of Go's implicit
 // octal/timestamp rules, and rejects integers dispatched to unsupported i128 or

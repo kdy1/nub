@@ -118,6 +118,12 @@ func yamlSourceResult(raw string) any {
 }
 
 func TestYAMLSourceValidationAndRootKeys(t *testing.T) {
+	for _, depth := range []int{126, 127, 128, 129} {
+		_, err := ParseYAMLSource([]byte("unknown: " + strings.Repeat("[", depth) + "0" + strings.Repeat("]", depth)))
+		if (err == nil) != (depth <= 127) {
+			t.Fatal("collection nesting boundary", depth, err)
+		}
+	}
 	for _, raw := range []string{"unknown: {a: 1, a: 2}", "unknown: 18446744073709551616", "unknown: &a [*a]", "{}\n---\n{}", "null"} {
 		if _, err := ParseYAMLSource([]byte(raw)); err == nil {
 			t.Fatal("accepted invalid source", raw)
