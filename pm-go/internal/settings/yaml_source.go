@@ -29,7 +29,9 @@ func ParseYAMLSource(data []byte) (*yaml.Node, error) {
 		return nil, err
 	}
 	var doc yaml.Node
-	if err := loader.Load(&doc); err != nil && err != io.EOF {
+	if err := loader.Load(&doc); err == io.EOF {
+		return &yaml.Node{Kind: yaml.MappingNode, Tag: "!!map"}, nil
+	} else if err != nil {
 		return nil, err
 	}
 	var extra yaml.Node

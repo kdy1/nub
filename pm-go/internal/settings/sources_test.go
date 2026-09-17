@@ -11,7 +11,17 @@ import (
 	"testing"
 
 	"github.com/nubjs/nub/pm-go/internal/npmconfig"
+	"go.yaml.in/yaml/v4"
 )
+
+func TestEmptyYAMLSource(t *testing.T) {
+	for _, text := range []string{"", "# comment", " \n\t", "---", "---\n# comment\n..."} {
+		n, err := ParseYAMLSource([]byte(text))
+		if err != nil || n.Kind != yaml.MappingNode || len(n.Content) != 0 {
+			t.Errorf("%q: %v, %v", text, n, err)
+		}
+	}
+}
 
 func TestFileSourcesGateForeignPathsAndReload(t *testing.T) {
 	base := t.TempDir()
