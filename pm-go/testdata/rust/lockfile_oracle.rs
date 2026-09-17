@@ -5,6 +5,7 @@ mod drift_oracle;
 mod git_oracle;
 mod graph_snapshot;
 mod gvs_oracle;
+mod install_policy_oracle;
 mod isolated_oracle;
 mod linker_oracle;
 mod materialize_oracle;
@@ -22,6 +23,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "install-policy" {
+        install_policy_oracle::run(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "native-install" {
         native_config_oracle::run(std::path::Path::new(&args[1]));
         return;
