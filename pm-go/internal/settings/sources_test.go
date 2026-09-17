@@ -46,7 +46,7 @@ func TestFileSourcesGateForeignPathsAndReload(t *testing.T) {
 			}
 			c := sources.Context(workspace, nil, nil)
 			want := uint64(5)
-			if pnpm && v11 {
+			if pnpm {
 				want = 8
 			}
 			if *c.Uint64("networkConcurrency") != want || *c.String("modulesDir") != "custom" || *c.String("nodeLinker") != "isolated" {
