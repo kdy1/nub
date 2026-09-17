@@ -20,8 +20,8 @@ func TestManagedFilesKeepSystemRestrictionsAndInvocationScope(t *testing.T) {
 		}
 		return path
 	}
-	system := write("system.toml", "minimumReleaseAge = 40\nignoreScripts = true\n")
-	write("custom.toml", "minimum-release-age = 12\nignore-scripts = false\n")
+	system := write("system.toml", "minimumReleaseAge = 40\nengineStrict = true\n")
+	write("custom.toml", "minimum-release-age = 12\nengine-strict = false\n")
 	write("foreign.toml", "minimumReleaseAge = 1000\n")
 	var warnings []string
 	in := ManagedFiles{Dir: dir, SystemPath: &system, Env: map[string]string{"NUB_MANAGED_CONFIG_PATH": "custom.toml", "AUBE_MANAGED_CONFIG_PATH": "foreign.toml"}, Warn: func(s string) { warnings = append(warnings, s) }}
@@ -29,8 +29,8 @@ func TestManagedFilesKeepSystemRestrictionsAndInvocationScope(t *testing.T) {
 	if err != nil || len(entries) != 4 || len(warnings) != 0 {
 		t.Fatal(entries, warnings, err)
 	}
-	c := Context{Managed: entries, CLI: []Entry{{"minimumReleaseAge", "1"}, {"ignoreScripts", "false"}}}
-	if *c.Uint64("minimumReleaseAge") != 40 || !*c.Bool("ignoreScripts") {
+	c := Context{Managed: entries, CLI: []Entry{{"minimumReleaseAge", "1"}, {"engineStrict", "false"}}}
+	if *c.Uint64("minimumReleaseAge") != 40 || !*c.Bool("engineStrict") {
 		t.Fatal("extra managed file weakened system policy")
 	}
 	in.Env = map[string]string{}
