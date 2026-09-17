@@ -1,6 +1,7 @@
 package settings
 
 import (
+	"bytes"
 	"fmt"
 	"math"
 	"os"
@@ -20,6 +21,7 @@ func ParseTOMLEntries(data []byte) ([]Entry, error) {
 	if !utf8.Valid(data) {
 		return nil, fmt.Errorf("invalid UTF-8 in TOML document")
 	}
+	data = bytes.TrimPrefix(data, []byte{0xef, 0xbb, 0xbf})
 	// The streaming AST gives source order and datetime precision, while the
 	// decoder additionally validates duplicate definitions and scalar bounds.
 	var validated map[string]any

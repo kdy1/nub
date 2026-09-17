@@ -69,6 +69,10 @@ func TestManagedTOMLSourceOrderAndTypes(t *testing.T) {
 	if err != nil || !reflect.DeepEqual(got, want) {
 		t.Fatal(got, err)
 	}
+	withBOM, err := ParseTOMLEntries(append([]byte{0xef, 0xbb, 0xbf}, []byte(raw)...))
+	if err != nil || !reflect.DeepEqual(withBOM, want) {
+		t.Fatal(withBOM, err)
+	}
 	for _, raw := range [][]byte{[]byte("k=1\nk=2"), []byte("k=9223372036854775808"), []byte("k=\"" + string([]byte{255}) + "\"")} {
 		if got, err := ParseTOMLEntries(raw); err == nil || got != nil {
 			t.Fatal("invalid source partially accepted", got, err)
