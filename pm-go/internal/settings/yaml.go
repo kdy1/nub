@@ -147,6 +147,12 @@ func scalarTag(n *yaml.Node) string {
 		if n.Tag == "!!timestamp" || (n.Tag == "!!int" || n.Tag == "!!float") && strings.Contains(n.Value, "_") {
 			return "!!str"
 		}
+		if n.Tag == "!!int" {
+			digits := strings.TrimPrefix(strings.TrimPrefix(n.Value, "+"), "-")
+			if len(digits) > 1 && digits[0] == '0' && !strings.HasPrefix(digits, "0x") && !strings.HasPrefix(digits, "0o") && !strings.HasPrefix(digits, "0b") {
+				return "!!str"
+			}
+		}
 	}
 	return n.Tag
 }

@@ -98,7 +98,7 @@ func settingsCorpus() []oracleCase {
 		for _, name := range []string{"savePrefix", "networkConcurrency", "autoInstallPeers"} {
 			cases = append(cases, oracleCase{Name: name, Pnpm: true, WorkspaceYAML: name + ": " + raw})
 		}
-		cases = append(cases, oracleCase{Name: "gitShallowHosts", Pnpm: true, WorkspaceYAML: "gitShallowHosts: [" + raw + "]"})
+		cases = append(cases, oracleCase{Name: "minimumReleaseAgeExclude", Pnpm: true, WorkspaceYAML: "minimumReleaseAgeExclude: [" + raw + "]"})
 	}
 	for _, name := range []string{"minimumReleaseAge", "minimumReleaseAgeExclude", "advisoryCheck", "dangerouslyAllowAllBuilds"} {
 		for _, cli := range []string{"false", "true", "100", "off", "required", "a,b,c", "invalid"} {

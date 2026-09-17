@@ -182,7 +182,7 @@ A Rust policy probe compares shared-store selection, explicit conflicts, prewarm
 
 `internal/settings` resolves scalar and list values from invocation-owned CLI, environment, project, user and managed sources. Its checked catalog covers the baseline's 152 declarations; object settings remain with dedicated readers. It retains per-source invalid-value behavior, enum defaults, aliases, explicit hoisting and managed hardening. Pnpm-named sources are identity gated, and YAML cannot choose Nub's layout. The Rust differential probe calls the original generated accessors. File discovery and complete install-session consumers remain pending.
 
-Settings YAML scalars preserve numeric-separator and timestamp spellings as strings, following the reference reader. Numeric values rendered into string settings retain its exponent notation.
+Settings YAML scalars preserve numeric-separator, leading-zero and timestamp spellings as strings, following the reference reader. Numeric values rendered into string settings retain its exponent notation. Integer settings interpret a string such as `012` as decimal; typed lists retain that same value as a string.
 
 The native install-block validator accepts the existing linker strategies and their specific options, public hoist patterns, and explicit release-age durations. Overlay replaces authored fields, including empty lists. Lowering applies layout to every PM identity and release age only to Nub; it retains injected-dependency hoisting, additive ejection seeds, and project-local CI behavior. PnP remains an explicit refusal. This validates an already-parsed install node; enclosing JSONC file loading remains pending. A test-only probe extracts the original adapter validators and lowering functions for comparison.
 

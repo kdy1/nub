@@ -123,3 +123,19 @@ func TestUnsupportedEngineSettingsCannotReenterThroughAliases(t *testing.T) {
 		t.Fatal("supported layout setting refused")
 	}
 }
+
+func TestYAMLScalarSpellingAndListTypeFiltering(t *testing.T) {
+	for raw, want := range map[string]string{"012": "012", "+012": "+012", "-012": "-012", "0X10": "0X10", "1_000": "1_000", "1e16": "1e16", "0x10": "16", "2026-09-17": "2026-09-17"} {
+		c := Context{Pnpm: true, WorkspaceYAML: document(t, "savePrefix: "+raw)}
+		if c.Resolve("savePrefix") != want {
+			t.Fatal(raw, c.Resolve("savePrefix"))
+		}
+	}
+	c := Context{Pnpm: true, WorkspaceYAML: document(t, "networkConcurrency: 012\nminimumReleaseAgeExclude: [012, 0x10, 1_000, true, 2026-09-17]\n")}
+	if c.Resolve("networkConcurrency") != uint64(12) {
+		t.Fatal(c.Resolve("networkConcurrency"))
+	}
+	if got := c.Strings("minimumReleaseAgeExclude"); !reflect.DeepEqual(got, []string{"012", "1_000", "2026-09-17"}) {
+		t.Fatal(got)
+	}
+}
