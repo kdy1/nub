@@ -10,7 +10,7 @@ import sys
 
 root = Path(__file__).resolve().parents[2]
 artifacts = {}
-required = {"aube", "aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "aube_settings", "yaml_serde", "anyhow", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex", "miette"}
+required = {"aube", "aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "aube_settings", "yaml_serde", "toml_edit", "anyhow", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex", "miette"}
 with subprocess.Popen(
     ["cargo", "build", "--locked", "-p", "nub-cli", "--profile", "fast",
      "--message-format=json-render-diagnostics"],
@@ -69,6 +69,12 @@ gvs_path = output.parent / "gvs-reference.rs"
 gvs_path.write_text(gvs_probe)
 settings_path = output.parent / "settings-reference.rs"
 subprocess.run([sys.executable, str(root / "pm-go/scripts/extract_settings.py"), "--oracle", str(settings_path)], check=True)
+managed_source = (root / "vendor/aube/crates/aube/src/commands/config/aube_config.rs").read_text()
+managed_probe = "use toml_edit::{DocumentMut, Value};\nstruct AubeConfigEdit { document: DocumentMut }\nimpl AubeConfigEdit {\n"
+managed_probe += re.search(r"(?ms)^    pub\(super\) fn entries\(&self\).*?^    \}", managed_source).group() + "\n}\n"
+managed_probe += re.search(r"(?ms)^fn toml_value_to_raw\(.*?^\}", managed_source).group()
+managed_path = output.parent / "managed-reference.rs"
+managed_path.write_text(managed_probe)
 native_source = (root / "crates/nub-cli/src/project_config.rs").read_text()
 adapter_source = (root / "crates/nub-cli/src/pm_engine/mod.rs").read_text()
 native_probe = "use serde_json::Value;\nuse std::{path::PathBuf, time::Duration};\ntype Result<T> = std::result::Result<T, ConfigError>;\n"
@@ -93,4 +99,4 @@ command = ["rustc", "--edition=2024", str(root / "pm-go/testdata/rust/lockfile_o
            "-o", str(output)]
 for name, path in sorted(artifacts.items()):
     command.extend(["--extern", f"{name}={path}", "-L", f"dependency={Path(path).parent}"])
-subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path), "PM_GVS_ORACLE_SOURCE": str(gvs_path), "PM_SETTINGS_ORACLE_SOURCE": str(settings_path), "PM_NATIVE_INSTALL_ORACLE_SOURCE": str(native_path), "PM_NATIVE_LOWER_ORACLE_SOURCE": str(lower_path)})
+subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path), "PM_GVS_ORACLE_SOURCE": str(gvs_path), "PM_SETTINGS_ORACLE_SOURCE": str(settings_path), "PM_MANAGED_ORACLE_SOURCE": str(managed_path), "PM_NATIVE_INSTALL_ORACLE_SOURCE": str(native_path), "PM_NATIVE_LOWER_ORACLE_SOURCE": str(lower_path)})

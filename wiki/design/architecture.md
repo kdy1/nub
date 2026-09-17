@@ -140,6 +140,8 @@ The Go typed settings resolver takes invocation-owned source bags and applies th
 
 Go install policy separates explicit frozen flags from CI defaults, retains force/fix/lockfile-only precedence, and produces the engine's ordered CLI setting entries. Dependency selection and network policy are resolved per invocation. Chained installs preserve their caller's mode and skip root lifecycle hooks; script execution and command integration remain in progress.
 
+The Go managed-file reader combines the existing system policy with an explicitly supplied invocation file. It preserves TOML source order and scalar/list conversion, skips non-scalar tables, and keeps system restrictions when an additional file requests weaker values. Missing optional files and malformed sources follow the reference's best-effort loading policy.
+
 The settings npmrc view splits the shared loader's entries into user and project tiers and applies pnpm 11's key policy without filtering registry authentication. Nub's unsupported engine settings are excluded across aliases and source tiers.
 
 The Go native install-block validator preserves strategy-specific linker options, field replacement, additive ejection patterns and release-age rounding. Its lowering step applies layout across identities while limiting native resolution fields to Nub-owned projects. The enclosing JSONC loader is still separate work.

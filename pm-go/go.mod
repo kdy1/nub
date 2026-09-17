@@ -16,6 +16,7 @@ require (
 
 require (
 	github.com/nlnwa/whatwg-url v0.6.2
+	github.com/pelletier/go-toml/v2 v2.4.3
 	go.yaml.in/yaml/v4 v4.0.0-rc.6
 	golang.org/x/sys v0.47.0
 	lukechampine.com/blake3 v1.4.1

@@ -8,6 +8,7 @@ mod gvs_oracle;
 mod install_policy_oracle;
 mod isolated_oracle;
 mod linker_oracle;
+mod managed_oracle;
 mod materialize_oracle;
 mod native_config_oracle;
 pub use native_config_oracle::project_config;
@@ -23,6 +24,10 @@ mod trust_oracle;
 
 fn main() {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.len() == 2 && args[0] == "managed-toml" {
+        managed_oracle::run(std::path::Path::new(&args[1]));
+        return;
+    }
     if args.len() == 2 && args[0] == "install-policy" {
         install_policy_oracle::run(std::path::Path::new(&args[1]));
         return;
