@@ -10,6 +10,8 @@ const Namespace = "nub-pm-go"
 
 // DefaultDirs preserves the reference's platform precedence, with an isolated
 // namespace. home and env belong to the invocation, never the process globals.
+// If one home cannot be found, the other resolved path is retained with the
+// error so a caller can independently apply its temporary-directory fallback.
 func DefaultDirs(platform, home string, env map[string]string) (root, cache string, err error) {
 	if xdg := strings.TrimSpace(env["XDG_CACHE_HOME"]); xdg != "" {
 		cache = filepath.Join(xdg, Namespace)
@@ -26,7 +28,7 @@ func DefaultDirs(platform, home string, env map[string]string) (root, cache stri
 		root = filepath.Join(home, ".local", "share", Namespace, "store", "v1", "files")
 	}
 	if root == "" || cache == "" {
-		return "", "", fmt.Errorf("HOME environment variable not set")
+		return root, cache, fmt.Errorf("HOME environment variable not set")
 	}
 	return root, cache, nil
 }

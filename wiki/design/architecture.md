@@ -162,6 +162,8 @@ Dependency helpers distinguish workspace aliases, relative locators, and version
 
 Go cache and store defaults retain the reference platform precedence under the separate `nub-pm-go` namespace. Advisory file leases coordinate processes, support shared readers and exclusive maintenance, and allow cancellation while waiting. Lock files remain in place after release so concurrent processes always lock the same inode.
 
+Go storage settings resolve invocation-owned cache, CAS and versioned global-tree paths. A permission-denied or read-only default store selects a project-local write root while retaining the global CAS for reads. Explicit custom stores do not silently relocate; complete session integration remains in progress.
+
 The Go CAS streams files into temporary storage, computes BLAKE3 keys, and publishes complete files under shard locks. Executability lives in package indexes while shared CAS files remain non-executable. Index keys include tarball integrity; read-only fallback stores are never modified. Missing or truncated files invalidate a cache read.
 
 Tarball and local-directory imports now produce Go CAS indexes. Local imports skip `.git`, `node_modules`, and symlinks. HTTP tarball requests match authentication against the full tarball URL, request identity content encoding, apply download limits, and refuse network access in offline mode.
