@@ -28,6 +28,25 @@ type Context struct {
 // complex settings. Built-in defaults are folded in after the source walk.
 func (c Context) Resolve(name string) any { return c.resolve(name, false) }
 
+// CLIString exposes the unparsed winning CLI spelling for commands whose
+// explicit CLI errors differ from the generated enum fallback. Generic
+// --config overrides are part of this same CLI source.
+func (c Context) CLIString(name string) *string {
+	d, ok := definitions[name]
+	if !ok || d.Kind != "string" && d.Kind != "enum" {
+		return nil
+	}
+	v := fromEntries(d, c.CLI, true)
+	if v == nil {
+		v = fromEntries(d, c.ConfigOverrides, true)
+	}
+	s, ok := v.(string)
+	if !ok {
+		return nil
+	}
+	return &s
+}
+
 // Explicit omits the built-in default (used to distinguish requested hoisting).
 func (c Context) Explicit(name string) any { return c.resolve(name, true) }
 

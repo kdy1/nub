@@ -140,6 +140,8 @@ The Go typed settings resolver takes invocation-owned source bags and applies th
 
 The Go native install-block validator preserves strategy-specific linker options, field replacement, additive ejection patterns and release-age rounding. Its lowering step applies layout across identities while limiting native resolution fields to Nub-owned projects. The enclosing JSONC loader is still separate work.
 
+Go layout configuration now applies resolved settings to the isolated and hoisted linker plans. Default settings inspect the supplied root and workspace manifests for store compatibility, retaining the reference's injected-dependency and framework-version gates. Session discovery and full install orchestration remain in progress.
+
 Ordered Go JSON values retain 64-bit signed and unsigned integers. Floating-point parsing and formatting follow the reference number model, including negative zero, exponent notation, and out-of-range rejection. Manifest differential tests cover these boundaries.
 
 The Go semver layer expands npm ranges into comparator sets and admits prereleases only for explicitly selected version tuples. Its CI tests use the pinned node-semver fixture as an independent oracle.
