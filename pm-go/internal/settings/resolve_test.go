@@ -12,11 +12,11 @@ func document(t *testing.T, text string) *yaml.Node {
 	if text == "" {
 		return nil
 	}
-	var node yaml.Node
-	if err := yaml.Unmarshal([]byte(text), &node); err != nil {
+	node, err := ParseYAMLSource([]byte(text))
+	if err != nil {
 		t.Fatal(err)
 	}
-	return &node
+	return node
 }
 
 func TestSourcePrecedenceAndInvalidValues(t *testing.T) {

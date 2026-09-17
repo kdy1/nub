@@ -82,21 +82,10 @@ func fromYAML(d definition, root *yaml.Node) any {
 					v := unalias(child)
 					// Value::as_str unwraps custom YAML tags on list items;
 					// the outer setting still uses an untagged Sequence match.
-					if v != nil && v.Kind == yaml.ScalarNode && !strings.HasPrefix(v.Tag, "!!") {
-						plain := *v
-						plain.Tag = "!!str"
-						plain.Style &^= yaml.TaggedStyle
-						if plain.Style == 0 {
-							// ShortTag does not perform implicit type resolution in
-							// yaml v4. Reparse only an unquoted tagged scalar.
-							var doc yaml.Node
-							if yaml.Unmarshal([]byte(plain.Value), &doc) == nil {
-								if inferred := unalias(&doc); inferred != nil && inferred.Kind == yaml.ScalarNode {
-									plain.Tag = inferred.Tag
-								}
-							}
+					if v != nil && v.Kind == yaml.ScalarNode && localYAMLTag(v.Tag) {
+						if plain, err := referenceScalar(v); err == nil {
+							v = &plain
 						}
-						v = &plain
 					}
 					if v != nil && v.Kind == yaml.ScalarNode && scalarTag(v) == "!!str" {
 						list = append(list, v.Value)

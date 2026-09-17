@@ -142,6 +142,8 @@ Go install policy separates explicit frozen flags from CI defaults, retains forc
 
 The Go managed-file reader combines the existing system policy with an explicitly supplied invocation file. It preserves TOML source order and scalar/list conversion, skips non-scalar tables, and keeps system restrictions when an additional file requests weaker values. Missing optional files and malformed sources follow the reference's best-effort loading policy.
 
+Go settings file bundles load npmrc, managed and native-project source tiers per invocation. Pnpm's global YAML requires its v11 configuration model; workspace YAML requires pnpm identity. The raw YAML reader validates unknown values as well as consumed settings, rejects duplicate nested mapping keys, and retains root-key overwrite behavior. Global YAML errors discard that source; project YAML errors propagate.
+
 The settings npmrc view splits the shared loader's entries into user and project tiers and applies pnpm 11's key policy without filtering registry authentication. Nub's unsupported engine settings are excluded across aliases and source tiers.
 
 The Go native install-block validator preserves strategy-specific linker options, field replacement, additive ejection patterns and release-age rounding. Its lowering step applies layout across identities while limiting native resolution fields to Nub-owned projects. The enclosing JSONC loader is still separate work.

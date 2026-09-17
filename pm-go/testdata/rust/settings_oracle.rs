@@ -1,13 +1,17 @@
 // Calls the unchanged engine's generated typed accessors, never Go metadata.
 include!(env!("PM_SETTINGS_ORACLE_SOURCE"));
 
-pub fn run(path: &std::path::Path) {
+fn init_profile() {
     static PROFILE: aube_util::Embedder = aube_util::Embedder {
         read_branded_settings_env: false,
         unsupported_settings: NUB_UNSUPPORTED_SETTINGS,
         ..aube_util::AUBE
     };
     aube_util::set_embedder(&PROFILE);
+}
+
+pub fn run(path: &std::path::Path) {
+    init_profile();
     let cases: Vec<serde_json::Value> =
         serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
     let results: Vec<_> = cases
@@ -70,5 +74,31 @@ pub fn run(path: &std::path::Path) {
             )
         })
         .collect();
+    println!("{}", serde_json::to_string(&results).unwrap());
+}
+
+pub fn sources(path: &std::path::Path) {
+    init_profile();
+    aube_util::update_engine_context(|c| {
+        c.read_branded_pnpm_config = true;
+        c.read_layout_from_workspace_yaml = false;
+    });
+    let cases: Vec<String> = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
+    let results: Vec<_> = cases.iter().map(|raw| {
+        let workspace_yaml: std::collections::BTreeMap<String, yaml_serde::Value> = match yaml_serde::from_str(raw) {
+            Ok(map) => map,
+            Err(_) => return serde_json::json!({"accepted":false}),
+        };
+        let empty = std::collections::BTreeMap::new();
+        let ctx = aube_settings::ResolveCtx {
+            managed_aube_config: &[], project_aube_config: &[], project_npmrc: &[],
+            project_config: &[], user_aube_config: &[], user_npmrc: &[],
+            workspace_yaml: &workspace_yaml, global_config_yaml: &empty,
+            env: &[], cli: &[], embedder_defaults: &[],
+        };
+        let names = ["savePrefix","networkConcurrency","autoInstallPeers","minimumReleaseAgeExclude","updateConfig.ignoreDependencies"];
+        let values: Vec<_> = names.iter().map(|name| resolved(name, false, &ctx)).collect();
+        serde_json::json!({"accepted":true,"keys":workspace_yaml.keys().collect::<Vec<_>>(),"values":values})
+    }).collect();
     println!("{}", serde_json::to_string(&results).unwrap());
 }
