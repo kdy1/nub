@@ -138,4 +138,8 @@ func TestYAMLScalarSpellingAndListTypeFiltering(t *testing.T) {
 	if got := c.Strings("minimumReleaseAgeExclude"); !reflect.DeepEqual(got, []string{"012", "1_000", "2026-09-17"}) {
 		t.Fatal(got)
 	}
+	c.WorkspaceYAML = document(t, "minimumReleaseAgeExclude: [!custom value, !custom 12, !custom '12', !custom 012, !custom true, !custom null]\n")
+	if got := c.Strings("minimumReleaseAgeExclude"); !reflect.DeepEqual(got, []string{"value", "12", "012"}) {
+		t.Fatal(got)
+	}
 }

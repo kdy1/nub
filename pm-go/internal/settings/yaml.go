@@ -80,6 +80,15 @@ func fromYAML(d definition, root *yaml.Node) any {
 				list := []string{}
 				for _, child := range n.Content {
 					v := unalias(child)
+					// Value::as_str unwraps custom YAML tags on list items;
+					// the outer setting still uses an untagged Sequence match.
+					if v != nil && v.Kind == yaml.ScalarNode && !strings.HasPrefix(v.Tag, "!!") {
+						plain := *v
+						plain.Tag = ""
+						plain.Style &^= yaml.TaggedStyle
+						plain.Tag = plain.ShortTag()
+						v = &plain
+					}
 					if v != nil && v.Kind == yaml.ScalarNode && scalarTag(v) == "!!str" {
 						list = append(list, v.Value)
 					}
