@@ -136,6 +136,8 @@ The Go manifest editor implements `pkg get/set/delete/fix` and `set-script`. It 
 
 The Go registry configuration layer tags each npmrc source. Unscoped credentials bind to the registry declared by the same source. URI and package scope determine credential selection; project files cannot set credential helpers or proxies, expand environment secrets, or disable TLS validation. File discovery and environment lookup take an explicit execution context.
 
+The Go typed settings resolver takes invocation-owned source bags and applies the reference CLI, environment, file and managed-policy rules. Pnpm-named inputs are identity gated; workspace YAML layout fields are excluded under Nub. Its checked setting catalog and differential probe track the original engine accessors. Complete settings-file and install-session assembly remains in progress.
+
 Ordered Go JSON values retain 64-bit signed and unsigned integers. Floating-point parsing and formatting follow the reference number model, including negative zero, exponent notation, and out-of-range rejection. Manifest differential tests cover these boundaries.
 
 The Go semver layer expands npm ranges into comparator sets and admits prereleases only for explicitly selected version tuples. Its CI tests use the pinned node-semver fixture as an independent oracle.

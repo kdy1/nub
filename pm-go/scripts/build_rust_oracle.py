@@ -10,7 +10,7 @@ import sys
 
 root = Path(__file__).resolve().parents[2]
 artifacts = {}
-required = {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex", "miette"}
+required = {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "aube_settings", "yaml_serde", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex", "miette"}
 with subprocess.Popen(
     ["cargo", "build", "--locked", "-p", "nub-cli", "--profile", "fast",
      "--message-format=json-render-diagnostics"],
@@ -67,8 +67,10 @@ for source, names in [(gvs_source, ["planned_global_virtual_store", "reject_gvs_
         gvs_probe += "\n" + re.search(r"(?ms)^pub\(super\) fn " + name + r"(?:<.*?>)?\(.*?^\}", source).group()
 gvs_path = output.parent / "gvs-reference.rs"
 gvs_path.write_text(gvs_probe)
+settings_path = output.parent / "settings-reference.rs"
+subprocess.run([sys.executable, str(root / "pm-go/scripts/extract_settings.py"), "--oracle", str(settings_path)], check=True)
 command = ["rustc", "--edition=2024", str(root / "pm-go/testdata/rust/lockfile_oracle.rs"),
            "-o", str(output)]
 for name, path in sorted(artifacts.items()):
     command.extend(["--extern", f"{name}={path}", "-L", f"dependency={Path(path).parent}"])
-subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path), "PM_GVS_ORACLE_SOURCE": str(gvs_path)})
+subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path), "PM_GVS_ORACLE_SOURCE": str(gvs_path), "PM_SETTINGS_ORACLE_SOURCE": str(settings_path)})

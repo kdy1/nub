@@ -50,6 +50,8 @@ jobs:
         run: test -z "$(gofmt -l .)"
       - name: Reference argument declarations
         run: python scripts/extract_surface.py --check
+      - name: Reference setting declarations
+        run: python scripts/extract_settings.py --check
       - run: go vet ./...
       - run: go test -race ./...
         env:
@@ -117,4 +119,4 @@ jobs:
           PM_YARN_CLASSIC_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/yarn/bin/yarn.js
           PM_YARN_BERRY_CLI: ${{ runner.temp }}/pm-go-npm/node_modules/@yarnpkg/cli-dist/bin/yarn.js
           PM_BUN_BIN: ${{ steps.bun.outputs.bun-path }}
-        run: go test -v ./internal/installconfig ./internal/installdelta ./internal/installstate ./internal/store ./internal/manifest ./internal/linker ./internal/registry ./internal/gitcache ./internal/semver ./internal/resolver ./internal/lockfile ./internal/lockfileio ./internal/lockfile/npm ./internal/lockfile/pnpm ./internal/lockfile/bun ./internal/lockfile/yarn
+        run: go test -v ./internal/settings ./internal/installconfig ./internal/installdelta ./internal/installstate ./internal/store ./internal/manifest ./internal/linker ./internal/registry ./internal/gitcache ./internal/semver ./internal/resolver ./internal/lockfile ./internal/lockfileio ./internal/lockfile/npm ./internal/lockfile/pnpm ./internal/lockfile/bun ./internal/lockfile/yarn

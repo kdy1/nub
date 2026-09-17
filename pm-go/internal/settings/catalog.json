@@ -1,0 +1,5874 @@
+[
+  {
+    "name": "advisoryBloomCheck",
+    "type": "\"on\" | \"required\" | \"off\"",
+    "kind": "enum",
+    "default": "off",
+    "defaultText": "\"off\"",
+    "cli": [],
+    "env": [
+      "npm_config_advisory_bloom_check",
+      "pnpm_config_advisory_bloom_check",
+      "NPM_CONFIG_ADVISORY_BLOOM_CHECK",
+      "PNPM_CONFIG_ADVISORY_BLOOM_CHECK",
+      "AUBE_ADVISORY_BLOOM_CHECK"
+    ],
+    "npmrc": [
+      "advisoryBloomCheck",
+      "advisory-bloom-check"
+    ],
+    "yaml": [
+      "advisoryBloomCheck"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "on",
+      "required",
+      "off"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "ranked:off<on<required",
+    "explicit": false
+  },
+  {
+    "name": "advisoryCheck",
+    "type": "\"on\" | \"required\" | \"off\"",
+    "kind": "enum",
+    "default": "on",
+    "defaultText": "\"on\"",
+    "cli": [],
+    "env": [
+      "npm_config_advisory_check",
+      "pnpm_config_advisory_check",
+      "NPM_CONFIG_ADVISORY_CHECK",
+      "PNPM_CONFIG_ADVISORY_CHECK",
+      "AUBE_ADVISORY_CHECK"
+    ],
+    "npmrc": [
+      "advisoryCheck",
+      "advisory-check"
+    ],
+    "yaml": [
+      "advisoryCheck"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "on",
+      "required",
+      "off"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "ranked:off<on<required",
+    "explicit": false
+  },
+  {
+    "name": "advisoryCheckEveryInstall",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_advisory_check_every_install",
+      "pnpm_config_advisory_check_every_install",
+      "NPM_CONFIG_ADVISORY_CHECK_EVERY_INSTALL",
+      "PNPM_CONFIG_ADVISORY_CHECK_EVERY_INSTALL",
+      "AUBE_ADVISORY_CHECK_EVERY_INSTALL"
+    ],
+    "npmrc": [
+      "advisoryCheckEveryInstall",
+      "advisory-check-every-install"
+    ],
+    "yaml": [
+      "advisoryCheckEveryInstall"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "advisoryCheckOnInstall",
+    "type": "\"on\" | \"required\" | \"off\"",
+    "kind": "enum",
+    "default": "off",
+    "defaultText": "\"off\"",
+    "cli": [],
+    "env": [
+      "npm_config_advisory_check_on_install",
+      "pnpm_config_advisory_check_on_install",
+      "NPM_CONFIG_ADVISORY_CHECK_ON_INSTALL",
+      "PNPM_CONFIG_ADVISORY_CHECK_ON_INSTALL",
+      "AUBE_ADVISORY_CHECK_ON_INSTALL"
+    ],
+    "npmrc": [
+      "advisoryCheckOnInstall",
+      "advisory-check-on-install"
+    ],
+    "yaml": [
+      "advisoryCheckOnInstall"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "on",
+      "required",
+      "off"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "ranked:off<on<required",
+    "explicit": false
+  },
+  {
+    "name": "allowBuilds",
+    "type": "object",
+    "kind": "unsupported",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [],
+    "yaml": [
+      "allowBuilds"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "allowedDeprecatedVersions",
+    "type": "object",
+    "kind": "unsupported",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [
+      "allowedDeprecatedVersions",
+      "allowed-deprecated-versions"
+    ],
+    "yaml": [
+      "allowedDeprecatedVersions"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "allowedUnpopularPackages",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_allowed_unpopular_packages",
+      "pnpm_config_allowed_unpopular_packages",
+      "NPM_CONFIG_ALLOWED_UNPOPULAR_PACKAGES",
+      "PNPM_CONFIG_ALLOWED_UNPOPULAR_PACKAGES",
+      "AUBE_ALLOWED_UNPOPULAR_PACKAGES"
+    ],
+    "npmrc": [
+      "allowedUnpopularPackages",
+      "allowed-unpopular-packages"
+    ],
+    "yaml": [
+      "allowedUnpopularPackages"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "managedWins",
+    "explicit": false
+  },
+  {
+    "name": "aubeNoAutoInstall",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [
+      "no-install"
+    ],
+    "env": [
+      "npm_config_aube_no_auto_install",
+      "pnpm_config_aube_no_auto_install",
+      "NPM_CONFIG_AUBE_NO_AUTO_INSTALL",
+      "PNPM_CONFIG_AUBE_NO_AUTO_INSTALL",
+      "AUBE_NO_AUTO_INSTALL"
+    ],
+    "npmrc": [
+      "aubeNoAutoInstall",
+      "aube-no-auto-install"
+    ],
+    "yaml": [
+      "aubeNoAutoInstall"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "aubeNoLock",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_aube_no_lock",
+      "pnpm_config_aube_no_lock",
+      "NPM_CONFIG_AUBE_NO_LOCK",
+      "PNPM_CONFIG_AUBE_NO_LOCK",
+      "AUBE_NO_LOCK"
+    ],
+    "npmrc": [
+      "nubNoLock",
+      "nub-no-lock",
+      "aubeNoLock",
+      "aube-no-lock"
+    ],
+    "yaml": [
+      "aubeNoLock"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "audit.ignore",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_audit_ignore",
+      "pnpm_config_audit_ignore",
+      "NPM_CONFIG_AUDIT_IGNORE",
+      "PNPM_CONFIG_AUDIT_IGNORE",
+      "AUBE_AUDIT_IGNORE"
+    ],
+    "npmrc": [
+      "audit.ignore"
+    ],
+    "yaml": [
+      "audit.ignore"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "audit.level",
+    "type": "string",
+    "kind": "string",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_audit_level",
+      "pnpm_config_audit_level",
+      "NPM_CONFIG_AUDIT_LEVEL",
+      "PNPM_CONFIG_AUDIT_LEVEL",
+      "AUBE_AUDIT_LEVEL"
+    ],
+    "npmrc": [
+      "audit.level",
+      "audit-level",
+      "auditLevel"
+    ],
+    "yaml": [
+      "audit.level"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "auditConfig.ignoreCves",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [
+      "auditConfig.ignoreCves",
+      "audit-config.ignore-cves"
+    ],
+    "yaml": [
+      "auditConfig.ignoreCves"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "auditConfig.ignoreGhsas",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [
+      "auditConfig.ignoreGhsas",
+      "audit-config.ignore-ghsas"
+    ],
+    "yaml": [
+      "auditConfig.ignoreGhsas"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "autoInstallPeers",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [
+      "auto-install-peers"
+    ],
+    "env": [
+      "npm_config_auto_install_peers",
+      "pnpm_config_auto_install_peers",
+      "NPM_CONFIG_AUTO_INSTALL_PEERS",
+      "PNPM_CONFIG_AUTO_INSTALL_PEERS",
+      "AUBE_AUTO_INSTALL_PEERS"
+    ],
+    "npmrc": [
+      "auto-install-peers",
+      "autoInstallPeers"
+    ],
+    "yaml": [
+      "autoInstallPeers"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "blockExoticSubdeps",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_block_exotic_subdeps",
+      "pnpm_config_block_exotic_subdeps",
+      "NPM_CONFIG_BLOCK_EXOTIC_SUBDEPS",
+      "PNPM_CONFIG_BLOCK_EXOTIC_SUBDEPS",
+      "AUBE_BLOCK_EXOTIC_SUBDEPS"
+    ],
+    "npmrc": [
+      "blockExoticSubdeps",
+      "block-exotic-subdeps"
+    ],
+    "yaml": [
+      "blockExoticSubdeps"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "cacheDir",
+    "type": "path",
+    "kind": "string",
+    "default": null,
+    "defaultText": "platform cache dir (`$XDG_CACHE_HOME/{cache_namespace}`)",
+    "cli": [],
+    "env": [
+      "npm_config_cache_dir",
+      "pnpm_config_cache_dir",
+      "NPM_CONFIG_CACHE_DIR",
+      "PNPM_CONFIG_CACHE_DIR",
+      "AUBE_CACHE_DIR"
+    ],
+    "npmrc": [
+      "cache-dir",
+      "cacheDir"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "catalogMode",
+    "type": "\"manual\" | \"strict\" | \"prefer\"",
+    "kind": "enum",
+    "default": "manual",
+    "defaultText": "\"manual\"",
+    "cli": [],
+    "env": [
+      "npm_config_catalog_mode",
+      "pnpm_config_catalog_mode",
+      "NPM_CONFIG_CATALOG_MODE",
+      "PNPM_CONFIG_CATALOG_MODE",
+      "AUBE_CATALOG_MODE"
+    ],
+    "npmrc": [
+      "catalogMode",
+      "catalog-mode"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "manual",
+      "strict",
+      "prefer"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "catalogPrune",
+    "type": "bool",
+    "kind": "bool",
+    "default": null,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_catalog_prune",
+      "pnpm_config_catalog_prune",
+      "NPM_CONFIG_CATALOG_PRUNE",
+      "PNPM_CONFIG_CATALOG_PRUNE",
+      "AUBE_CATALOG_PRUNE"
+    ],
+    "npmrc": [
+      "catalogPrune",
+      "catalog-prune"
+    ],
+    "yaml": [
+      "catalogPrune"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "childConcurrency",
+    "type": "int",
+    "kind": "int",
+    "default": 5,
+    "defaultText": "5",
+    "cli": [],
+    "env": [
+      "npm_config_child_concurrency",
+      "pnpm_config_child_concurrency",
+      "NPM_CONFIG_CHILD_CONCURRENCY",
+      "PNPM_CONFIG_CHILD_CONCURRENCY",
+      "AUBE_CHILD_CONCURRENCY"
+    ],
+    "npmrc": [
+      "child-concurrency",
+      "childConcurrency"
+    ],
+    "yaml": [
+      "childConcurrency"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "ci",
+    "type": "bool",
+    "kind": "bool",
+    "default": null,
+    "defaultText": "auto-detected",
+    "cli": [],
+    "env": [
+      "npm_config_ci",
+      "pnpm_config_ci",
+      "NPM_CONFIG_CI",
+      "PNPM_CONFIG_CI",
+      "AUBE_CI",
+      "CI"
+    ],
+    "npmrc": [
+      "ci"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "cleanupUnusedCatalogs",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_cleanup_unused_catalogs",
+      "pnpm_config_cleanup_unused_catalogs",
+      "NPM_CONFIG_CLEANUP_UNUSED_CATALOGS",
+      "PNPM_CONFIG_CLEANUP_UNUSED_CATALOGS",
+      "AUBE_CLEANUP_UNUSED_CATALOGS"
+    ],
+    "npmrc": [
+      "cleanupUnusedCatalogs",
+      "cleanup-unused-catalogs"
+    ],
+    "yaml": [
+      "cleanupUnusedCatalogs"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "color",
+    "type": "\"auto\" | \"always\" | \"never\"",
+    "kind": "enum",
+    "default": "auto",
+    "defaultText": "\"auto\"",
+    "cli": [
+      "color",
+      "no-color"
+    ],
+    "env": [
+      "npm_config_color",
+      "pnpm_config_color",
+      "NPM_CONFIG_COLOR",
+      "PNPM_CONFIG_COLOR",
+      "AUBE_COLOR"
+    ],
+    "npmrc": [
+      "color"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "auto",
+      "always",
+      "never"
+    ],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "dangerouslyAllowAllBuilds",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [
+      "dangerously-allow-all-builds"
+    ],
+    "env": [
+      "npm_config_dangerously_allow_all_builds",
+      "pnpm_config_dangerously_allow_all_builds",
+      "NPM_CONFIG_DANGEROUSLY_ALLOW_ALL_BUILDS",
+      "PNPM_CONFIG_DANGEROUSLY_ALLOW_ALL_BUILDS",
+      "AUBE_DANGEROUSLY_ALLOW_ALL_BUILDS"
+    ],
+    "npmrc": [
+      "dangerouslyAllowAllBuilds",
+      "dangerously-allow-all-builds"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "falseWins",
+    "explicit": false
+  },
+  {
+    "name": "dedupeDirectDeps",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_dedupe_direct_deps",
+      "pnpm_config_dedupe_direct_deps",
+      "NPM_CONFIG_DEDUPE_DIRECT_DEPS",
+      "PNPM_CONFIG_DEDUPE_DIRECT_DEPS",
+      "AUBE_DEDUPE_DIRECT_DEPS"
+    ],
+    "npmrc": [
+      "dedupe-direct-deps",
+      "dedupeDirectDeps"
+    ],
+    "yaml": [
+      "dedupeDirectDeps"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "dedupePeerDependents",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_dedupe_peer_dependents",
+      "pnpm_config_dedupe_peer_dependents",
+      "NPM_CONFIG_DEDUPE_PEER_DEPENDENTS",
+      "PNPM_CONFIG_DEDUPE_PEER_DEPENDENTS",
+      "AUBE_DEDUPE_PEER_DEPENDENTS"
+    ],
+    "npmrc": [
+      "dedupePeerDependents",
+      "dedupe-peer-dependents"
+    ],
+    "yaml": [
+      "dedupePeerDependents"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "dedupePeers",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_dedupe_peers",
+      "pnpm_config_dedupe_peers",
+      "NPM_CONFIG_DEDUPE_PEERS",
+      "PNPM_CONFIG_DEDUPE_PEERS",
+      "AUBE_DEDUPE_PEERS"
+    ],
+    "npmrc": [
+      "dedupePeers",
+      "dedupe-peers"
+    ],
+    "yaml": [
+      "dedupePeers"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "defaultLockfileFormat",
+    "type": "\"aube\" | \"nub\" | \"pnpm\" | \"npm\" | \"yarn\" | \"bun\"",
+    "kind": "enum",
+    "default": "aube",
+    "defaultText": "\"aube\"",
+    "cli": [],
+    "env": [
+      "npm_config_default_lockfile_format",
+      "pnpm_config_default_lockfile_format",
+      "NPM_CONFIG_DEFAULT_LOCKFILE_FORMAT",
+      "PNPM_CONFIG_DEFAULT_LOCKFILE_FORMAT",
+      "AUBE_DEFAULT_LOCKFILE_FORMAT"
+    ],
+    "npmrc": [
+      "defaultLockfileFormat",
+      "default-lockfile-format"
+    ],
+    "yaml": [
+      "defaultLockfileFormat"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "aube",
+      "nub",
+      "pnpm",
+      "npm",
+      "yarn",
+      "bun"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "defaultTrust",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_default_trust",
+      "pnpm_config_default_trust",
+      "NPM_CONFIG_DEFAULT_TRUST",
+      "PNPM_CONFIG_DEFAULT_TRUST",
+      "AUBE_DEFAULT_TRUST"
+    ],
+    "npmrc": [
+      "defaultTrust",
+      "default-trust"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "deployAllFiles",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_deploy_all_files",
+      "pnpm_config_deploy_all_files",
+      "NPM_CONFIG_DEPLOY_ALL_FILES",
+      "PNPM_CONFIG_DEPLOY_ALL_FILES",
+      "AUBE_DEPLOY_ALL_FILES"
+    ],
+    "npmrc": [
+      "deploy-all-files",
+      "deployAllFiles"
+    ],
+    "yaml": [
+      "deployAllFiles"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "deprecationWarnings",
+    "type": "\"none\" | \"direct\" | \"all\" | \"summary\"",
+    "kind": "enum",
+    "default": "direct",
+    "defaultText": "\"direct\"",
+    "cli": [
+      "--deprecation-warnings"
+    ],
+    "env": [
+      "npm_config_deprecation_warnings",
+      "pnpm_config_deprecation_warnings",
+      "NPM_CONFIG_DEPRECATION_WARNINGS",
+      "PNPM_CONFIG_DEPRECATION_WARNINGS",
+      "AUBE_DEPRECATION_WARNINGS"
+    ],
+    "npmrc": [
+      "deprecationWarnings",
+      "deprecation-warnings"
+    ],
+    "yaml": [
+      "deprecationWarnings"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "none",
+      "direct",
+      "all",
+      "summary"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "disableGlobalVirtualStoreForPackages",
+    "type": "list<string>",
+    "kind": "list",
+    "default": [
+      "next",
+      "expo",
+      "react-native",
+      "metro"
+    ],
+    "defaultText": "[\"next\", \"expo\", \"react-native\", \"metro\"]",
+    "cli": [],
+    "env": [
+      "npm_config_disable_global_virtual_store_for_packages",
+      "pnpm_config_disable_global_virtual_store_for_packages",
+      "NPM_CONFIG_DISABLE_GLOBAL_VIRTUAL_STORE_FOR_PACKAGES",
+      "PNPM_CONFIG_DISABLE_GLOBAL_VIRTUAL_STORE_FOR_PACKAGES",
+      "AUBE_DISABLE_GLOBAL_VIRTUAL_STORE_FOR_PACKAGES"
+    ],
+    "npmrc": [
+      "disableGlobalVirtualStoreForPackages",
+      "disable-global-virtual-store-for-packages"
+    ],
+    "yaml": [
+      "disableGlobalVirtualStoreForPackages"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "diskMaterializePackages",
+    "type": "list<string>",
+    "kind": "list",
+    "default": [],
+    "defaultText": "[]",
+    "cli": [],
+    "env": [
+      "npm_config_disk_materialize_packages",
+      "pnpm_config_disk_materialize_packages",
+      "NPM_CONFIG_DISK_MATERIALIZE_PACKAGES",
+      "PNPM_CONFIG_DISK_MATERIALIZE_PACKAGES",
+      "AUBE_DISK_MATERIALIZE_PACKAGES"
+    ],
+    "npmrc": [
+      "diskMaterializePackages",
+      "disk-materialize-packages"
+    ],
+    "yaml": [
+      "diskMaterializePackages"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "dlxCacheMaxAge",
+    "type": "int",
+    "kind": "int",
+    "default": 1440,
+    "defaultText": "1440",
+    "cli": [],
+    "env": [
+      "npm_config_dlx_cache_max_age",
+      "pnpm_config_dlx_cache_max_age",
+      "NPM_CONFIG_DLX_CACHE_MAX_AGE",
+      "PNPM_CONFIG_DLX_CACHE_MAX_AGE",
+      "AUBE_DLX_CACHE_MAX_AGE"
+    ],
+    "npmrc": [
+      "dlx-cache-max-age",
+      "dlxCacheMaxAge"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "enableGlobalVirtualStore",
+    "type": "bool",
+    "kind": "bool",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [
+      "enable-global-virtual-store",
+      "disable-global-virtual-store"
+    ],
+    "env": [
+      "npm_config_enable_global_virtual_store",
+      "pnpm_config_enable_global_virtual_store",
+      "NPM_CONFIG_ENABLE_GLOBAL_VIRTUAL_STORE",
+      "PNPM_CONFIG_ENABLE_GLOBAL_VIRTUAL_STORE",
+      "AUBE_ENABLE_GLOBAL_VIRTUAL_STORE"
+    ],
+    "npmrc": [
+      "enableGlobalVirtualStore",
+      "enable-global-virtual-store"
+    ],
+    "yaml": [
+      "enableGlobalVirtualStore"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "enableModulesDir",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_enable_modules_dir",
+      "pnpm_config_enable_modules_dir",
+      "NPM_CONFIG_ENABLE_MODULES_DIR",
+      "PNPM_CONFIG_ENABLE_MODULES_DIR",
+      "AUBE_ENABLE_MODULES_DIR"
+    ],
+    "npmrc": [
+      "enableModulesDir",
+      "enable-modules-dir"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "enablePrePostScripts",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_enable_pre_post_scripts",
+      "pnpm_config_enable_pre_post_scripts",
+      "NPM_CONFIG_ENABLE_PRE_POST_SCRIPTS",
+      "PNPM_CONFIG_ENABLE_PRE_POST_SCRIPTS",
+      "AUBE_ENABLE_PRE_POST_SCRIPTS"
+    ],
+    "npmrc": [
+      "enablePrePostScripts",
+      "enable-pre-post-scripts"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "engineStrict",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_engine_strict",
+      "pnpm_config_engine_strict",
+      "NPM_CONFIG_ENGINE_STRICT",
+      "PNPM_CONFIG_ENGINE_STRICT",
+      "AUBE_ENGINE_STRICT"
+    ],
+    "npmrc": [
+      "engine-strict",
+      "engineStrict"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "excludeLinksFromLockfile",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_exclude_links_from_lockfile",
+      "pnpm_config_exclude_links_from_lockfile",
+      "NPM_CONFIG_EXCLUDE_LINKS_FROM_LOCKFILE",
+      "PNPM_CONFIG_EXCLUDE_LINKS_FROM_LOCKFILE",
+      "AUBE_EXCLUDE_LINKS_FROM_LOCKFILE"
+    ],
+    "npmrc": [
+      "exclude-links-from-lockfile",
+      "excludeLinksFromLockfile"
+    ],
+    "yaml": [
+      "excludeLinksFromLockfile"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "extendNodePath",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_extend_node_path",
+      "pnpm_config_extend_node_path",
+      "NPM_CONFIG_EXTEND_NODE_PATH",
+      "PNPM_CONFIG_EXTEND_NODE_PATH",
+      "AUBE_EXTEND_NODE_PATH"
+    ],
+    "npmrc": [
+      "extendNodePath",
+      "extend-node-path"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "fetchMinSpeedKiBps",
+    "type": "int",
+    "kind": "int",
+    "default": 50,
+    "defaultText": "50",
+    "cli": [],
+    "env": [
+      "npm_config_fetch_min_speed_ki_bps",
+      "pnpm_config_fetch_min_speed_ki_bps",
+      "NPM_CONFIG_FETCH_MIN_SPEED_KI_BPS",
+      "PNPM_CONFIG_FETCH_MIN_SPEED_KI_BPS",
+      "AUBE_FETCH_MIN_SPEED_KI_BPS"
+    ],
+    "npmrc": [
+      "fetchMinSpeedKiBps",
+      "fetch-min-speed-ki-bps"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "fetchRetries",
+    "type": "int",
+    "kind": "int",
+    "default": 2,
+    "defaultText": "2",
+    "cli": [
+      "fetch-retries"
+    ],
+    "env": [
+      "npm_config_fetch_retries",
+      "pnpm_config_fetch_retries",
+      "NPM_CONFIG_FETCH_RETRIES",
+      "PNPM_CONFIG_FETCH_RETRIES",
+      "AUBE_FETCH_RETRIES"
+    ],
+    "npmrc": [
+      "fetch-retries",
+      "fetchRetries"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "fetchRetryFactor",
+    "type": "int",
+    "kind": "int",
+    "default": 10,
+    "defaultText": "10",
+    "cli": [
+      "fetch-retry-factor"
+    ],
+    "env": [
+      "npm_config_fetch_retry_factor",
+      "pnpm_config_fetch_retry_factor",
+      "NPM_CONFIG_FETCH_RETRY_FACTOR",
+      "PNPM_CONFIG_FETCH_RETRY_FACTOR",
+      "AUBE_FETCH_RETRY_FACTOR"
+    ],
+    "npmrc": [
+      "fetch-retry-factor",
+      "fetchRetryFactor"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "fetchRetryMaxtimeout",
+    "type": "int",
+    "kind": "int",
+    "default": 60000,
+    "defaultText": "60000",
+    "cli": [
+      "fetch-retry-maxtimeout"
+    ],
+    "env": [
+      "npm_config_fetch_retry_maxtimeout",
+      "pnpm_config_fetch_retry_maxtimeout",
+      "NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT",
+      "PNPM_CONFIG_FETCH_RETRY_MAXTIMEOUT",
+      "AUBE_FETCH_RETRY_MAXTIMEOUT"
+    ],
+    "npmrc": [
+      "fetch-retry-maxtimeout",
+      "fetchRetryMaxtimeout"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "fetchRetryMintimeout",
+    "type": "int",
+    "kind": "int",
+    "default": 10000,
+    "defaultText": "10000",
+    "cli": [
+      "fetch-retry-mintimeout"
+    ],
+    "env": [
+      "npm_config_fetch_retry_mintimeout",
+      "pnpm_config_fetch_retry_mintimeout",
+      "NPM_CONFIG_FETCH_RETRY_MINTIMEOUT",
+      "PNPM_CONFIG_FETCH_RETRY_MINTIMEOUT",
+      "AUBE_FETCH_RETRY_MINTIMEOUT"
+    ],
+    "npmrc": [
+      "fetch-retry-mintimeout",
+      "fetchRetryMintimeout"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "fetchStallTimeout",
+    "type": "int",
+    "kind": "int",
+    "default": 60000,
+    "defaultText": "60000",
+    "cli": [],
+    "env": [
+      "npm_config_fetch_stall_timeout",
+      "pnpm_config_fetch_stall_timeout",
+      "NPM_CONFIG_FETCH_STALL_TIMEOUT",
+      "PNPM_CONFIG_FETCH_STALL_TIMEOUT",
+      "AUBE_FETCH_STALL_TIMEOUT"
+    ],
+    "npmrc": [
+      "fetch-stall-timeout",
+      "fetchStallTimeout"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "fetchTimeout",
+    "type": "int",
+    "kind": "int",
+    "default": 300000,
+    "defaultText": "300000",
+    "cli": [
+      "fetch-timeout"
+    ],
+    "env": [
+      "npm_config_fetch_timeout",
+      "pnpm_config_fetch_timeout",
+      "NPM_CONFIG_FETCH_TIMEOUT",
+      "PNPM_CONFIG_FETCH_TIMEOUT",
+      "AUBE_FETCH_TIMEOUT"
+    ],
+    "npmrc": [
+      "fetch-timeout",
+      "fetchTimeout"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "fetchWarnTimeoutMs",
+    "type": "int",
+    "kind": "int",
+    "default": 10000,
+    "defaultText": "10000",
+    "cli": [],
+    "env": [
+      "npm_config_fetch_warn_timeout_ms",
+      "pnpm_config_fetch_warn_timeout_ms",
+      "NPM_CONFIG_FETCH_WARN_TIMEOUT_MS",
+      "PNPM_CONFIG_FETCH_WARN_TIMEOUT_MS",
+      "AUBE_FETCH_WARN_TIMEOUT_MS"
+    ],
+    "npmrc": [
+      "fetchWarnTimeoutMs",
+      "fetch-warn-timeout-ms"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "forceMetadataPrimer",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_force_metadata_primer",
+      "pnpm_config_force_metadata_primer",
+      "NPM_CONFIG_FORCE_METADATA_PRIMER",
+      "PNPM_CONFIG_FORCE_METADATA_PRIMER",
+      "AUBE_FORCE_METADATA_PRIMER"
+    ],
+    "npmrc": [
+      "force-metadata-primer",
+      "forceMetadataPrimer"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "gitBranchLockfile",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_git_branch_lockfile",
+      "pnpm_config_git_branch_lockfile",
+      "NPM_CONFIG_GIT_BRANCH_LOCKFILE",
+      "PNPM_CONFIG_GIT_BRANCH_LOCKFILE",
+      "AUBE_GIT_BRANCH_LOCKFILE"
+    ],
+    "npmrc": [
+      "gitBranchLockfile",
+      "git-branch-lockfile"
+    ],
+    "yaml": [
+      "gitBranchLockfile"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "gitShallowHosts",
+    "type": "list<string>",
+    "kind": "list",
+    "default": [
+      "github.com",
+      "gist.github.com",
+      "gitlab.com",
+      "bitbucket.com",
+      "bitbucket.org"
+    ],
+    "defaultText": "[\"github.com\", \"gist.github.com\", \"gitlab.com\", \"bitbucket.com\", \"bitbucket.org\"]",
+    "cli": [],
+    "env": [
+      "npm_config_git_shallow_hosts",
+      "pnpm_config_git_shallow_hosts",
+      "NPM_CONFIG_GIT_SHALLOW_HOSTS",
+      "PNPM_CONFIG_GIT_SHALLOW_HOSTS",
+      "AUBE_GIT_SHALLOW_HOSTS"
+    ],
+    "npmrc": [
+      "git-shallow-hosts",
+      "gitShallowHosts"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "globalBinDir",
+    "type": "path",
+    "kind": "string",
+    "default": null,
+    "defaultText": "platform-specific",
+    "cli": [],
+    "env": [
+      "npm_config_global_bin_dir",
+      "pnpm_config_global_bin_dir",
+      "NPM_CONFIG_GLOBAL_BIN_DIR",
+      "PNPM_CONFIG_GLOBAL_BIN_DIR",
+      "AUBE_GLOBAL_BIN_DIR"
+    ],
+    "npmrc": [
+      "globalBinDir",
+      "global-bin-dir"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "globalDir",
+    "type": "path",
+    "kind": "string",
+    "default": null,
+    "defaultText": "platform-specific",
+    "cli": [],
+    "env": [
+      "npm_config_global_dir",
+      "pnpm_config_global_dir",
+      "NPM_CONFIG_GLOBAL_DIR",
+      "PNPM_CONFIG_GLOBAL_DIR",
+      "AUBE_GLOBAL_DIR"
+    ],
+    "npmrc": [
+      "globalDir",
+      "global-dir"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "globalPnpmfile",
+    "type": "string",
+    "kind": "string",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [
+      "--global-pnpmfile"
+    ],
+    "env": [
+      "AUBE_GLOBAL_PNPMFILE"
+    ],
+    "npmrc": [],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "globalVirtualStoreDir",
+    "type": "path",
+    "kind": "string",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_global_virtual_store_dir",
+      "pnpm_config_global_virtual_store_dir",
+      "NPM_CONFIG_GLOBAL_VIRTUAL_STORE_DIR",
+      "PNPM_CONFIG_GLOBAL_VIRTUAL_STORE_DIR",
+      "AUBE_GLOBAL_VIRTUAL_STORE_DIR"
+    ],
+    "npmrc": [
+      "globalVirtualStoreDir",
+      "global-virtual-store-dir"
+    ],
+    "yaml": [
+      "globalVirtualStoreDir"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "hoist",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_hoist",
+      "pnpm_config_hoist",
+      "NPM_CONFIG_HOIST",
+      "PNPM_CONFIG_HOIST",
+      "AUBE_HOIST"
+    ],
+    "npmrc": [
+      "hoist"
+    ],
+    "yaml": [
+      "hoist"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": true
+  },
+  {
+    "name": "hoistPattern",
+    "type": "list<string>",
+    "kind": "list",
+    "default": [
+      "*"
+    ],
+    "defaultText": "[\"*\"]",
+    "cli": [],
+    "env": [
+      "npm_config_hoist_pattern",
+      "pnpm_config_hoist_pattern",
+      "NPM_CONFIG_HOIST_PATTERN",
+      "PNPM_CONFIG_HOIST_PATTERN",
+      "AUBE_HOIST_PATTERN"
+    ],
+    "npmrc": [
+      "hoist-pattern",
+      "hoistPattern"
+    ],
+    "yaml": [
+      "hoistPattern"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "hoistWorkspacePackages",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_hoist_workspace_packages",
+      "pnpm_config_hoist_workspace_packages",
+      "NPM_CONFIG_HOIST_WORKSPACE_PACKAGES",
+      "PNPM_CONFIG_HOIST_WORKSPACE_PACKAGES",
+      "AUBE_HOIST_WORKSPACE_PACKAGES"
+    ],
+    "npmrc": [
+      "hoist-workspace-packages",
+      "hoistWorkspacePackages"
+    ],
+    "yaml": [
+      "hoistWorkspacePackages"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "hoistingLimits",
+    "type": "\"none\" | \"workspaces\" | \"dependencies\"",
+    "kind": "enum",
+    "default": "none",
+    "defaultText": "\"none\"",
+    "cli": [],
+    "env": [
+      "npm_config_hoisting_limits",
+      "pnpm_config_hoisting_limits",
+      "NPM_CONFIG_HOISTING_LIMITS",
+      "PNPM_CONFIG_HOISTING_LIMITS",
+      "AUBE_HOISTING_LIMITS"
+    ],
+    "npmrc": [
+      "hoistingLimits",
+      "hoisting-limits"
+    ],
+    "yaml": [
+      "hoistingLimits"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "none",
+      "workspaces",
+      "dependencies"
+    ],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "httpProxy",
+    "type": "url",
+    "kind": "string",
+    "default": null,
+    "defaultText": "null",
+    "cli": [],
+    "env": [
+      "PROXY",
+      "proxy",
+      "npm_config_http_proxy",
+      "pnpm_config_http_proxy",
+      "NPM_CONFIG_HTTP_PROXY",
+      "PNPM_CONFIG_HTTP_PROXY",
+      "AUBE_HTTP_PROXY",
+      "http_proxy",
+      "HTTP_PROXY"
+    ],
+    "npmrc": [
+      "http-proxy",
+      "httpProxy"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "httpsProxy",
+    "type": "url",
+    "kind": "string",
+    "default": null,
+    "defaultText": "null",
+    "cli": [],
+    "env": [
+      "npm_config_proxy",
+      "pnpm_config_proxy",
+      "NPM_CONFIG_PROXY",
+      "PNPM_CONFIG_PROXY",
+      "npm_config_https_proxy",
+      "pnpm_config_https_proxy",
+      "NPM_CONFIG_HTTPS_PROXY",
+      "PNPM_CONFIG_HTTPS_PROXY",
+      "AUBE_HTTPS_PROXY",
+      "https_proxy",
+      "HTTPS_PROXY"
+    ],
+    "npmrc": [
+      "https-proxy",
+      "httpsProxy",
+      "proxy"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "ignoreCompatibilityDb",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_ignore_compatibility_db",
+      "pnpm_config_ignore_compatibility_db",
+      "NPM_CONFIG_IGNORE_COMPATIBILITY_DB",
+      "PNPM_CONFIG_IGNORE_COMPATIBILITY_DB",
+      "AUBE_IGNORE_COMPATIBILITY_DB"
+    ],
+    "npmrc": [
+      "ignoreCompatibilityDb",
+      "ignore-compatibility-db"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "ignoreScripts",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [
+      "ignore-scripts"
+    ],
+    "env": [
+      "npm_config_ignore_scripts",
+      "pnpm_config_ignore_scripts",
+      "NPM_CONFIG_IGNORE_SCRIPTS",
+      "PNPM_CONFIG_IGNORE_SCRIPTS",
+      "AUBE_IGNORE_SCRIPTS"
+    ],
+    "npmrc": [
+      "ignore-scripts",
+      "ignoreScripts"
+    ],
+    "yaml": [
+      "ignoreScripts"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "ignoredOptionalDependencies",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_ignored_optional_dependencies",
+      "pnpm_config_ignored_optional_dependencies",
+      "NPM_CONFIG_IGNORED_OPTIONAL_DEPENDENCIES",
+      "PNPM_CONFIG_IGNORED_OPTIONAL_DEPENDENCIES",
+      "AUBE_IGNORED_OPTIONAL_DEPENDENCIES"
+    ],
+    "npmrc": [
+      "ignoredOptionalDependencies",
+      "ignored-optional-dependencies"
+    ],
+    "yaml": [
+      "ignoredOptionalDependencies"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "jailBuildExclusions",
+    "type": "list<string>",
+    "kind": "list",
+    "default": [],
+    "defaultText": "[]",
+    "cli": [],
+    "env": [
+      "npm_config_jail_build_exclusions",
+      "pnpm_config_jail_build_exclusions",
+      "NPM_CONFIG_JAIL_BUILD_EXCLUSIONS",
+      "PNPM_CONFIG_JAIL_BUILD_EXCLUSIONS",
+      "AUBE_JAIL_BUILD_EXCLUSIONS"
+    ],
+    "npmrc": [
+      "jailBuildExclusions",
+      "jail-build-exclusions"
+    ],
+    "yaml": [
+      "jailBuildExclusions"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "managedWins",
+    "explicit": false
+  },
+  {
+    "name": "jailBuildPermissions",
+    "type": "object",
+    "kind": "unsupported",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [],
+    "yaml": [
+      "jailBuildPermissions"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "jailBuilds",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_jail_builds",
+      "pnpm_config_jail_builds",
+      "NPM_CONFIG_JAIL_BUILDS",
+      "PNPM_CONFIG_JAIL_BUILDS",
+      "AUBE_JAIL_BUILDS"
+    ],
+    "npmrc": [
+      "jail-builds",
+      "jailBuilds"
+    ],
+    "yaml": [
+      "jailBuilds"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "linkConcurrency",
+    "type": "int",
+    "kind": "int",
+    "default": null,
+    "defaultText": "platform-specific",
+    "cli": [],
+    "env": [
+      "npm_config_link_concurrency",
+      "pnpm_config_link_concurrency",
+      "NPM_CONFIG_LINK_CONCURRENCY",
+      "PNPM_CONFIG_LINK_CONCURRENCY",
+      "AUBE_LINK_CONCURRENCY"
+    ],
+    "npmrc": [
+      "link-concurrency",
+      "linkConcurrency"
+    ],
+    "yaml": [
+      "linkConcurrency"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "linkWorkspacePackages",
+    "type": "\"false\" | \"true\" | \"deep\"",
+    "kind": "enum",
+    "default": "false",
+    "defaultText": "\"false\"",
+    "cli": [],
+    "env": [
+      "npm_config_link_workspace_packages",
+      "pnpm_config_link_workspace_packages",
+      "NPM_CONFIG_LINK_WORKSPACE_PACKAGES",
+      "PNPM_CONFIG_LINK_WORKSPACE_PACKAGES",
+      "AUBE_LINK_WORKSPACE_PACKAGES"
+    ],
+    "npmrc": [
+      "link-workspace-packages",
+      "linkWorkspacePackages"
+    ],
+    "yaml": [
+      "linkWorkspacePackages"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "false",
+      "true",
+      "deep"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "localAddress",
+    "type": "string",
+    "kind": "string",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_local_address",
+      "pnpm_config_local_address",
+      "NPM_CONFIG_LOCAL_ADDRESS",
+      "PNPM_CONFIG_LOCAL_ADDRESS",
+      "AUBE_LOCAL_ADDRESS"
+    ],
+    "npmrc": [
+      "local-address",
+      "localAddress"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "lockfile",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_lockfile",
+      "pnpm_config_lockfile",
+      "NPM_CONFIG_LOCKFILE",
+      "PNPM_CONFIG_LOCKFILE",
+      "AUBE_LOCKFILE"
+    ],
+    "npmrc": [
+      "lockfile"
+    ],
+    "yaml": [
+      "lockfile"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "lockfileDir",
+    "type": "path",
+    "kind": "string",
+    "default": null,
+    "defaultText": "null",
+    "cli": [
+      "lockfile-dir"
+    ],
+    "env": [
+      "npm_config_lockfile_dir",
+      "pnpm_config_lockfile_dir",
+      "NPM_CONFIG_LOCKFILE_DIR",
+      "PNPM_CONFIG_LOCKFILE_DIR",
+      "AUBE_LOCKFILE_DIR"
+    ],
+    "npmrc": [
+      "lockfile-dir",
+      "lockfileDir"
+    ],
+    "yaml": [
+      "lockfileDir"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "lockfileIncludeTarballUrl",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_lockfile_include_tarball_url",
+      "pnpm_config_lockfile_include_tarball_url",
+      "NPM_CONFIG_LOCKFILE_INCLUDE_TARBALL_URL",
+      "PNPM_CONFIG_LOCKFILE_INCLUDE_TARBALL_URL",
+      "AUBE_LOCKFILE_INCLUDE_TARBALL_URL"
+    ],
+    "npmrc": [
+      "lockfileIncludeTarballUrl",
+      "lockfile-include-tarball-url"
+    ],
+    "yaml": [
+      "lockfileIncludeTarballUrl"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "loglevel",
+    "type": "\"debug\" | \"info\" | \"warn\" | \"error\" | \"silent\"",
+    "kind": "enum",
+    "default": "warn",
+    "defaultText": "\"warn\"",
+    "cli": [
+      "loglevel",
+      "verbose",
+      "v",
+      "silent"
+    ],
+    "env": [
+      "npm_config_loglevel",
+      "pnpm_config_loglevel",
+      "NPM_CONFIG_LOGLEVEL",
+      "PNPM_CONFIG_LOGLEVEL",
+      "AUBE_LOGLEVEL"
+    ],
+    "npmrc": [
+      "loglevel"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "debug",
+      "info",
+      "warn",
+      "error",
+      "silent"
+    ],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "lowDownloadThreshold",
+    "type": "int",
+    "kind": "int",
+    "default": 1000,
+    "defaultText": "1000",
+    "cli": [],
+    "env": [
+      "npm_config_low_download_threshold",
+      "pnpm_config_low_download_threshold",
+      "NPM_CONFIG_LOW_DOWNLOAD_THRESHOLD",
+      "PNPM_CONFIG_LOW_DOWNLOAD_THRESHOLD",
+      "AUBE_LOW_DOWNLOAD_THRESHOLD"
+    ],
+    "npmrc": [
+      "lowDownloadThreshold",
+      "low-download-threshold"
+    ],
+    "yaml": [
+      "lowDownloadThreshold"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "max",
+    "explicit": false
+  },
+  {
+    "name": "managePackageManagerVersions",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_manage_package_manager_versions",
+      "pnpm_config_manage_package_manager_versions",
+      "NPM_CONFIG_MANAGE_PACKAGE_MANAGER_VERSIONS",
+      "PNPM_CONFIG_MANAGE_PACKAGE_MANAGER_VERSIONS",
+      "AUBE_MANAGE_PACKAGE_MANAGER_VERSIONS"
+    ],
+    "npmrc": [
+      "manage-package-manager-versions",
+      "managePackageManagerVersions"
+    ],
+    "yaml": [
+      "managePackageManagerVersions"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "maxsockets",
+    "type": "int",
+    "kind": "int",
+    "default": null,
+    "defaultText": "networkConcurrency x 3",
+    "cli": [],
+    "env": [
+      "npm_config_maxsockets",
+      "pnpm_config_maxsockets",
+      "NPM_CONFIG_MAXSOCKETS",
+      "PNPM_CONFIG_MAXSOCKETS",
+      "AUBE_MAXSOCKETS"
+    ],
+    "npmrc": [
+      "maxsockets"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "mergeGitBranchLockfilesBranchPattern",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "null",
+    "cli": [],
+    "env": [
+      "npm_config_merge_git_branch_lockfiles_branch_pattern",
+      "pnpm_config_merge_git_branch_lockfiles_branch_pattern",
+      "NPM_CONFIG_MERGE_GIT_BRANCH_LOCKFILES_BRANCH_PATTERN",
+      "PNPM_CONFIG_MERGE_GIT_BRANCH_LOCKFILES_BRANCH_PATTERN",
+      "AUBE_MERGE_GIT_BRANCH_LOCKFILES_BRANCH_PATTERN"
+    ],
+    "npmrc": [
+      "mergeGitBranchLockfilesBranchPattern",
+      "merge-git-branch-lockfiles-branch-pattern"
+    ],
+    "yaml": [
+      "mergeGitBranchLockfilesBranchPattern"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "minimumPackageAge",
+    "type": "int",
+    "kind": "int",
+    "default": 43200,
+    "defaultText": "43200",
+    "cli": [],
+    "env": [
+      "npm_config_minimum_package_age",
+      "pnpm_config_minimum_package_age",
+      "NPM_CONFIG_MINIMUM_PACKAGE_AGE",
+      "PNPM_CONFIG_MINIMUM_PACKAGE_AGE",
+      "AUBE_MINIMUM_PACKAGE_AGE"
+    ],
+    "npmrc": [
+      "minimumPackageAge",
+      "minimum-package-age"
+    ],
+    "yaml": [
+      "minimumPackageAge"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "max",
+    "explicit": false
+  },
+  {
+    "name": "minimumReleaseAge",
+    "type": "int",
+    "kind": "int",
+    "default": 1440,
+    "defaultText": "1440",
+    "cli": [],
+    "env": [
+      "npm_config_minimum_release_age",
+      "pnpm_config_minimum_release_age",
+      "NPM_CONFIG_MINIMUM_RELEASE_AGE",
+      "PNPM_CONFIG_MINIMUM_RELEASE_AGE",
+      "AUBE_MINIMUM_RELEASE_AGE"
+    ],
+    "npmrc": [
+      "minimumReleaseAge",
+      "minimum-release-age"
+    ],
+    "yaml": [
+      "minimumReleaseAge"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "max",
+    "explicit": false
+  },
+  {
+    "name": "minimumReleaseAgeExclude",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_minimum_release_age_exclude",
+      "pnpm_config_minimum_release_age_exclude",
+      "NPM_CONFIG_MINIMUM_RELEASE_AGE_EXCLUDE",
+      "PNPM_CONFIG_MINIMUM_RELEASE_AGE_EXCLUDE",
+      "AUBE_MINIMUM_RELEASE_AGE_EXCLUDE"
+    ],
+    "npmrc": [
+      "minimumReleaseAgeExclude",
+      "minimum-release-age-exclude"
+    ],
+    "yaml": [
+      "minimumReleaseAgeExclude"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "managedWins",
+    "explicit": false
+  },
+  {
+    "name": "minimumReleaseAgeStrict",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_minimum_release_age_strict",
+      "pnpm_config_minimum_release_age_strict",
+      "NPM_CONFIG_MINIMUM_RELEASE_AGE_STRICT",
+      "PNPM_CONFIG_MINIMUM_RELEASE_AGE_STRICT",
+      "AUBE_MINIMUM_RELEASE_AGE_STRICT"
+    ],
+    "npmrc": [
+      "minimumReleaseAgeStrict",
+      "minimum-release-age-strict"
+    ],
+    "yaml": [
+      "minimumReleaseAgeStrict"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "modulesCacheMaxAge",
+    "type": "int",
+    "kind": "int",
+    "default": 10080,
+    "defaultText": "10080",
+    "cli": [],
+    "env": [
+      "npm_config_modules_cache_max_age",
+      "pnpm_config_modules_cache_max_age",
+      "NPM_CONFIG_MODULES_CACHE_MAX_AGE",
+      "PNPM_CONFIG_MODULES_CACHE_MAX_AGE",
+      "AUBE_MODULES_CACHE_MAX_AGE"
+    ],
+    "npmrc": [
+      "modulesCacheMaxAge",
+      "modules-cache-max-age"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "modulesDir",
+    "type": "path",
+    "kind": "string",
+    "default": "node_modules",
+    "defaultText": "\"node_modules\"",
+    "cli": [],
+    "env": [
+      "npm_config_modules_dir",
+      "pnpm_config_modules_dir",
+      "NPM_CONFIG_MODULES_DIR",
+      "PNPM_CONFIG_MODULES_DIR",
+      "AUBE_MODULES_DIR"
+    ],
+    "npmrc": [
+      "modulesDir",
+      "modules-dir"
+    ],
+    "yaml": [
+      "modulesDir"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "networkConcurrency",
+    "type": "int",
+    "kind": "int",
+    "default": null,
+    "defaultText": "auto (workers x3 clamped to 16-128)",
+    "cli": [
+      "network-concurrency"
+    ],
+    "env": [
+      "npm_config_network_concurrency",
+      "pnpm_config_network_concurrency",
+      "NPM_CONFIG_NETWORK_CONCURRENCY",
+      "PNPM_CONFIG_NETWORK_CONCURRENCY",
+      "AUBE_NETWORK_CONCURRENCY"
+    ],
+    "npmrc": [
+      "network-concurrency",
+      "networkConcurrency"
+    ],
+    "yaml": [
+      "networkConcurrency"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "noProxy",
+    "type": "string",
+    "kind": "string",
+    "default": null,
+    "defaultText": "null",
+    "cli": [],
+    "env": [
+      "npm_config_noproxy",
+      "pnpm_config_noproxy",
+      "NPM_CONFIG_NOPROXY",
+      "PNPM_CONFIG_NOPROXY",
+      "npm_config_no_proxy",
+      "pnpm_config_no_proxy",
+      "NPM_CONFIG_NO_PROXY",
+      "PNPM_CONFIG_NO_PROXY",
+      "AUBE_NO_PROXY",
+      "no_proxy",
+      "NO_PROXY"
+    ],
+    "npmrc": [
+      "noproxy",
+      "noProxy",
+      "no-proxy"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "nodeDownloadMirrors",
+    "type": "object",
+    "kind": "unsupported",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [
+      "nodeDownloadMirrors",
+      "node-download-mirrors"
+    ],
+    "yaml": [
+      "nodeDownloadMirrors"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "nodeLinker",
+    "type": "\"isolated\" | \"hoisted\" | \"pnp\"",
+    "kind": "enum",
+    "default": "isolated",
+    "defaultText": "\"isolated\"",
+    "cli": [
+      "node-linker"
+    ],
+    "env": [
+      "npm_config_node_linker",
+      "pnpm_config_node_linker",
+      "NPM_CONFIG_NODE_LINKER",
+      "PNPM_CONFIG_NODE_LINKER",
+      "AUBE_NODE_LINKER"
+    ],
+    "npmrc": [
+      "nodeLinker",
+      "node-linker"
+    ],
+    "yaml": [
+      "nodeLinker"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "isolated",
+      "hoisted",
+      "pnp"
+    ],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "nodeOptions",
+    "type": "string",
+    "kind": "string",
+    "default": null,
+    "defaultText": "null",
+    "cli": [],
+    "env": [
+      "npm_config_node_options",
+      "pnpm_config_node_options",
+      "NPM_CONFIG_NODE_OPTIONS",
+      "PNPM_CONFIG_NODE_OPTIONS",
+      "AUBE_NODE_OPTIONS",
+      "NODE_OPTIONS"
+    ],
+    "npmrc": [
+      "nodeOptions",
+      "node-options"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "nodeVersion",
+    "type": "string",
+    "kind": "string",
+    "default": null,
+    "defaultText": "output of `node -v` with the leading `v` stripped",
+    "cli": [],
+    "env": [
+      "npm_config_node_version",
+      "pnpm_config_node_version",
+      "NPM_CONFIG_NODE_VERSION",
+      "PNPM_CONFIG_NODE_VERSION",
+      "AUBE_NODE_VERSION"
+    ],
+    "npmrc": [
+      "node-version",
+      "nodeVersion"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "npmPath",
+    "type": "path",
+    "kind": "string",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_npm_path",
+      "pnpm_config_npm_path",
+      "NPM_CONFIG_NPM_PATH",
+      "PNPM_CONFIG_NPM_PATH",
+      "AUBE_NPM_PATH"
+    ],
+    "npmrc": [
+      "npmPath",
+      "npm-path"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "npmrcAuthFile",
+    "type": "path",
+    "kind": "string",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_npmrc_auth_file",
+      "pnpm_config_npmrc_auth_file",
+      "NPM_CONFIG_NPMRC_AUTH_FILE",
+      "PNPM_CONFIG_NPMRC_AUTH_FILE",
+      "AUBE_NPMRC_AUTH_FILE"
+    ],
+    "npmrc": [
+      "npmrc-auth-file",
+      "npmrcAuthFile"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "optimisticRepeatInstall",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_optimistic_repeat_install",
+      "pnpm_config_optimistic_repeat_install",
+      "NPM_CONFIG_OPTIMISTIC_REPEAT_INSTALL",
+      "PNPM_CONFIG_OPTIMISTIC_REPEAT_INSTALL",
+      "AUBE_OPTIMISTIC_REPEAT_INSTALL"
+    ],
+    "npmrc": [
+      "optimisticRepeatInstall",
+      "optimistic-repeat-install"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "overrides",
+    "type": "object",
+    "kind": "unsupported",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [
+      "overrides"
+    ],
+    "yaml": [
+      "overrides"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "packageExtensions",
+    "type": "object",
+    "kind": "unsupported",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [
+      "packageExtensions",
+      "package-extensions"
+    ],
+    "yaml": [
+      "packageExtensions"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "packageImportMethod",
+    "type": "\"auto\" | \"hardlink\" | \"copy\" | \"clone\" | \"clone-or-copy\"",
+    "kind": "enum",
+    "default": "auto",
+    "defaultText": "\"auto\"",
+    "cli": [
+      "package-import-method"
+    ],
+    "env": [
+      "npm_config_package_import_method",
+      "pnpm_config_package_import_method",
+      "NPM_CONFIG_PACKAGE_IMPORT_METHOD",
+      "PNPM_CONFIG_PACKAGE_IMPORT_METHOD",
+      "AUBE_PACKAGE_IMPORT_METHOD"
+    ],
+    "npmrc": [
+      "packageImportMethod",
+      "package-import-method"
+    ],
+    "yaml": [
+      "packageImportMethod"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "auto",
+      "hardlink",
+      "copy",
+      "clone",
+      "clone-or-copy"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "packageManagerStrict",
+    "type": "\"off\" | \"warn\" | \"error\" | true | false",
+    "kind": "string",
+    "default": "warn",
+    "defaultText": "\"warn\"",
+    "cli": [],
+    "env": [
+      "npm_config_package_manager_strict",
+      "pnpm_config_package_manager_strict",
+      "NPM_CONFIG_PACKAGE_MANAGER_STRICT",
+      "PNPM_CONFIG_PACKAGE_MANAGER_STRICT",
+      "AUBE_PACKAGE_MANAGER_STRICT"
+    ],
+    "npmrc": [
+      "package-manager-strict",
+      "packageManagerStrict"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "packageManagerStrictVersion",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_package_manager_strict_version",
+      "pnpm_config_package_manager_strict_version",
+      "NPM_CONFIG_PACKAGE_MANAGER_STRICT_VERSION",
+      "PNPM_CONFIG_PACKAGE_MANAGER_STRICT_VERSION",
+      "AUBE_PACKAGE_MANAGER_STRICT_VERSION"
+    ],
+    "npmrc": [
+      "package-manager-strict-version",
+      "packageManagerStrictVersion"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "packumentMaxBytes",
+    "type": "int",
+    "kind": "int",
+    "default": 209715200,
+    "defaultText": "209715200",
+    "cli": [],
+    "env": [
+      "npm_config_packument_max_bytes",
+      "pnpm_config_packument_max_bytes",
+      "NPM_CONFIG_PACKUMENT_MAX_BYTES",
+      "PNPM_CONFIG_PACKUMENT_MAX_BYTES",
+      "AUBE_PACKUMENT_MAX_BYTES"
+    ],
+    "npmrc": [
+      "packumentMaxBytes",
+      "packument-max-bytes"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "paranoid",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_paranoid",
+      "pnpm_config_paranoid",
+      "NPM_CONFIG_PARANOID",
+      "PNPM_CONFIG_PARANOID",
+      "AUBE_PARANOID"
+    ],
+    "npmrc": [
+      "paranoid"
+    ],
+    "yaml": [
+      "paranoid"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "peerDependencyRules.allowAny",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_peer_dependency_rules_allow_any",
+      "pnpm_config_peer_dependency_rules_allow_any",
+      "NPM_CONFIG_PEER_DEPENDENCY_RULES_ALLOW_ANY",
+      "PNPM_CONFIG_PEER_DEPENDENCY_RULES_ALLOW_ANY",
+      "AUBE_PEER_DEPENDENCY_RULES_ALLOW_ANY"
+    ],
+    "npmrc": [
+      "peerDependencyRules.allowAny",
+      "peer-dependency-rules.allow-any"
+    ],
+    "yaml": [
+      "peerDependencyRules.allowAny"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "peerDependencyRules.allowedVersions",
+    "type": "object",
+    "kind": "unsupported",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [
+      "peerDependencyRules.allowedVersions",
+      "peer-dependency-rules.allowed-versions"
+    ],
+    "yaml": [
+      "peerDependencyRules.allowedVersions"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "peerDependencyRules.ignoreMissing",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_peer_dependency_rules_ignore_missing",
+      "pnpm_config_peer_dependency_rules_ignore_missing",
+      "NPM_CONFIG_PEER_DEPENDENCY_RULES_IGNORE_MISSING",
+      "PNPM_CONFIG_PEER_DEPENDENCY_RULES_IGNORE_MISSING",
+      "AUBE_PEER_DEPENDENCY_RULES_IGNORE_MISSING"
+    ],
+    "npmrc": [
+      "peerDependencyRules.ignoreMissing",
+      "peer-dependency-rules.ignore-missing"
+    ],
+    "yaml": [
+      "peerDependencyRules.ignoreMissing"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "peersSuffixMaxLength",
+    "type": "int",
+    "kind": "int",
+    "default": 1000,
+    "defaultText": "1000",
+    "cli": [],
+    "env": [
+      "npm_config_peers_suffix_max_length",
+      "pnpm_config_peers_suffix_max_length",
+      "NPM_CONFIG_PEERS_SUFFIX_MAX_LENGTH",
+      "PNPM_CONFIG_PEERS_SUFFIX_MAX_LENGTH",
+      "AUBE_PEERS_SUFFIX_MAX_LENGTH"
+    ],
+    "npmrc": [
+      "peersSuffixMaxLength",
+      "peers-suffix-max-length"
+    ],
+    "yaml": [
+      "peersSuffixMaxLength"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "pnpmfilePath",
+    "type": "string",
+    "kind": "string",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [
+      "--pnpmfile"
+    ],
+    "env": [
+      "AUBE_PNPMFILE_PATH"
+    ],
+    "npmrc": [],
+    "yaml": [
+      "pnpmfilePath"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "preferFrozenLockfile",
+    "type": "bool",
+    "kind": "bool",
+    "default": null,
+    "defaultText": "true",
+    "cli": [
+      "prefer-frozen-lockfile"
+    ],
+    "env": [
+      "npm_config_prefer_frozen_lockfile",
+      "pnpm_config_prefer_frozen_lockfile",
+      "NPM_CONFIG_PREFER_FROZEN_LOCKFILE",
+      "PNPM_CONFIG_PREFER_FROZEN_LOCKFILE",
+      "AUBE_PREFER_FROZEN_LOCKFILE"
+    ],
+    "npmrc": [
+      "prefer-frozen-lockfile",
+      "preferFrozenLockfile"
+    ],
+    "yaml": [
+      "preferFrozenLockfile"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "preferSymlinkedExecutables",
+    "type": "bool",
+    "kind": "bool",
+    "default": null,
+    "defaultText": "true under `nodeLinker=hoisted`, false otherwise",
+    "cli": [],
+    "env": [
+      "npm_config_prefer_symlinked_executables",
+      "pnpm_config_prefer_symlinked_executables",
+      "NPM_CONFIG_PREFER_SYMLINKED_EXECUTABLES",
+      "PNPM_CONFIG_PREFER_SYMLINKED_EXECUTABLES",
+      "AUBE_PREFER_SYMLINKED_EXECUTABLES"
+    ],
+    "npmrc": [
+      "preferSymlinkedExecutables",
+      "prefer-symlinked-executables"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "publicHoistPattern",
+    "type": "list<string>",
+    "kind": "list",
+    "default": [],
+    "defaultText": "[]",
+    "cli": [
+      "public-hoist-pattern"
+    ],
+    "env": [
+      "npm_config_public_hoist_pattern",
+      "pnpm_config_public_hoist_pattern",
+      "NPM_CONFIG_PUBLIC_HOIST_PATTERN",
+      "PNPM_CONFIG_PUBLIC_HOIST_PATTERN",
+      "AUBE_PUBLIC_HOIST_PATTERN"
+    ],
+    "npmrc": [
+      "public-hoist-pattern",
+      "publicHoistPattern"
+    ],
+    "yaml": [
+      "publicHoistPattern"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "recursiveInstall",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_recursive_install",
+      "pnpm_config_recursive_install",
+      "NPM_CONFIG_RECURSIVE_INSTALL",
+      "PNPM_CONFIG_RECURSIVE_INSTALL",
+      "AUBE_RECURSIVE_INSTALL"
+    ],
+    "npmrc": [
+      "recursiveInstall",
+      "recursive-install"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "registries",
+    "type": "object",
+    "kind": "unsupported",
+    "default": null,
+    "defaultText": "{ default = \"https://registry.npmjs.org/\" }",
+    "cli": [],
+    "env": [],
+    "npmrc": [
+      "registry",
+      "@scope:registry",
+      "//host/:_authToken",
+      "//host/:_auth"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "registrySupportsTimeField",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_registry_supports_time_field",
+      "pnpm_config_registry_supports_time_field",
+      "NPM_CONFIG_REGISTRY_SUPPORTS_TIME_FIELD",
+      "PNPM_CONFIG_REGISTRY_SUPPORTS_TIME_FIELD",
+      "AUBE_REGISTRY_SUPPORTS_TIME_FIELD"
+    ],
+    "npmrc": [
+      "registry-supports-time-field",
+      "registrySupportsTimeField"
+    ],
+    "yaml": [
+      "registrySupportsTimeField"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "projectNpmrc",
+      "userNpmrc",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "userAubeConfig",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "requiredScripts",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_required_scripts",
+      "pnpm_config_required_scripts",
+      "NPM_CONFIG_REQUIRED_SCRIPTS",
+      "PNPM_CONFIG_REQUIRED_SCRIPTS",
+      "AUBE_REQUIRED_SCRIPTS"
+    ],
+    "npmrc": [
+      "requiredScripts",
+      "required-scripts"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "resolutionMode",
+    "type": "\"highest\" | \"time-based\" | \"lowest-direct\"",
+    "kind": "enum",
+    "default": "highest",
+    "defaultText": "\"highest\"",
+    "cli": [
+      "resolution-mode"
+    ],
+    "env": [
+      "npm_config_resolution_mode",
+      "pnpm_config_resolution_mode",
+      "NPM_CONFIG_RESOLUTION_MODE",
+      "PNPM_CONFIG_RESOLUTION_MODE",
+      "AUBE_RESOLUTION_MODE"
+    ],
+    "npmrc": [
+      "resolution-mode",
+      "resolutionMode"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "highest",
+      "time-based",
+      "lowest-direct"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "resolvePeersFromWorkspaceRoot",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_resolve_peers_from_workspace_root",
+      "pnpm_config_resolve_peers_from_workspace_root",
+      "NPM_CONFIG_RESOLVE_PEERS_FROM_WORKSPACE_ROOT",
+      "PNPM_CONFIG_RESOLVE_PEERS_FROM_WORKSPACE_ROOT",
+      "AUBE_RESOLVE_PEERS_FROM_WORKSPACE_ROOT"
+    ],
+    "npmrc": [
+      "resolvePeersFromWorkspaceRoot",
+      "resolve-peers-from-workspace-root"
+    ],
+    "yaml": [
+      "resolvePeersFromWorkspaceRoot"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "runtimeInstaller",
+    "type": "\"auto\" | \"mise\" | \"aube\"",
+    "kind": "enum",
+    "default": "auto",
+    "defaultText": "\"auto\"",
+    "cli": [],
+    "env": [
+      "npm_config_runtime_installer",
+      "pnpm_config_runtime_installer",
+      "NPM_CONFIG_RUNTIME_INSTALLER",
+      "PNPM_CONFIG_RUNTIME_INSTALLER",
+      "AUBE_RUNTIME_INSTALLER"
+    ],
+    "npmrc": [
+      "runtime-installer",
+      "runtimeInstaller"
+    ],
+    "yaml": [
+      "runtimeInstaller"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "auto",
+      "mise",
+      "aube"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "runtimeOnFail",
+    "type": "\"download\" | \"error\" | \"warn\" | \"ignore\"",
+    "kind": "enum",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_runtime_on_fail",
+      "pnpm_config_runtime_on_fail",
+      "NPM_CONFIG_RUNTIME_ON_FAIL",
+      "PNPM_CONFIG_RUNTIME_ON_FAIL",
+      "AUBE_RUNTIME_ON_FAIL"
+    ],
+    "npmrc": [
+      "runtime-on-fail",
+      "runtimeOnFail"
+    ],
+    "yaml": [
+      "runtimeOnFail"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "download",
+      "error",
+      "warn",
+      "ignore"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "saveExact",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_save_exact",
+      "pnpm_config_save_exact",
+      "NPM_CONFIG_SAVE_EXACT",
+      "PNPM_CONFIG_SAVE_EXACT",
+      "AUBE_SAVE_EXACT"
+    ],
+    "npmrc": [
+      "save-exact",
+      "saveExact"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "savePrefix",
+    "type": "\"^\" | \"~\" | \"\"",
+    "kind": "string",
+    "default": "^",
+    "defaultText": "\"^\"",
+    "cli": [],
+    "env": [
+      "npm_config_save_prefix",
+      "pnpm_config_save_prefix",
+      "NPM_CONFIG_SAVE_PREFIX",
+      "PNPM_CONFIG_SAVE_PREFIX",
+      "AUBE_SAVE_PREFIX"
+    ],
+    "npmrc": [
+      "save-prefix",
+      "savePrefix"
+    ],
+    "yaml": [
+      "savePrefix"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "saveWorkspaceProtocol",
+    "type": "\"true\" | \"false\" | \"rolling\"",
+    "kind": "enum",
+    "default": "rolling",
+    "defaultText": "\"rolling\"",
+    "cli": [],
+    "env": [
+      "npm_config_save_workspace_protocol",
+      "pnpm_config_save_workspace_protocol",
+      "NPM_CONFIG_SAVE_WORKSPACE_PROTOCOL",
+      "PNPM_CONFIG_SAVE_WORKSPACE_PROTOCOL",
+      "AUBE_SAVE_WORKSPACE_PROTOCOL"
+    ],
+    "npmrc": [
+      "save-workspace-protocol",
+      "saveWorkspaceProtocol"
+    ],
+    "yaml": [
+      "saveWorkspaceProtocol"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "true",
+      "false",
+      "rolling"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "scriptShell",
+    "type": "path",
+    "kind": "string",
+    "default": null,
+    "defaultText": "null (uses /bin/sh on Unix, cmd on Windows)",
+    "cli": [],
+    "env": [
+      "npm_config_script_shell",
+      "pnpm_config_script_shell",
+      "NPM_CONFIG_SCRIPT_SHELL",
+      "PNPM_CONFIG_SCRIPT_SHELL",
+      "AUBE_SCRIPT_SHELL"
+    ],
+    "npmrc": [
+      "scriptShell",
+      "script-shell"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "securityScanner",
+    "type": "string",
+    "kind": "string",
+    "default": "",
+    "defaultText": "\"\"",
+    "cli": [],
+    "env": [
+      "npm_config_security_scanner",
+      "pnpm_config_security_scanner",
+      "NPM_CONFIG_SECURITY_SCANNER",
+      "PNPM_CONFIG_SECURITY_SCANNER",
+      "AUBE_SECURITY_SCANNER"
+    ],
+    "npmrc": [
+      "securityScanner",
+      "security-scanner"
+    ],
+    "yaml": [
+      "securityScanner"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "shamefullyHoist",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [
+      "shamefully-hoist"
+    ],
+    "env": [
+      "npm_config_shamefully_hoist",
+      "pnpm_config_shamefully_hoist",
+      "NPM_CONFIG_SHAMEFULLY_HOIST",
+      "PNPM_CONFIG_SHAMEFULLY_HOIST",
+      "AUBE_SHAMEFULLY_HOIST"
+    ],
+    "npmrc": [
+      "shamefully-hoist",
+      "shamefullyHoist"
+    ],
+    "yaml": [
+      "shamefullyHoist"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "sharedWorkspaceLockfile",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_shared_workspace_lockfile",
+      "pnpm_config_shared_workspace_lockfile",
+      "NPM_CONFIG_SHARED_WORKSPACE_LOCKFILE",
+      "PNPM_CONFIG_SHARED_WORKSPACE_LOCKFILE",
+      "AUBE_SHARED_WORKSPACE_LOCKFILE"
+    ],
+    "npmrc": [
+      "sharedWorkspaceLockfile",
+      "shared-workspace-lockfile"
+    ],
+    "yaml": [
+      "sharedWorkspaceLockfile"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "shellEmulator",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_shell_emulator",
+      "pnpm_config_shell_emulator",
+      "NPM_CONFIG_SHELL_EMULATOR",
+      "PNPM_CONFIG_SHELL_EMULATOR",
+      "AUBE_SHELL_EMULATOR"
+    ],
+    "npmrc": [
+      "shellEmulator",
+      "shell-emulator"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "sideEffectsCache",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [
+      "side-effects-cache"
+    ],
+    "env": [
+      "npm_config_side_effects_cache",
+      "pnpm_config_side_effects_cache",
+      "NPM_CONFIG_SIDE_EFFECTS_CACHE",
+      "PNPM_CONFIG_SIDE_EFFECTS_CACHE",
+      "AUBE_SIDE_EFFECTS_CACHE"
+    ],
+    "npmrc": [
+      "side-effects-cache",
+      "sideEffectsCache"
+    ],
+    "yaml": [
+      "sideEffectsCache"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "sideEffectsCacheReadonly",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_side_effects_cache_readonly",
+      "pnpm_config_side_effects_cache_readonly",
+      "NPM_CONFIG_SIDE_EFFECTS_CACHE_READONLY",
+      "PNPM_CONFIG_SIDE_EFFECTS_CACHE_READONLY",
+      "AUBE_SIDE_EFFECTS_CACHE_READONLY"
+    ],
+    "npmrc": [
+      "sideEffectsCacheReadonly",
+      "side-effects-cache-readonly"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "stateDir",
+    "type": "path",
+    "kind": "string",
+    "default": "node_modules",
+    "defaultText": "node_modules",
+    "cli": [],
+    "env": [
+      "npm_config_state_dir",
+      "pnpm_config_state_dir",
+      "NPM_CONFIG_STATE_DIR",
+      "PNPM_CONFIG_STATE_DIR",
+      "AUBE_STATE_DIR"
+    ],
+    "npmrc": [
+      "stateDir",
+      "state-dir"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "storeDir",
+    "type": "path",
+    "kind": "string",
+    "default": null,
+    "defaultText": "$XDG_DATA_HOME/{data_namespace}/store/",
+    "cli": [],
+    "env": [
+      "npm_config_store_dir",
+      "pnpm_config_store_dir",
+      "NPM_CONFIG_STORE_DIR",
+      "PNPM_CONFIG_STORE_DIR",
+      "AUBE_STORE_DIR"
+    ],
+    "npmrc": [
+      "store-dir",
+      "storeDir"
+    ],
+    "yaml": [
+      "storeDir"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "strictDepBuilds",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_strict_dep_builds",
+      "pnpm_config_strict_dep_builds",
+      "NPM_CONFIG_STRICT_DEP_BUILDS",
+      "PNPM_CONFIG_STRICT_DEP_BUILDS",
+      "AUBE_STRICT_DEP_BUILDS"
+    ],
+    "npmrc": [
+      "strictDepBuilds",
+      "strict-dep-builds"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "strictPeerDependencies",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_strict_peer_dependencies",
+      "pnpm_config_strict_peer_dependencies",
+      "NPM_CONFIG_STRICT_PEER_DEPENDENCIES",
+      "PNPM_CONFIG_STRICT_PEER_DEPENDENCIES",
+      "AUBE_STRICT_PEER_DEPENDENCIES"
+    ],
+    "npmrc": [
+      "strict-peer-dependencies",
+      "strictPeerDependencies"
+    ],
+    "yaml": [
+      "strictPeerDependencies"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "strictSsl",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_strict_ssl",
+      "pnpm_config_strict_ssl",
+      "NPM_CONFIG_STRICT_SSL",
+      "PNPM_CONFIG_STRICT_SSL",
+      "AUBE_STRICT_SSL"
+    ],
+    "npmrc": [
+      "strict-ssl",
+      "strictSsl"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "strictStoreIntegrity",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [
+      "strict-store-integrity"
+    ],
+    "env": [
+      "npm_config_strict_store_integrity",
+      "pnpm_config_strict_store_integrity",
+      "NPM_CONFIG_STRICT_STORE_INTEGRITY",
+      "PNPM_CONFIG_STRICT_STORE_INTEGRITY",
+      "AUBE_STRICT_STORE_INTEGRITY"
+    ],
+    "npmrc": [
+      "strict-store-integrity",
+      "strictStoreIntegrity"
+    ],
+    "yaml": [
+      "strictStoreIntegrity"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "strictStorePkgContentCheck",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_strict_store_pkg_content_check",
+      "pnpm_config_strict_store_pkg_content_check",
+      "NPM_CONFIG_STRICT_STORE_PKG_CONTENT_CHECK",
+      "PNPM_CONFIG_STRICT_STORE_PKG_CONTENT_CHECK",
+      "AUBE_STRICT_STORE_PKG_CONTENT_CHECK"
+    ],
+    "npmrc": [
+      "strict-store-pkg-content-check",
+      "strictStorePkgContentCheck"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "supportedArchitectures",
+    "type": "object",
+    "kind": "unsupported",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [],
+    "npmrc": [
+      "supportedArchitectures",
+      "supported-architectures"
+    ],
+    "yaml": [
+      "supportedArchitectures"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "symlink",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_symlink",
+      "pnpm_config_symlink",
+      "NPM_CONFIG_SYMLINK",
+      "PNPM_CONFIG_SYMLINK",
+      "AUBE_SYMLINK"
+    ],
+    "npmrc": [
+      "symlink"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "tag",
+    "type": "string",
+    "kind": "string",
+    "default": "latest",
+    "defaultText": "\"latest\"",
+    "cli": [],
+    "env": [
+      "npm_config_tag",
+      "pnpm_config_tag",
+      "NPM_CONFIG_TAG",
+      "PNPM_CONFIG_TAG",
+      "AUBE_TAG"
+    ],
+    "npmrc": [
+      "tag"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "tarballMaxBytes",
+    "type": "int",
+    "kind": "int",
+    "default": 1073741824,
+    "defaultText": "1073741824",
+    "cli": [],
+    "env": [
+      "npm_config_tarball_max_bytes",
+      "pnpm_config_tarball_max_bytes",
+      "NPM_CONFIG_TARBALL_MAX_BYTES",
+      "PNPM_CONFIG_TARBALL_MAX_BYTES",
+      "AUBE_TARBALL_MAX_BYTES"
+    ],
+    "npmrc": [
+      "tarballMaxBytes",
+      "tarball-max-bytes"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "trustPolicy",
+    "type": "\"no-downgrade\" | \"off\"",
+    "kind": "enum",
+    "default": "no-downgrade",
+    "defaultText": "\"no-downgrade\"",
+    "cli": [],
+    "env": [
+      "npm_config_trust_policy",
+      "pnpm_config_trust_policy",
+      "NPM_CONFIG_TRUST_POLICY",
+      "PNPM_CONFIG_TRUST_POLICY",
+      "AUBE_TRUST_POLICY"
+    ],
+    "npmrc": [
+      "trustPolicy",
+      "trust-policy"
+    ],
+    "yaml": [
+      "trustPolicy"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [
+      "no-downgrade",
+      "off"
+    ],
+    "layout": false,
+    "npmShared": false,
+    "managed": "ranked:off<no-downgrade",
+    "explicit": false
+  },
+  {
+    "name": "trustPolicyExclude",
+    "type": "list<string>",
+    "kind": "list",
+    "default": [],
+    "defaultText": "[]",
+    "cli": [],
+    "env": [
+      "npm_config_trust_policy_exclude",
+      "pnpm_config_trust_policy_exclude",
+      "NPM_CONFIG_TRUST_POLICY_EXCLUDE",
+      "PNPM_CONFIG_TRUST_POLICY_EXCLUDE",
+      "AUBE_TRUST_POLICY_EXCLUDE"
+    ],
+    "npmrc": [
+      "trustPolicyExclude",
+      "trust-policy-exclude"
+    ],
+    "yaml": [
+      "trustPolicyExclude"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "managedWins",
+    "explicit": false
+  },
+  {
+    "name": "trustPolicyIgnoreAfter",
+    "type": "int",
+    "kind": "int",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_trust_policy_ignore_after",
+      "pnpm_config_trust_policy_ignore_after",
+      "NPM_CONFIG_TRUST_POLICY_IGNORE_AFTER",
+      "PNPM_CONFIG_TRUST_POLICY_IGNORE_AFTER",
+      "AUBE_TRUST_POLICY_IGNORE_AFTER"
+    ],
+    "npmrc": [
+      "trustPolicyIgnoreAfter",
+      "trust-policy-ignore-after"
+    ],
+    "yaml": [
+      "trustPolicyIgnoreAfter"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "unsafePerm",
+    "type": "bool",
+    "kind": "bool",
+    "default": null,
+    "defaultText": "false (as root), true (otherwise)",
+    "cli": [],
+    "env": [
+      "npm_config_unsafe_perm",
+      "pnpm_config_unsafe_perm",
+      "NPM_CONFIG_UNSAFE_PERM",
+      "PNPM_CONFIG_UNSAFE_PERM",
+      "AUBE_UNSAFE_PERM"
+    ],
+    "npmrc": [
+      "unsafePerm",
+      "unsafe-perm"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "update.ignoreDeps",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_update_ignore_deps",
+      "pnpm_config_update_ignore_deps",
+      "NPM_CONFIG_UPDATE_IGNORE_DEPS",
+      "PNPM_CONFIG_UPDATE_IGNORE_DEPS",
+      "AUBE_UPDATE_IGNORE_DEPS"
+    ],
+    "npmrc": [
+      "update.ignoreDeps",
+      "update.ignore-deps"
+    ],
+    "yaml": [
+      "update.ignoreDeps"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "updateConfig.ignoreDependencies",
+    "type": "list<string>",
+    "kind": "list",
+    "default": null,
+    "defaultText": "undefined",
+    "cli": [],
+    "env": [
+      "npm_config_update_config_ignore_dependencies",
+      "pnpm_config_update_config_ignore_dependencies",
+      "NPM_CONFIG_UPDATE_CONFIG_IGNORE_DEPENDENCIES",
+      "PNPM_CONFIG_UPDATE_CONFIG_IGNORE_DEPENDENCIES",
+      "AUBE_UPDATE_CONFIG_IGNORE_DEPENDENCIES"
+    ],
+    "npmrc": [
+      "updateConfig.ignoreDependencies",
+      "update-config.ignore-dependencies"
+    ],
+    "yaml": [
+      "updateConfig.ignoreDependencies"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "updateNotifier",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_update_notifier",
+      "pnpm_config_update_notifier",
+      "NPM_CONFIG_UPDATE_NOTIFIER",
+      "PNPM_CONFIG_UPDATE_NOTIFIER",
+      "AUBE_UPDATE_NOTIFIER"
+    ],
+    "npmrc": [
+      "updateNotifier",
+      "update-notifier"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": true,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "updateRewritesSpecifier",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [],
+    "env": [
+      "npm_config_update_rewrites_specifier",
+      "pnpm_config_update_rewrites_specifier",
+      "NPM_CONFIG_UPDATE_REWRITES_SPECIFIER",
+      "PNPM_CONFIG_UPDATE_REWRITES_SPECIFIER",
+      "AUBE_UPDATE_REWRITES_SPECIFIER"
+    ],
+    "npmrc": [
+      "updateRewritesSpecifier",
+      "update-rewrites-specifier"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "useBetaCli",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_use_beta_cli",
+      "pnpm_config_use_beta_cli",
+      "NPM_CONFIG_USE_BETA_CLI",
+      "PNPM_CONFIG_USE_BETA_CLI",
+      "AUBE_USE_BETA_CLI"
+    ],
+    "npmrc": [
+      "useBetaCli",
+      "use-beta-cli"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "useRunningStoreServer",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_use_running_store_server",
+      "pnpm_config_use_running_store_server",
+      "NPM_CONFIG_USE_RUNNING_STORE_SERVER",
+      "PNPM_CONFIG_USE_RUNNING_STORE_SERVER",
+      "AUBE_USE_RUNNING_STORE_SERVER"
+    ],
+    "npmrc": [
+      "use-running-store-server",
+      "useRunningStoreServer"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "useStderr",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_use_stderr",
+      "pnpm_config_use_stderr",
+      "NPM_CONFIG_USE_STDERR",
+      "PNPM_CONFIG_USE_STDERR",
+      "AUBE_USE_STDERR"
+    ],
+    "npmrc": [
+      "useStderr",
+      "use-stderr"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "verifyDepsBeforeRun",
+    "type": "\"install\" | \"warn\" | \"error\" | \"prompt\" | false",
+    "kind": "string",
+    "default": "install",
+    "defaultText": "\"install\"",
+    "cli": [],
+    "env": [
+      "npm_config_verify_deps_before_run",
+      "pnpm_config_verify_deps_before_run",
+      "NPM_CONFIG_VERIFY_DEPS_BEFORE_RUN",
+      "PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN",
+      "AUBE_VERIFY_DEPS_BEFORE_RUN"
+    ],
+    "npmrc": [
+      "verifyDepsBeforeRun",
+      "verify-deps-before-run"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "verifyStoreIntegrity",
+    "type": "bool",
+    "kind": "bool",
+    "default": true,
+    "defaultText": "true",
+    "cli": [
+      "verify-store-integrity"
+    ],
+    "env": [
+      "npm_config_verify_store_integrity",
+      "pnpm_config_verify_store_integrity",
+      "NPM_CONFIG_VERIFY_STORE_INTEGRITY",
+      "PNPM_CONFIG_VERIFY_STORE_INTEGRITY",
+      "AUBE_VERIFY_STORE_INTEGRITY"
+    ],
+    "npmrc": [
+      "verify-store-integrity",
+      "verifyStoreIntegrity"
+    ],
+    "yaml": [
+      "verifyStoreIntegrity"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": false,
+    "npmShared": false,
+    "managed": "trueWins",
+    "explicit": false
+  },
+  {
+    "name": "virtualStoreDir",
+    "type": "path",
+    "kind": "string",
+    "default": "node_modules/.aube",
+    "defaultText": "\"node_modules/.aube\"",
+    "cli": [],
+    "env": [
+      "npm_config_virtual_store_dir",
+      "pnpm_config_virtual_store_dir",
+      "NPM_CONFIG_VIRTUAL_STORE_DIR",
+      "PNPM_CONFIG_VIRTUAL_STORE_DIR",
+      "AUBE_VIRTUAL_STORE_DIR"
+    ],
+    "npmrc": [
+      "virtualStoreDir",
+      "virtual-store-dir"
+    ],
+    "yaml": [
+      "virtualStoreDir"
+    ],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "virtualStoreDirMaxLength",
+    "type": "int",
+    "kind": "int",
+    "default": null,
+    "defaultText": "120 (Linux/macOS), 60 (Windows)",
+    "cli": [],
+    "env": [
+      "npm_config_virtual_store_dir_max_length",
+      "pnpm_config_virtual_store_dir_max_length",
+      "NPM_CONFIG_VIRTUAL_STORE_DIR_MAX_LENGTH",
+      "PNPM_CONFIG_VIRTUAL_STORE_DIR_MAX_LENGTH",
+      "AUBE_VIRTUAL_STORE_DIR_MAX_LENGTH"
+    ],
+    "npmrc": [
+      "virtualStoreDirMaxLength",
+      "virtual-store-dir-max-length"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  },
+  {
+    "name": "virtualStoreOnly",
+    "type": "bool",
+    "kind": "bool",
+    "default": false,
+    "defaultText": "false",
+    "cli": [],
+    "env": [
+      "npm_config_virtual_store_only",
+      "pnpm_config_virtual_store_only",
+      "NPM_CONFIG_VIRTUAL_STORE_ONLY",
+      "PNPM_CONFIG_VIRTUAL_STORE_ONLY",
+      "AUBE_VIRTUAL_STORE_ONLY"
+    ],
+    "npmrc": [
+      "virtualStoreOnly",
+      "virtual-store-only"
+    ],
+    "yaml": [],
+    "precedence": [
+      "cli",
+      "env",
+      "projectConfig",
+      "workspaceYaml",
+      "globalConfigYaml",
+      "projectAubeConfig",
+      "projectNpmrc",
+      "userAubeConfig",
+      "userNpmrc",
+      "embedderDefaults"
+    ],
+    "variants": [],
+    "layout": true,
+    "npmShared": false,
+    "managed": "",
+    "explicit": false
+  }
+]
