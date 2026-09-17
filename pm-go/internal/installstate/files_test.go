@@ -205,3 +205,22 @@ func TestStatePathsLockfilePrecedenceAndMetadata(t *testing.T) {
 		t.Fatal("license sidecar")
 	}
 }
+
+func TestSidecarDeletionNeverRemovesDirectories(t *testing.T) {
+	p := paths(t)
+	for _, name := range []string{"hoisted-placements.json", "link-in-progress"} {
+		path := filepath.Join(p.State, name)
+		if err := os.MkdirAll(path, 0755); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := p.WritePlacements(nil); err == nil {
+		t.Fatal("placement directory deleted")
+	}
+	if err := p.ClearLinkInProgress(); err == nil {
+		t.Fatal("sentinel directory deleted")
+	}
+	if p.LinkCompletedCleanly() {
+		t.Fatal("unclearable sentinel marked complete")
+	}
+}

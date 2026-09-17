@@ -87,7 +87,7 @@ func (p Paths) WriteFreshness(f *Freshness) error {
 
 func (p Paths) removeLegacy() error {
 	if info, err := os.Stat(p.State); err == nil && info.Mode().IsRegular() {
-		return os.Remove(p.State)
+		return unlinkFile(p.State)
 	}
 	return nil
 }
@@ -209,7 +209,7 @@ func join(base, path string) string {
 	return filepath.Join(base, filepath.FromSlash(path))
 }
 func removeFile(path string) error {
-	err := os.Remove(path)
+	err := unlinkFile(path)
 	if os.IsNotExist(err) {
 		return nil
 	}
