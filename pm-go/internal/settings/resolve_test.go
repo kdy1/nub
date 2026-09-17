@@ -125,7 +125,7 @@ func TestUnsupportedEngineSettingsCannotReenterThroughAliases(t *testing.T) {
 }
 
 func TestYAMLScalarSpellingAndListTypeFiltering(t *testing.T) {
-	for raw, want := range map[string]string{"012": "012", "+012": "+012", "-012": "-012", "0X10": "0X10", "1_000": "1_000", "1e16": "1e16", "0x10": "16", "2026-09-17": "2026-09-17"} {
+	for raw, want := range map[string]string{"012": "012", "+012": "+012", "-012": "-012", "0X10": "0X10", "1_000": "1_000", "1e16": "1e16", "0x10": "16", "2026-09-17": "2026-09-17", "-0.0": "-0.0", "!!float 100000": "100000.0"} {
 		c := Context{Pnpm: true, WorkspaceYAML: document(t, "savePrefix: "+raw)}
 		if c.Resolve("savePrefix") != want {
 			t.Fatal(raw, c.Resolve("savePrefix"))

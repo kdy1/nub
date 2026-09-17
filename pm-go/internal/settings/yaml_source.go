@@ -94,7 +94,7 @@ func (r *yamlSourceReader) read(n *yaml.Node, depth int, root bool) (*yaml.Node,
 			out = *n
 		}
 		value := underlying.Value
-		if underlying.Tag == "!!float" && (value == "-0" || value == "0") {
+		if underlying.Tag == "!!float" && (value == "-0.0" || value == "0.0") {
 			value = "0"
 		}
 		return &out, yamlKey([]string{tag, underlying.Tag, value}), nil
@@ -261,7 +261,13 @@ func referenceScalar(n *yaml.Node) (yaml.Node, error) {
 			return result("!!float", ".nan")
 		}
 		if f, err := strconv.ParseFloat(raw, 64); err == nil && !math.IsInf(f, 0) && !math.IsNaN(f) {
-			return result("!!float", strconv.FormatFloat(f, 'g', -1, 64))
+			value := strconv.FormatFloat(f, 'g', -1, 64)
+			if !strings.ContainsAny(value, ".eE") {
+				// Keep a float spelling so yaml.Node.Decode cannot route -0
+				// through an integer and discard the floating-point sign.
+				value += ".0"
+			}
+			return result("!!float", value)
 		}
 	}
 	if forced != "" {
