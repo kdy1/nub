@@ -177,3 +177,5 @@ State recording captures root/member lockfiles, manifest hashes and install shap
 Install policy distinguishes requested shared-store mode from its effective materialization. Nub’s default hoist permits sharing; explicit hidden-hoist or hoisted-layout requests exclude it, and contradictory explicit requests fail. CI is detected by variable presence. Compatibility triggers inspect direct production/dev/optional declarations, and store-mode detection recognizes mixed real directories and Windows junctions. Install-driver metadata and reset integration remain pending.
 
 Removing a state sidecar uses file-only unlink semantics on each platform. A directory occupying a placement or in-progress marker path is retained and reported as an error, so clearing state cannot silently remove that directory.
+
+A Rust policy probe compares shared-store selection, explicit conflicts, prewarm overrides and mixed-tree mode detection across the complete boolean/optional-boolean matrix, including empty and false-valued CI variables.

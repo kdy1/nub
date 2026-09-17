@@ -10,7 +10,7 @@ import sys
 
 root = Path(__file__).resolve().parents[2]
 artifacts = {}
-required = {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex"}
+required = {"aube_lockfile", "aube_manifest", "aube_util", "aube_resolver", "aube_registry", "aube_store", "aube_linker", "tokio", "serde_json", "node_semver", "serde", "rayon", "blake3", "hex", "miette"}
 with subprocess.Popen(
     ["cargo", "build", "--locked", "-p", "nub-cli", "--profile", "fast",
      "--message-format=json-render-diagnostics"],
@@ -57,8 +57,18 @@ state_path.write_text(state_probe)
 delta_source = (root / "vendor/aube/crates/aube/src/commands/install/delta.rs").read_text()
 delta_path = output.parent / "delta-reference.rs"
 delta_path.write_text(delta_source[delta_source.index("use aube_lockfile::"):delta_source.index("#[cfg(test)]")])
+gvs_source = (root / "vendor/aube/crates/aube/src/commands/install/gvs.rs").read_text()
+settings_source = (root / "vendor/aube/crates/aube/src/commands/install/settings.rs").read_text()
+gvs_probe = "use miette::miette;\n"
+start = gvs_source.index("#[derive(Clone, Copy, Debug, PartialEq, Eq)]\npub(super) enum Materialization")
+gvs_probe += gvs_source[start:gvs_source.index("/// Reject the contradictory explicit request", start)]
+for source, names in [(gvs_source, ["planned_global_virtual_store", "reject_gvs_layout_contradiction", "prewarm_global_virtual_store_override"]), (settings_source, ["find_gvs_incompatible_trigger", "detect_aube_dir_gvs_mode"])]:
+    for name in names:
+        gvs_probe += "\n" + re.search(r"(?ms)^pub\(super\) fn " + name + r"(?:<.*?>)?\(.*?^\}", source).group()
+gvs_path = output.parent / "gvs-reference.rs"
+gvs_path.write_text(gvs_probe)
 command = ["rustc", "--edition=2024", str(root / "pm-go/testdata/rust/lockfile_oracle.rs"),
            "-o", str(output)]
 for name, path in sorted(artifacts.items()):
     command.extend(["--extern", f"{name}={path}", "-L", f"dependency={Path(path).parent}"])
-subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path)})
+subprocess.run(command, cwd=root, check=True, env={**os.environ, "PM_STATE_ORACLE_SOURCE": str(state_path), "PM_DELTA_ORACLE_SOURCE": str(delta_path), "PM_GVS_ORACLE_SOURCE": str(gvs_path)})
